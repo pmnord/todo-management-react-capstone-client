@@ -1,4 +1,36 @@
-## Capstone 3 Kanban Board
+## Todo Together
+
+A collaborative kanban board supporting user concurrency, implemented with React on the front end and Node.js on the back end.
+
+[Demo]()
+
+[Backend Documentation]()
+
+| | | | | |
+|-|-|-|-|-|
+|**Front-End**|React|ES10|CSS3||
+|**Back-End**|Node.js|Express|PostgreSQL|RESTful API|
+|**Development**|Jest|Mocha|Chai|Heroku|Zeit|
+| | | | | |
+
+## Mockups
+
+![Desktop Wireframe](./cap3wireframes.png)
+![Mobile Wireframe](./cap3wireframes-mobile.png)
+
+## Entity Relationships (PostgreSQL tables)
+
+|Users|Projects|Categories|Tasks|Project_Users|
+|-|-|-|-|-|
+|id|id|id|id|id|
+|username|name|name|title|project_id|
+|password|user_id|project_id|category_id|user_id|
+|project_id|||assigned_user||
+||||due_date||
+||||note||
+||||priority||
+
+## User Stories
 
 - As a user I can create categories so I can organize my tasks
 - As a user I can create task cards so I can track the status and details of my tasks
@@ -16,20 +48,3 @@
 - As a user I can create an account so I can use the app
 - As a user I can log in to my account so I can use the app
 - As a user I will be automatically logged off the app after not interacting for a period of time so my account will be secured
----
-Entity Relationships (PostgreSQL tables)
-
-|Users|Projects|Categories|Tasks|Project_Users|
-|-|-|-|-|-|
-|id|id|id|id|id|
-|username|name|name|title|project_id|
-|password|user_id|project_id|category_id|user_id|
-|project_id|||assigned_user||
-||||due_date||
-||||note||
-||||priority||
-
----
-
-![Desktop Wireframe](./cap3wireframes.png)
-![Mobile Wireframe](./cap3wireframes-mobile.png)
