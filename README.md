@@ -15,8 +15,8 @@ A collaborative kanban board supporting user concurrency, implemented with React
 
 ## Mockups
 
-![Desktop Wireframe](./cap3wireframes.png)
-![Mobile Wireframe](./cap3wireframes-mobile.png)
+![Desktop Wireframe](./resources/cap3wireframes.png)
+![Mobile Wireframe](./resources/cap3wireframes-mobile.png)
 
 ## Entity Relationships (PostgreSQL tables)
 
