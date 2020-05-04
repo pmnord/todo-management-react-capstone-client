@@ -21,13 +21,47 @@ export default class Project extends React.Component {
         this.getCategories();
     }
 
+    createCategory = (e) => {
+        e.preventDefault();
+
+        const newCategoryName = e.target.newCategoryName.value;
+        const newCategory = {
+            title: newCategoryName,
+            tasks: []
+        }
+        const newState = { categories: [ ...this.state.categories, newCategory ] }
+        this.setState(newState);
+
+        e.target.newCategoryName.value = '';
+    }
+
+    createTask = (e, categoryIndex) => {
+        e.preventDefault();
+
+        const newTaskName = e.target.newTaskName.value;
+        const newTask = {
+            title: newTaskName
+        }
+        const newState = { ...this.state }
+        newState.categories[categoryIndex].tasks.push(newTask);
+
+        this.setState(newState);
+
+        e.target.newTaskName.value = '';
+    }
+
     render() {
-        console.log(ApiService.getProjectCategories())
         return (
             <section className="project">
 
                 <div className="project__board">
-                    {this.state.categories ? this.state.categories.map((el, idx) => <Category key={idx} title={el.title} tasks={el.tasks} />) : null}
+                    {this.state.categories ? this.state.categories.map((el, idx) => <Category key={idx} index={idx} title={el.title} tasks={el.tasks} createTask={this.createTask} />) : null}
+
+                    <form className="project__create-category-form" onSubmit={this.createCategory}>
+                        <label htmlFor="newCategoryName">New Category</label>
+                        <input id="newCategoryName" type="text" />
+                        <button>Create</button>
+                    </form>
                 </div>
 
             </section>

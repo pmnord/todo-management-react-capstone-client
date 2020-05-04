@@ -1,5 +1,6 @@
 import React from 'react';
 import './landing.css';
+import { Link } from 'react-router-dom';
 
 export default class Landing extends React.Component {
     constructor(props) {
@@ -44,8 +45,9 @@ export default class Landing extends React.Component {
                         </div>
                         <button>Log In</button>
                     </form>
-
-                    <button className="landing__demo">Demo the App</button>
+                    <Link to='/project/demo'>
+                        <button className="landing__demo">Demo the App</button>
+                    </Link>
                 </section>
             </section>
         )

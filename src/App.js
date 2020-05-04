@@ -1,32 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import Landing from './components/Landing/Landing.js';
 import Footer from './components/Footer/Footer';
 import Project from './components/Project/Project';
+import Context from './Context';
 
-function App() {
-  return (
-    <div className="App">
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: '',
+      categories: []
+    }
+  }
 
-      <header className="App-header">
-        <h1>Todo Together</h1>
-        <nav>
-          Build a nav component
-        </nav>
-      </header>
+  render() {
+    return (
+      <div className="App">
+        <Context.Provider>
+          <header className="App-header">
+            <Link to="/">
+              <h1>Todo Together</h1>
+            </Link>
+            <nav>
+              Build a nav component
+            </nav>
+          </header>
 
-      <Route path='/' exact>
-        <Landing />
-        <Footer />
-      </Route>
+          <Route path='/' exact>
+            <Landing />
+            <Footer />
+          </Route>
 
-      <Route path='/project/:project_id'>
-        <Project />
-      </Route>
+          <Route path='/project/:project_id'>
+            <Project />
+          </Route>
+        </Context.Provider>
 
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default App;
