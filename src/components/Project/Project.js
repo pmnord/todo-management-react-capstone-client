@@ -1,7 +1,7 @@
 import React from 'react';
 import './project.css';
 import Category from '../Category/Category.js';
-import ApiService from '../../service/api-service';
+// import ApiService from '../../service/api-service';
 
 export default class Project extends React.Component {
     constructor(props) {
@@ -11,14 +11,28 @@ export default class Project extends React.Component {
         }
     }
 
-    getCategories() {
-        const categories = ApiService.getProjectCategories();
-
-        this.setState({ categories });
-    }
+    uuid() { return Math.floor(Math.random() * 1000000) }
 
     componentDidMount() {
-        this.getCategories();
+        const newState = {
+            categories: [
+                {
+                    id: this.uuid(),
+                    title: "Backlog",
+                    tasks: [
+                        {
+                            id: this.uuid(),
+                            title: "Learn Websockets",
+                            category: 0,
+                            index: 0,
+                            tags: ["Concurrency", "Back-End", "Chat"]
+                        }
+                    ]
+                }
+            ]
+        }
+
+        this.setState(newState)
     }
 
     createCategory = (e) => {
@@ -43,7 +57,8 @@ export default class Project extends React.Component {
             title: newTaskName,
             category: categoryIndex,
             index: null,
-            tags: []
+            tags: [],
+            id: this.uuid(),
         }
         const newState = { ...this.state };
         newState.categories[categoryIndex].tasks.push(newTask);
@@ -54,7 +69,6 @@ export default class Project extends React.Component {
     }
 
     moveTask = (categoryIndex, taskIndex, direction) => {
-        console.log(categoryIndex, taskIndex, direction)
         if (taskIndex - 1 < 0 && direction === 'up') { return; }
         if (categoryIndex - 1 < 0 && direction === 'left') { return; }
         if (categoryIndex + 1 >= this.state.categories.length && direction === 'right') { return; }

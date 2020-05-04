@@ -10,9 +10,11 @@ export default function Category(props) {
             </h3>
             {props.tasks.map((el, idx) =>
                 <Task
-                    key={idx}
+                    key={el.id}
+                    id={el.id}
                     title={el.title}
                     index={idx}
+                    tags={el.tags}
                     categoryIndex={props.index}
                     moveTask={props.moveTask} />)
             }
