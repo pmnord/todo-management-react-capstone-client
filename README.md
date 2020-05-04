@@ -30,6 +30,11 @@ A collaborative kanban board supporting user concurrency, implemented with React
 ||||note||
 ||||priority||
 
+## Developer Roadmap
+- Support multiple projects by the same user
+- Support shared projects and concurrency (look into websockets)
+- Support drag and drop task movement
+
 ## User Stories
 
 - As a user I can create categories so I can organize my tasks

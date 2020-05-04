@@ -1,0 +1,14 @@
+.tags__add--tag {
+    color: #4A5568;
+    border: solid 2px #4A5568;
+    border-radius: 5px;
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    width: 3.5rem;
+}
+
+.tags__add--tag--plus {
+    border-right: solid 2px #4A5568;
+}

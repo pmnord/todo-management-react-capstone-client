@@ -29,7 +29,7 @@ export default class Project extends React.Component {
             title: newCategoryName,
             tasks: []
         }
-        const newState = { categories: [ ...this.state.categories, newCategory ] }
+        const newState = { categories: [...this.state.categories, newCategory] }
         this.setState(newState);
 
         e.target.newCategoryName.value = '';
@@ -40,7 +40,10 @@ export default class Project extends React.Component {
 
         const newTaskName = e.target.newTaskName.value;
         const newTask = {
-            title: newTaskName
+            title: newTaskName,
+            category: categoryIndex,
+            index: null,
+            tags: []
         }
         const newState = { ...this.state }
         newState.categories[categoryIndex].tasks.push(newTask);
