@@ -8,10 +8,17 @@ export default function Category(props) {
             <h3>
                 {props.title}
             </h3>
-            {props.tasks ? props.tasks.map((el, idx) => <Task key={idx} title={el.title} />) : null}
-            <form className="category__create-task-form" onSubmit={(e) => props.createTask(e, props.index)}>
-                <label htmlFor="newTaskName">New Task</label>
-                <input id="newTaskName" type="text" />
+            {props.tasks.map((el, idx) =>
+                <Task
+                    key={idx}
+                    title={el.title}
+                    index={idx}
+                    categoryIndex={props.index}
+                    moveTask={props.moveTask} />)
+            }
+            <form className="category__create-task-form" onSubmit={(e) => props.createTask(e, props.index, `newTaskName${props.title}`)}>
+                <label htmlFor={`newTaskName${props.title}`}>New Task</label>
+                <input id={`newTaskName${props.title}`} type="text" />
                 <button>Create</button>
             </form>
         </div>
