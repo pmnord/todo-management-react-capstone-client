@@ -1,0 +1,24 @@
+
+
+.nav__icon:hover {
+    cursor: pointer;
+}
+
+.nav__menu {
+    list-style: none;
+    padding: 0;
+    background-color: aliceblue;
+    position: absolute;
+    top: 35px;
+    right: 30px;
+    text-align: center;
+}
+
+.nav__menu li {
+    padding: 1rem;
+    border: solid 1px black;
+}
+
+.nav__menu li:hover {
+    background-color: white;
+}
