@@ -38,7 +38,9 @@ export default class Tags extends Component {
         return (
             <div className="tags" >
 
-                {this.props.tags.map(tag => <span className="tags__tag">{tag}</span>)}
+                {this.props.tags ?
+                    this.props.tags.map((tag, idx) => <span key={idx} className="tags__tag">{tag}</span>)
+                    : null}
 
                 {this.state.showForm ?
                     <form onSubmit={(e) => { this.handleAddTag(e) }} onBlur={this.toggleForm} className="tags__add--tag--form" id={`add--tag--form--${this.props.taskId}`}>

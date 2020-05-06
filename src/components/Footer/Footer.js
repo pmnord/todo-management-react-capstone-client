@@ -4,7 +4,7 @@ import './footer.css';
 export default function Footer() {
 
     return (
-        <footer class="footer">
+        <footer className="footer">
             <p>github.com/pmnord</p>
         </footer>
     )
