@@ -11,6 +11,10 @@ export default class Tags extends Component {
         }
     }
 
+    static defaultProps = {
+        tags: []
+    }
+
     toggleForm = () => {
         this.setState({
             showForm: !this.state.showForm
@@ -35,7 +39,9 @@ export default class Tags extends Component {
         return (
             <div className="tags" >
 
-                {this.props.tags.map(tag => <span className="tags__tag">{tag}</span>)}
+                {this.props.tags ? 
+                    this.props.tags.map((tag, idx) => <span key={idx} className="tags__tag">{tag}</span>)
+                    : null}
 
                 {this.state.showForm ?
                     <form onBlur={this.toggleForm} className="tags__add--tag--form" id={`add--tag--form--${this.props.taskId}`}>

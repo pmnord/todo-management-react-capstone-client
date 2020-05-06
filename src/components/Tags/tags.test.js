@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Project from './Project';
+import Tags from './Tags';
 
-it('Renders the Project component', () => {
+it('Renders the Tags component', () => {
     const div = document.createElement('div');
 
-    ReactDOM.render(<Project />, div);
+    ReactDOM.render(<Tags />, div);
 
     ReactDOM.unmountComponentAtNode(div);
 });

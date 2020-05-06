@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Project from './Project';
+import Footer from './Footer';
 
-it('Renders the Project component', () => {
+it('Renders the Footer component', () => {
     const div = document.createElement('div');
 
-    ReactDOM.render(<Project />, div);
+    ReactDOM.render(<Footer />, div);
 
     ReactDOM.unmountComponentAtNode(div);
 });
