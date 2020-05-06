@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Varela+Round&display=swap');
+
 body {
   margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Varela Round', sans-serif;
 }
 
 header {
@@ -13,3 +20,5 @@ header {
 h1 {
   margin: 0;
 }
+
+

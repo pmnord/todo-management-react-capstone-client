@@ -4,8 +4,8 @@ import { Route, Link } from 'react-router-dom';
 import Landing from './components/Landing/Landing.js';
 import Footer from './components/Footer/Footer';
 import Project from './components/Project/Project';
-import Context from './Context';
 import Nav from './components/Nav/Nav';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   constructor(props) {
@@ -26,13 +26,14 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Context.Provider>
           <header className="App-header">
             <Link to="/">
               <h1>TaskyTask</h1>
             </Link>
             <Nav links={navLinks} />
           </header>
+
+          <ErrorBoundary>
 
           <Route path='/' exact>
             <Landing />
@@ -42,7 +43,8 @@ class App extends Component {
           <Route path='/project/:project_id'>
             <Project />
           </Route>
-        </Context.Provider>
+
+          </ErrorBoundary>
 
       </div>
     );
