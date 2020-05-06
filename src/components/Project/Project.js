@@ -42,6 +42,13 @@ export default class Project extends React.Component {
                             category: 0,
                             index: 0,
                             tags: ["React", "Performance", "Someday"]
+                        },
+                        {
+                            id: this.uuid(),
+                            title: "Implement drag-and-drop",
+                            category: 0,
+                            index: 0,
+                            tags: ["react-dnd"]
                         }
                     ]
                 },
