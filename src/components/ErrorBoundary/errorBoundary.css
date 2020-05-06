@@ -1,63 +1,63 @@
 .koala {
-    background-color: darkgrey;
-    height: 12rem;
-    width: 12rem;
-    border-radius: 50%;
-    margin: 2rem;
-    position: relative;
-  }
+  background-color: darkgrey;
+  height: 11rem;
+  width: 12rem;
+  border-radius: 50%;
+  margin: 2rem;
+  position: relative;
+}
+
+.koala__ear {
+  background-color: hsl(310, 0%, 54%);
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
   
-  .koala__ear {
-    background-color: hsl(330, 40%, 93%);
-    height: 3rem;
-    width: 3rem;
-    border-radius: 50%;
-    
-    border: 1.2rem solid darkgrey;
-  }
+  border: 1.2rem solid hsla(0, 0%, 88%);
+}
+
+.koala__ear--1 {
+  z-index: -1;
+  position: absolute;
+  left: -20px;
+  top: -5px;
+}
+
+.koala__ear--2 {
+  z-index: -1;
+  position: absolute;
+  right: -20px;
+  top: -5px;
+}
+
+.koala__eye {
+  background-color: black;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
   
-  .koala__ear--1 {
-    z-index: -1;
-    position: absolute;
-    left: -20px;
-    top: -5px;
-  }
+  border: 1rem solid white;
+}
+
+.koala__eye--1 {
+  position: absolute;
+  left: 35px;
+  top: 49px;
+}
+
+.koala__eye--2 {
+  position: absolute;
+  right: 35px;
+  top: 49px;
+}
+
+.koala__nose {
+  height: 4rem;
+  width: 2.5rem;
+  background-color: hsl(0, 0%, 15%);
+  border-radius: 25%;
   
-  .koala__ear--2 {
-    z-index: -1;
-    position: absolute;
-    right: -20px;
-    top: -5px;
-  }
-  
-  .koala__eye {
-    background-color: black;
-    height: 2rem;
-    width: 2rem;
-    border-radius: 50%;
-    
-    border: 1rem solid white;
-  }
-  
-  .koala__eye--1 {
-    position: absolute;
-    left: 35px;
-    top: 49px;
-  }
-  
-  .koala__eye--2 {
-    position: absolute;
-    right: 35px;
-    top: 49px;
-  }
-  
-  .koala__nose {
-    height: 4rem;
-    width: 2.5rem;
-    background-color: hsl(0, 0%, 15%);
-    border-radius: 25%;
-    
-    position: absolute;
-    left: 76px;
-    top: 94px;
-  }
+  position: absolute;
+  left: 76px;
+  top: 69px;
+}

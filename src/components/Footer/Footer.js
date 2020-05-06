@@ -5,7 +5,7 @@ export default function Footer() {
 
     return (
         <footer className="footer">
-            <p>github.com/pmnord</p>
+            <p>like, follow and subscribe</p>
         </footer>
     )
 }

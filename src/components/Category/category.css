@@ -5,3 +5,18 @@
     display: table;
     width: 20rem;
 }
+
+.category__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.category__header--x:hover {
+    cursor: pointer;
+}
+
+.category h3 {
+    margin: 0;
+}

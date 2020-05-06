@@ -35,6 +35,13 @@ export default class Project extends React.Component {
                             category: 0,
                             index: 0,
                             tags: ["Language", "Learning"]
+                        },
+                        {
+                            id: this.uuid(),
+                            title: "Refactor this app to use Context API",
+                            category: 0,
+                            index: 0,
+                            tags: ["React", "Performance", "Someday"]
                         }
                     ]
                 },
@@ -72,23 +79,32 @@ export default class Project extends React.Component {
         input.blur();
     }
 
-    createTask = (e, categoryIndex, inputId) => {
-        e.preventDefault();
+    deleteCategory = (categoryIndex) => {
+        const newState = { ...this.state };
+        newState.categories.splice(categoryIndex, 1);
+        this.setState(newState);
+    }
 
-        const newTaskName = e.target[inputId].value;
+    createTask = (categoryIndex, newTaskTitle) => {
         const newTask = {
-            title: newTaskName,
+            title: newTaskTitle,
             category: categoryIndex,
             index: null,
             tags: [],
             id: this.uuid(),
         }
+        
         const newState = { ...this.state };
         newState.categories[categoryIndex].tasks.push(newTask);
 
         this.setState(newState);
+    }
 
-        e.target[inputId].value = '';
+    deleteTask = (categoryIndex, taskIndex) => {
+        const newState = { ...this.state };
+        newState.categories[categoryIndex].tasks.splice(taskIndex, 1);
+
+        this.setState(newState);
     }
 
     moveTask = (categoryIndex, taskIndex, direction) => {
@@ -154,16 +170,18 @@ export default class Project extends React.Component {
                                 index={idx} 
                                 title={el.title} 
                                 tasks={el.tasks} 
-                                createTask={this.createTask} 
+                                createTask={this.createTask}
+                                deleteTask={this.deleteTask} 
                                 moveTask={this.moveTask}
-                                addTag={this.addTag} />) 
+                                addTag={this.addTag}
+                                deleteCategory={this.deleteCategory} />) 
                         : null}
 
                     {this.state.showAddForm ?
                         <form className="project__create-category-form" onSubmit={this.createCategory}>
                             <label htmlFor="newCategoryName" hidden>New Category</label>
                             <input placeholder="Category Name" onBlur={this.toggleShowAddForm} id="newCategoryName" type="text" />
-                            <button>Create</button>
+                            <button hidden>Create</button>
                         </form>
                         : <AddButton onClick={this.toggleShowAddForm} title="Category" />}
 

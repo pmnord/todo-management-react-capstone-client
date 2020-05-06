@@ -35,14 +35,19 @@ class App extends Component {
 
           <ErrorBoundary>
 
-          <Route path='/' exact>
-            <Landing />
-            <Footer />
-          </Route>
+            <Route path='/' exact>
+              <Landing />
+              <Footer />
+            </Route>
 
-          <Route path='/project/:project_id'>
-            <Project />
-          </Route>
+            <Route path='/project/:project_id'>
+              <Project />
+            </Route>
+
+            <Route path='/error' exact>
+              <div style={{'height': '300px'}} onClick={() => {throw Error('You hit the error test')}}>
+              </div>
+            </Route>
 
           </ErrorBoundary>
 

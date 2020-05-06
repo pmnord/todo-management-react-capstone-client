@@ -15,3 +15,18 @@
 .task__nav-arrow:active {
     background-color: white;
 }
+
+.task__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.task__header h4 {
+    margin: 0;
+}
+
+.task__header--x:hover {
+    cursor: pointer;
+}
