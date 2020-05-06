@@ -1,24 +1,12 @@
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+}
+
 .tags__tag {
     margin-right: 0.2rem;
     padding: 0.1rem;
     background-color: hsl(0, 0%, 85%);
-}
-
-.tags__add--tag--button {
-    color: #4A5568;
-    border: solid 2px #4A5568;
-    border-radius: 5px;
-
-    display: flex;
-    text-align: center;
-    width: 3.5rem;
-}
-
-.tags__add--tag--button:hover {
-    cursor: pointer;
-    background-color: hsl(0, 0%, 90%);
-}
-
-.tags__add--tag--plus {
-    border-right: solid 2px #4A5568;
 }

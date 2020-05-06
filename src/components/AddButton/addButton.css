@@ -1,0 +1,24 @@
+.add-button {
+    color: rgb(45, 47, 49);
+    border: solid 2px rgb(45, 47, 49);
+    border-radius: 3px;
+
+    display: inline-flex;
+    align-items: center;
+    height: 1.3rem;
+}
+
+.add-button:hover {
+    cursor: pointer;
+    background-color: hsl(0, 0%, 100%);
+}
+
+.add-button--plus-icon {
+    border-right: solid 2px rgb(45, 47, 49);
+    height: 100%;
+}
+
+.add-button__title {
+    padding: 0 0.2rem;
+    font-weight: 800;
+}

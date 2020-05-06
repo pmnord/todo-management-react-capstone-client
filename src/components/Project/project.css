@@ -1,4 +1,5 @@
 .project__board {
     display: flex;
     justify-content: flex-start;
+    margin-top: 1rem;
 }

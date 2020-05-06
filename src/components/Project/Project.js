@@ -1,13 +1,15 @@
 import React from 'react';
 import './project.css';
 import Category from '../Category/Category.js';
+import AddButton from '../AddButton/AddButton';
 // import ApiService from '../../service/api-service';
 
 export default class Project extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            categories: []
+            categories: [],
+            showAddForm: false,
         }
     }
 
@@ -22,17 +24,37 @@ export default class Project extends React.Component {
                     tasks: [
                         {
                             id: this.uuid(),
-                            title: "Learn Websockets",
+                            title: "Clean the litterbox",
                             category: 0,
                             index: 0,
-                            tags: ["Concurrency", "Back-End", "Chat"]
+                            tags: ["Cat", "Cleaning"]
+                        },
+                        {
+                            id: this.uuid(),
+                            title: "Learn Mandarin",
+                            category: 0,
+                            index: 0,
+                            tags: ["Language", "Learning"]
+                        }
+                    ]
+                },
+                {
+                    id: this.uuid(),
+                    title: "In Progress",
+                    tasks: [
+                        {
+                            id: this.uuid(),
+                            title: "Eat a Whole Pizza",
+                            category: 0,
+                            index: 0,
+                            tags: ["Food", "Bad Life Choices"]
                         }
                     ]
                 }
             ]
         }
 
-        this.setState(newState)
+        this.setState(newState);
     }
 
     createCategory = (e) => {
@@ -46,7 +68,8 @@ export default class Project extends React.Component {
         const newState = { categories: [...this.state.categories, newCategory] }
         this.setState(newState);
 
-        e.target.newCategoryName.value = '';
+        const input = document.getElementById('newCategoryName');
+        input.blur();
     }
 
     createTask = (e, categoryIndex, inputId) => {
@@ -100,18 +123,50 @@ export default class Project extends React.Component {
         this.setState(newState);
     }
 
+    addTag = (categoryIndex, taskIndex, newTag) => {
+        const newState = { ...this.state }
+
+        newState.categories[categoryIndex].tasks[taskIndex].tags.push(newTag);
+
+        this.setState(newState);
+    }
+
+    toggleShowAddForm = () => {
+        this.setState({ showAddForm: !this.state.showAddForm })
+    }
+
+    componentDidUpdate() {
+        if (this.state.showAddForm) {
+            const input = document.getElementById('newCategoryName');
+            input.focus();
+        }
+    }
+
     render() {
         return (
             <section className="project">
 
                 <div className="project__board">
-                    {this.state.categories ? this.state.categories.map((el, idx) => <Category key={idx} index={idx} title={el.title} tasks={el.tasks} createTask={this.createTask} moveTask={this.moveTask} />) : null}
+                    {this.state.categories 
+                        ? this.state.categories.map((el, idx) => 
+                            <Category 
+                                key={idx} 
+                                index={idx} 
+                                title={el.title} 
+                                tasks={el.tasks} 
+                                createTask={this.createTask} 
+                                moveTask={this.moveTask}
+                                addTag={this.addTag} />) 
+                        : null}
 
-                    <form className="project__create-category-form" onSubmit={this.createCategory}>
-                        <label htmlFor="newCategoryName">New Category</label>
-                        <input id="newCategoryName" type="text" />
-                        <button>Create</button>
-                    </form>
+                    {this.state.showAddForm ?
+                        <form className="project__create-category-form" onSubmit={this.createCategory}>
+                            <label htmlFor="newCategoryName" hidden>New Category</label>
+                            <input placeholder="Category Name" onBlur={this.toggleShowAddForm} id="newCategoryName" type="text" />
+                            <button>Create</button>
+                        </form>
+                        : <AddButton onClick={this.toggleShowAddForm} title="Category" />}
+
                 </div>
 
             </section>

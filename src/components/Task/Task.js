@@ -7,7 +7,10 @@ export default function Task(props) {
         <div className="task">
             <h4>{props.title}</h4>
             <div className="task__tags">
-                <Tags tags={props.tags || null} taskId={props.id} taskIndex={props.index} />
+                <Tags tags={props.tags || null} 
+                    taskId={props.id} 
+                    taskIndex={props.index}
+                    addTag={(newTag) => props.addTag(props.categoryIndex, props.index, newTag)} />
             </div>
             <textarea></textarea>
             <div className="task__nav-arrows">

@@ -28,7 +28,7 @@ class App extends Component {
       <div className="App">
           <header className="App-header">
             <Link to="/">
-              <h1>ta ¯\_(ツ)_/¯ sks</h1>
+              <h1>we ¯\_(ツ)_/¯ do</h1>
             </Link>
             <Nav links={navLinks} />
           </header>
