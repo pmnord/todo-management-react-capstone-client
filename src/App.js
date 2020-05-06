@@ -29,7 +29,7 @@ class App extends Component {
         <Context.Provider>
           <header className="App-header">
             <Link to="/">
-              <h1>TaskyTask</h1>
+              <h1>ta ¯\_(ツ)_/¯ sks</h1>
             </Link>
             <Nav links={navLinks} />
           </header>

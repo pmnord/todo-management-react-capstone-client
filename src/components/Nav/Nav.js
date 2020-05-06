@@ -16,8 +16,14 @@ export default class Nav extends Component {
         links: []
     }
 
+    componentDidUpdate() {
+        if (this.state.showMenu) {
+
+        }
+    }
+
     toggleMenu = () => {
-        this.setState({ showMenu: !this.state.showMenu })
+        this.setState({ showMenu: !this.state.showMenu });
     }
 
     render() {
@@ -31,7 +37,7 @@ export default class Nav extends Component {
                 </svg>
 
                 {this.state.showMenu ?
-                    <ul onClick={this.toggleMenu} className="nav__menu">
+                    <ul onBlur={this.toggleMenu} onClick={this.toggleMenu} className="nav__menu">
                         {this.props.links.map((link, idx) => {
                             return <Link key={idx} to={link.path}><li>{link.title}</li></Link>
                         })}

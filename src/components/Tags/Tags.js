@@ -11,6 +11,12 @@ export default class Tags extends Component {
         }
     }
 
+    componentDidUpdate = () => {
+        if (this.state.showForm) {
+            this.focusInput();
+        }
+    }
+
     toggleForm = () => {
         this.setState({
             showForm: !this.state.showForm
@@ -19,16 +25,13 @@ export default class Tags extends Component {
 
     focusInput = () => {
         const formInput = document.getElementById(`add--tag--input--${this.props.taskId}`);
-        console.log(formInput)
         if (formInput) {
             formInput.focus()
         }
     }
 
-    componentDidMount = () => {
-        if (this.state.showForm) {
-            this.focusInput();
-        }
+    handleAddTag = (e) => {
+        e.preventdefault();
     }
 
     render() {
@@ -38,8 +41,8 @@ export default class Tags extends Component {
                 {this.props.tags.map(tag => <span className="tags__tag">{tag}</span>)}
 
                 {this.state.showForm ?
-                    <form onBlur={this.toggleForm} className="tags__add--tag--form" id={`add--tag--form--${this.props.taskId}`}>
-                        <label htmlFor={`add--tag--input--${this.props.taskId}`}>Tag Name</label>
+                    <form onSubmit={(e) => { this.handleAddTag(e) }} onBlur={this.toggleForm} className="tags__add--tag--form" id={`add--tag--form--${this.props.taskId}`}>
+                        <label htmlFor={`add--tag--input--${this.props.taskId}`} hidden>Tag Name</label>
                         <input type="text" id={`add--tag--input--${this.props.taskId}`} />
                         <button>Add</button>
                     </form >
