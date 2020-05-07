@@ -4,7 +4,7 @@ import './addButton.css';
 export default function AddButton({ onClick, title, color }) {
 
     // Set a color on the AddButton component by passing it a 'color' prop
-    const buttonStyle = { 'background-color': color };
+    const buttonStyle = { backgroundColor: color };
 
     return (
         <div onClick={onClick} style={buttonStyle} className="add-button">

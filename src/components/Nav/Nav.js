@@ -37,7 +37,10 @@ export default class Nav extends Component {
         const root = document.getElementById('root')
 
         root.addEventListener('mousedown', (e) => {
-            if (this.state.showMenu) {
+
+            if(e.path[2].className === "nav__menu") {return;}
+
+            else if (this.state.showMenu) {
                 this.toggleMenu();
             }
         })
