@@ -33,22 +33,15 @@ export default class Project extends React.Component {
                             id: this.uuid(),
                             title: "Learn Mandarin",
                             category: 0,
-                            index: 0,
+                            index: 1,
                             tags: ["Language", "Learning"]
-                        },
-                        {
-                            id: this.uuid(),
-                            title: "Refactor this app to use Context API",
-                            category: 0,
-                            index: 0,
-                            tags: ["React", "Performance", "Someday"]
                         },
                         {
                             id: this.uuid(),
                             title: "Implement drag-and-drop",
                             category: 0,
-                            index: 0,
-                            tags: ["react-dnd"]
+                            index: 2,
+                            tags: ["react-dnd", "Someday"]
                         }
                     ]
                 },
@@ -59,7 +52,7 @@ export default class Project extends React.Component {
                         {
                             id: this.uuid(),
                             title: "Eat a Whole Pizza",
-                            category: 0,
+                            category: 1,
                             index: 0,
                             tags: ["Food", "Bad Life Choices"]
                         }
@@ -100,7 +93,7 @@ export default class Project extends React.Component {
             tags: [],
             id: this.uuid(),
         }
-        
+
         const newState = { ...this.state };
         newState.categories[categoryIndex].tasks.push(newTask);
 
@@ -170,18 +163,18 @@ export default class Project extends React.Component {
             <section className="project">
 
                 <div className="project__board">
-                    {this.state.categories 
-                        ? this.state.categories.map((el, idx) => 
-                            <Category 
-                                key={idx} 
-                                index={idx} 
-                                title={el.title} 
-                                tasks={el.tasks} 
+                    {this.state.categories
+                        ? this.state.categories.map((el, idx) =>
+                            <Category
+                                key={idx}
+                                index={idx}
+                                title={el.title}
+                                tasks={el.tasks}
                                 createTask={this.createTask}
-                                deleteTask={this.deleteTask} 
+                                deleteTask={this.deleteTask}
                                 moveTask={this.moveTask}
                                 addTag={this.addTag}
-                                deleteCategory={this.deleteCategory} />) 
+                                deleteCategory={this.deleteCategory} />)
                         : null}
 
                     {this.state.showAddForm ?
@@ -190,7 +183,7 @@ export default class Project extends React.Component {
                             <input placeholder="Category Name" onBlur={this.toggleShowAddForm} id="newCategoryName" type="text" />
                             <button hidden>Create</button>
                         </form>
-                        : <AddButton onClick={this.toggleShowAddForm} title="Category" />}
+                        : <AddButton onClick={this.toggleShowAddForm} title="Category" color="hsl(120, 60%, 90%)" />}
 
                 </div>
 

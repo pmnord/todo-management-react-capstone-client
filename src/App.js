@@ -18,38 +18,46 @@ class App extends Component {
 
   render() {
 
-    const navLinks = this.state.loggedIn ? [
-      { path: '/', title: 'Log Out' }, { path: '/project/demo', title: 'Demo' }
-    ] : [
-        { path: '/', title: 'Log In' }, { path: '/project/demo', title: 'Demo' }
-      ];
+    const loggedInLinks = [
+      { path: '/', title: 'Log Out' },
+      { path: '/error', title: 'See an Error' },
+      { path: '/project/demo', title: 'Demo' },
+    ];
+
+    const loggedOutLinks = [
+      { path: '/', title: 'Log In' },
+      { path: '/error', title: 'See an Error' },
+      { path: '/project/demo', title: 'Demo' },
+    ];
+
+    const navLinks = this.state.loggedIn ? loggedInLinks : loggedOutLinks;
 
     return (
       <div className="App">
-          <header className="App-header">
-            <Link to="/">
-              <h1>we ¯\_(ツ)_/¯ do</h1>
-            </Link>
-            <Nav links={navLinks} />
-          </header>
+        <header className="App-header">
+          <Link to="/">
+            <h1>we ¯\_(ツ)_/¯ do</h1>
+          </Link>
+          <Nav links={navLinks} />
+        </header>
 
-          <ErrorBoundary>
+        <ErrorBoundary>
 
-            <Route path='/' exact>
-              <Landing />
-              <Footer />
-            </Route>
+          <Route path='/' exact>
+            <Landing />
+            <Footer />
+          </Route>
 
-            <Route path='/project/:project_id'>
-              <Project />
-            </Route>
+          <Route path='/project/:project_id'>
+            <Project />
+          </Route>
 
-            <Route path='/error' exact>
-              <div style={{'height': '300px'}} onClick={() => {throw Error('You hit the error test')}}>
-              </div>
-            </Route>
+          <Route path='/error' exact>
+            <div style={{ 'height': '300px' }} onClick={() => { throw Error('You hit the error test') }}>
+            </div>
+          </Route>
 
-          </ErrorBoundary>
+        </ErrorBoundary>
 
       </div>
     );
