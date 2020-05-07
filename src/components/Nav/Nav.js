@@ -10,24 +10,12 @@ export default class Nav extends Component {
         }
     }
 
-    // The Nav component takes an array of objects with 'path' and 'title' properties
-    // and generates links for the menu
+    /* The Nav component takes an array of objects with 'path' and 'title' properties
+       and generates links for the menu */
+
     static defaultProps = {
         links: []
     }
-
-    // componentDidUpdate() {
-    //     if (this.state.showMenu) {
-    //         const root = document.getElementById('root')
-    //         console.log(root)
-
-    //         root.addEventListener('mousedown', () => {
-    //             console.log('you clicked');
-    //             this.toggleMenu();
-
-    //         })
-    //     }
-    // }
 
     toggleMenu = () => {
         this.setState({ showMenu: !this.state.showMenu });
@@ -55,6 +43,7 @@ export default class Nav extends Component {
     render() {
         return (
             <nav className="nav">
+                
                 {/* Menu Icon */}
                 <svg onClick={this.handleNavClick} className="nav__icon" width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" clipRule="evenodd" d="M3 5C3 4.44772 3.44772 4 4 4H16C16.5523 4 17 4.44772 17 5C17 5.55228 16.5523 6 16 6H4C3.44772 6 3 5.55228 3 5Z" fill="#000000" />

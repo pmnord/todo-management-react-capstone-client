@@ -1,3 +1,21 @@
+
+.error-boundary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 2.5rem;
+}
+
+.error-boundary h2 {
+  margin-bottom: 1rem;
+}
+
+.error-boundary h3 {
+  font-size: 1.5rem;
+}
+
 .koala {
   background-color: darkgrey;
   height: 11rem;

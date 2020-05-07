@@ -2,6 +2,7 @@
 
 .nav__icon:hover {
     cursor: pointer;
+    background-color: white;
 }
 
 .nav__menu {
@@ -15,13 +16,16 @@
 
     width: 15rem;
     border: solid 1px black;
+    border-radius: 2%;
 }
 
 .nav__menu li {
     padding: 1rem;
-    border-bottom: solid 1px black;
+    border: solid 1px black;
 }
 
 .nav__menu li:hover {
     background-color: white;
+    text-decoration: underline;
+    transition: background-color 0.4s;
 }

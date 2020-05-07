@@ -52,9 +52,11 @@ class App extends Component {
             <Project />
           </Route>
 
-          <Route path='/error' exact>
-            <div style={{ 'height': '300px' }} onClick={() => { throw Error('You hit the error test') }}>
-            </div>
+          <Route path='/error' exact render={() => {
+            throw Error('This is the error route')
+          }
+          }>
+            
           </Route>
 
         </ErrorBoundary>

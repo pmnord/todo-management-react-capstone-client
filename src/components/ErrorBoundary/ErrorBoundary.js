@@ -17,6 +17,15 @@ export default class ErrorBoundary extends React.Component {
     }
 
     render() {
+        const koalaPuns = [
+            <h3>(not exactly a <em>koalaty</em> user experience)</h3>,
+            <h3>(hopefully this doesn't reflect poorly on my <em>koalafications</em>)</h3>,
+            <h3>(looks like someone forgot to consult <em>koalaty</em> assurance)</h3>,
+        ]
+        const getKoalaPun = () => {
+            return koalaPuns[Math.floor(Math.random() * koalaPuns.length)]
+        }
+
         if (this.state.hasError) {
             return (
                 <div className="error-boundary">
@@ -28,6 +37,7 @@ export default class ErrorBoundary extends React.Component {
                         <div className="koala__eye koala__eye--2"></div>
                         <div className="koala__nose"></div>
                     </div>
+                    {getKoalaPun()}
                 </div>
             );
         }

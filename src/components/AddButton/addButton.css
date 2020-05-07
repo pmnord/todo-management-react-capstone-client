@@ -10,7 +10,7 @@
 
 .add-button:hover {
     cursor: pointer;
-    background-color: hsl(0, 0%, 100%);
+    background-color: hsl(0, 0%, 100%) !important;
 }
 
 .add-button--plus-icon {

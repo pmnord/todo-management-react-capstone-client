@@ -43,7 +43,13 @@ export default class Tags extends Component {
             <div className="tags" >
 
                 {this.props.tags ?
-                    this.props.tags.map((tag, idx) => <span key={idx} className="tags__tag">{tag}</span>)
+                    this.props.tags.map((tag, idx) => 
+                        <span key={idx} className="tags__tag">{tag}
+                        
+                        {/* Expand this into its own Tag component */}
+
+                        </span>)
+
                     : null}
 
                 {this.state.showForm ?
@@ -52,7 +58,7 @@ export default class Tags extends Component {
                         <input onBlur={this.toggleForm} placeholder="Tag Name" type="text" id={`add--tag--input--${this.props.taskId}`} />
                         <button hidden>Add Tag</button>
                     </form >
-                    : <AddButton onClick={this.toggleForm} title="Tag" color="hsl(330, 60%, 90%)" />
+                    : <AddButton onClick={this.toggleForm} title="Tag" />
                 }
 
             </div >

@@ -61,6 +61,10 @@ export default class Project extends React.Component {
             ]
         }
 
+        // We need two copies of our data since one will be mutated 
+        // by our filter function
+        newState.originalCategories = [ ...newState.categories ];
+
         this.setState(newState);
     }
 
@@ -140,7 +144,7 @@ export default class Project extends React.Component {
     }
 
     addTag = (categoryIndex, taskIndex, newTag) => {
-        const newState = { ...this.state }
+        const newState = { ...this.state };
 
         newState.categories[categoryIndex].tasks[taskIndex].tags.push(newTag);
 
@@ -148,7 +152,7 @@ export default class Project extends React.Component {
     }
 
     toggleShowAddForm = () => {
-        this.setState({ showAddForm: !this.state.showAddForm })
+        this.setState({ showAddForm: !this.state.showAddForm });
     }
 
     componentDidUpdate() {
@@ -158,9 +162,60 @@ export default class Project extends React.Component {
         }
     }
 
+    filterByTag = (e) => {
+        const filterValue = e.target.value.toLowerCase();
+
+        console.log('Original', this.state.originalCategories);
+        console.log('Current', this.state.categories);
+
+        const newCategories = this.deepCopy(this.state.originalCategories);
+
+        newCategories.forEach(category => {
+            const newTasks = category.tasks.filter(task => {
+                let taskHasTag = false;
+                task.tags.forEach(tag => {
+                    if (tag.toLowerCase().includes(filterValue)) {
+                        taskHasTag = true;
+                    }
+                })
+                return taskHasTag;
+            })
+            category.tasks = newTasks;
+        })
+
+        this.setState({categories: newCategories});
+    }
+
+    deepCopy = (inObject) => {
+        let outObject, value, key
+      
+        if (typeof inObject !== "object" || inObject === null) {
+          return inObject // Return the value if inObject is not an object
+        }
+      
+        // Create an array or object to hold the values
+        outObject = Array.isArray(inObject) ? [] : {}
+      
+        for (key in inObject) {
+          value = inObject[key]
+      
+          // Recursively (deep) copy for nested objects, including arrays
+          outObject[key] = this.deepCopy(value)
+        }
+      
+        return outObject
+      }
+
     render() {
         return (
             <section className="project">
+
+                <div className="project__toolbar">
+                    <form onSubmit={(e) => { e.preventDefault(); }} className="project__filter">
+                        <label htmlFor="filter-by-tag-input">Filter by Tag: </label>
+                        <input onChange={this.filterByTag} type="text" id="filter-by-tag-input"></input>
+                    </form>
+                </div>
 
                 <div className="project__board">
                     {this.state.categories
@@ -183,7 +238,7 @@ export default class Project extends React.Component {
                             <input placeholder="Category Name" onBlur={this.toggleShowAddForm} id="newCategoryName" type="text" />
                             <button hidden>Create</button>
                         </form>
-                        : <AddButton onClick={this.toggleShowAddForm} title="Category" color="hsl(120, 60%, 90%)" />}
+                        : <AddButton onClick={this.toggleShowAddForm} title="Category" />}
 
                 </div>
 

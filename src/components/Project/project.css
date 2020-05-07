@@ -1,5 +1,8 @@
 .project__board {
     display: flex;
     justify-content: flex-start;
-    margin-top: 1rem;
+}
+
+.project__toolbar {
+    padding: 0.5rem;
 }
