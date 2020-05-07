@@ -1,10 +1,10 @@
-## Todo Together
+## we ¯\_(ツ)_/¯ do
 
-A collaborative kanban board supporting user concurrency, implemented with React on the front end and Node.js on the back end.
+A kanban board for organizing tasks using categories and tags, implemented with React on the front end and Node.js on the back end.
 
-[Demo]()
+[Demo](https://we-do.pmnord.now.sh/)
 
-[Backend Documentation]()
+[Backend Documentation](https://github.com/pmnord/todo-management-react-capstone-server)
 
 | | | | | |
 |-|-|-|-|-|
@@ -12,6 +12,28 @@ A collaborative kanban board supporting user concurrency, implemented with React
 |**Back-End**|Node.js|Express|PostgreSQL|RESTful API|
 |**Development**|Jest|Mocha|Chai|Heroku|Zeit|
 | | | | | |
+
+## Views
+
+### Landing Page
+
+Supports user registration and log in.
+
+// Add screenshot
+
+### Application Page
+
+Create categories, create tasks, tag your tasks, move your tasks, filter your tasks, share your board with others!
+
+// Add screenshot
+
+## Site Map & User Flow
+
+- Create board or get link
+  - Add categories to your board
+    - Add tasks to your categories
+      - Set tags and comments on your tasks
+        - Share your board with others
 
 ## Mockups
 
