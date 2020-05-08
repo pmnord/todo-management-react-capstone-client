@@ -53,10 +53,11 @@ Create categories, create tasks, tag your tasks, move your tasks, filter your ta
 ||||priority||
 
 ## Developer Roadmap
-- Support tag deletion
+- Refactor to use Context API
+- Refactor to use React Hooks
 - Support multiple projects by the same user
-- Support shared projects and concurrency (look into websockets)
-- Support drag and drop task movement
+- Support shared projects and concurrency with websockets
+- Support drag and drop task movement with react-dnd
 
 ## User Stories
 
