@@ -74,7 +74,7 @@ export default class Category extends Component {
                     <form className="category__create-task-form" onSubmit={this.handleCreateTask}>
                         <label hidden htmlFor={`newTaskName${this.props.title}`}>New Task</label>
                         <input placeholder="Task Name" onBlur={this.toggleShowAddForm} id={`newTaskName${this.props.title}`} type="text" />
-                        <button hidden>Create</button>
+                        <button>Add</button>
                     </form>
                     : <AddButton title="Task" onClick={() => this.toggleShowAddForm()} />}
             </div>

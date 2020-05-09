@@ -2,6 +2,7 @@ import React from 'react';
 import './project.css';
 import Category from '../Category/Category.js';
 import AddButton from '../AddButton/AddButton';
+import utils from '../../utils/utils';
 // import ApiService from '../../service/api-service';
 
 export default class Project extends React.Component {
@@ -10,34 +11,33 @@ export default class Project extends React.Component {
         this.state = {
             categories: [],
             showAddForm: false,
-        }
+            shareClicked: false,
+        };
     }
-
-    uuid() { return Math.floor(Math.random() * 1000000) }
 
     componentDidMount() {
         const newState = {
             categories: [
                 {
-                    id: this.uuid(),
+                    id: utils.uuid(),
                     title: "Backlog",
                     tasks: [
                         {
-                            id: this.uuid(),
+                            id: utils.uuid(),
                             title: "Clean the litterbox",
                             category: 0,
                             index: 0,
                             tags: ["Cat", "Cleaning"]
                         },
                         {
-                            id: this.uuid(),
+                            id: utils.uuid(),
                             title: "Learn Mandarin",
                             category: 0,
                             index: 1,
                             tags: ["Language", "Learning"]
                         },
                         {
-                            id: this.uuid(),
+                            id: utils.uuid(),
                             title: "Implement drag-and-drop",
                             category: 0,
                             index: 2,
@@ -46,11 +46,11 @@ export default class Project extends React.Component {
                     ]
                 },
                 {
-                    id: this.uuid(),
+                    id: utils.uuid(),
                     title: "In Progress",
                     tasks: [
                         {
-                            id: this.uuid(),
+                            id: utils.uuid(),
                             title: "Eat a Whole Pizza",
                             category: 1,
                             index: 0,
@@ -95,7 +95,7 @@ export default class Project extends React.Component {
             category: categoryIndex,
             index: null,
             tags: [],
-            id: this.uuid(),
+            id: utils.uuid(),
         }
 
         const newState = { ...this.state };
@@ -165,10 +165,8 @@ export default class Project extends React.Component {
     filterByTag = (e) => {
         const filterValue = e.target.value.toLowerCase();
 
-        console.log('Original', this.state.originalCategories);
-        console.log('Current', this.state.categories);
-
-        const newCategories = this.deepCopy(this.state.originalCategories);
+        // It's important to create a deep copy to avoid mutating the nested reference types
+        const newCategories = utils.deepCopy(this.state.originalCategories);
 
         newCategories.forEach(category => {
             const newTasks = category.tasks.filter(task => {
@@ -186,35 +184,30 @@ export default class Project extends React.Component {
         this.setState({categories: newCategories});
     }
 
-    deepCopy = (inObject) => {
-        let outObject, value, key
-      
-        if (typeof inObject !== "object" || inObject === null) {
-          return inObject // Return the value if inObject is not an object
-        }
-      
-        // Create an array or object to hold the values
-        outObject = Array.isArray(inObject) ? [] : {}
-      
-        for (key in inObject) {
-          value = inObject[key]
-      
-          // Recursively (deep) copy for nested objects, including arrays
-          outObject[key] = this.deepCopy(value)
-        }
-      
-        return outObject
-      }
-
     render() {
         return (
             <section className="project">
 
                 <div className="project__toolbar">
-                    <form onSubmit={(e) => { e.preventDefault(); }} className="project__filter">
+                    <form onSubmit={(e) => { e.preventDefault(); }} className="project__toolbar--filter">
                         <label htmlFor="filter-by-tag-input">Filter by Tag: </label>
                         <input onChange={this.filterByTag} type="text" id="filter-by-tag-input"></input>
                     </form>
+
+                    <div className="project__toolbar--share">
+                        <input id="project__toolbar--share--input" type='text' readOnly value={`https://wedo-l3x19dfd3.now.sh/project/${this.props.route.match.params.project_id}`} />
+                        <button onClick={ () => {
+                            utils.copyToClipboard(`project__toolbar--share--input`);
+                            this.setState({ shareClicked: true })} } >
+                            <span value="http://localhost:3000/project/demo" aria-label="Copy to clipboard"  ><svg viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fillRule="evenodd" d="M2 13h4v1H2v-1zm5-6H2v1h5V7zm2 3V8l-3 3 3 3v-2h5v-2H9zM4.5 9H2v1h2.5V9zM2 12h2.5v-1H2v1zm9 1h1v2c-.02.28-.11.52-.3.7-.19.18-.42.28-.7.3H1c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1h3c0-1.11.89-2 2-2 1.11 0 2 .89 2 2h3c.55 0 1 .45 1 1v5h-1V6H1v9h10v-2zM2 5h8c0-.55-.45-1-1-1H8c-.55 0-1-.45-1-1s-.45-1-1-1-1 .45-1 1-.45 1-1 1H3c-.55 0-1 .45-1 1z"></path></svg></span>
+                            {this.state.shareClicked ?
+                                `Link Copied!`
+                                : `Get Shareable Link`}
+                        </button>
+                    </div>
+
+
+
                 </div>
 
                 <div className="project__board">

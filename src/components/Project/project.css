@@ -5,4 +5,13 @@
 
 .project__toolbar {
     padding: 0.5rem;
+    display: flex;
+}
+
+.project__toolbar--share {
+    margin-left: 0.5rem;
+    display: flex;
+}
+.project__toolbar--share input {
+    height: 1.3rem;
 }

@@ -48,8 +48,9 @@ class App extends Component {
             <Footer />
           </Route>
 
-          <Route path='/project/:project_id'>
-            <Project />
+          <Route path='/project/:project_id' render={route => {
+            return <Project route={route} />
+          }}>
           </Route>
 
           <Route path='/error' exact render={() => {
