@@ -26,7 +26,9 @@ export default function Task(props) {
                 <Tags tags={props.tags || null}
                     taskId={props.id}
                     taskIndex={props.index}
-                    addTag={(newTag) => props.addTag(props.categoryIndex, props.index, newTag)} />
+                    categoryIndex={props.categoryIndex}
+                    addTag={(newTag) => props.addTag(props.categoryIndex, props.index, newTag)}
+                    deleteTag={props.deleteTag} />
             </div>
 
             <textarea rows="5" cols="39"></textarea>

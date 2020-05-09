@@ -39,13 +39,17 @@ export default class Tags extends Component {
         input.value = '';
     }
 
+    handleDeleteTag = (tagIndex) => {
+        this.props.deleteTag(this.props.categoryIndex, this.props.taskIndex, tagIndex)
+    }
+
     render() {
         return (
             <div className="tags" >
 
                 {this.props.tags ?
                     this.props.tags.map((tag, idx) =>
-                        <Tag key={idx} title={tag} />)
+                        <Tag key={idx} index={idx} title={tag} deleteTag={this.handleDeleteTag} />)
                     : null}
 
                 {this.state.showForm ?

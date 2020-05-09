@@ -51,10 +51,10 @@ export default class Project extends React.Component {
                     tasks: [
                         {
                             id: utils.uuid(),
-                            title: "Eat a Whole Pizza",
+                            title: "A user's data persists between visits",
                             category: 1,
                             index: 0,
-                            tags: ["Food", "Bad Life Choices"]
+                            tags: ["postgresql", "Nodejs", "REST", "API", "backend"]
                         }
                     ]
                 }
@@ -63,7 +63,7 @@ export default class Project extends React.Component {
 
         // We need two copies of our data since one will be mutated 
         // by our filter function
-        newState.originalCategories = [ ...newState.categories ];
+        newState.originalCategories = [...newState.categories];
 
         this.setState(newState);
     }
@@ -151,6 +151,15 @@ export default class Project extends React.Component {
         this.setState(newState);
     }
 
+    deleteTag = (categoryIndex, taskIndex, tagIndex) => {
+        console.log(`So long, ` + this.state.categories[categoryIndex].tasks[taskIndex].tags[tagIndex]
+        )
+
+        const newState = utils.deepCopy(this.state);
+        newState.categories[categoryIndex].tasks[taskIndex].tags.splice(tagIndex, 1);
+        this.setState(newState);
+    }
+
     toggleShowAddForm = () => {
         this.setState({ showAddForm: !this.state.showAddForm });
     }
@@ -181,7 +190,7 @@ export default class Project extends React.Component {
             category.tasks = newTasks;
         })
 
-        this.setState({categories: newCategories});
+        this.setState({ categories: newCategories });
     }
 
     render() {
@@ -196,10 +205,16 @@ export default class Project extends React.Component {
 
                     <div className="project__toolbar--share">
                         <input id="project__toolbar--share--input" type='text' readOnly value={`https://wedo-l3x19dfd3.now.sh/project/${this.props.route.match.params.project_id}`} />
-                        <button onClick={ () => {
+                        <button aria-label="Copy to clipboard" onClick={() => {
                             utils.copyToClipboard(`project__toolbar--share--input`);
-                            this.setState({ shareClicked: true })} } >
-                            <span value="http://localhost:3000/project/demo" aria-label="Copy to clipboard"  ><svg viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fillRule="evenodd" d="M2 13h4v1H2v-1zm5-6H2v1h5V7zm2 3V8l-3 3 3 3v-2h5v-2H9zM4.5 9H2v1h2.5V9zM2 12h2.5v-1H2v1zm9 1h1v2c-.02.28-.11.52-.3.7-.19.18-.42.28-.7.3H1c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1h3c0-1.11.89-2 2-2 1.11 0 2 .89 2 2h3c.55 0 1 .45 1 1v5h-1V6H1v9h10v-2zM2 5h8c0-.55-.45-1-1-1H8c-.55 0-1-.45-1-1s-.45-1-1-1-1 .45-1 1-.45 1-1 1H3c-.55 0-1 .45-1 1z"></path></svg></span>
+                            this.setState({ shareClicked: true })
+                        }} >
+
+                            {/* Clipboard Icon */}
+                            <svg width="20" height="20" viewBox="2 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 2C8.44772 2 8 2.44772 8 3C8 3.55228 8.44772 4 9 4H11C11.5523 4 12 3.55228 12 3C12 2.44772 11.5523 2 11 2H9Z" fill="#4A5568" />
+                                <path fillRule="evenodd" clipRule="evenodd" d="M4 5C4 3.89543 4.89543 3 6 3C6 4.65685 7.34315 6 9 6H11C12.6569 6 14 4.65685 14 3C15.1046 3 16 3.89543 16 5V16C16 17.1046 15.1046 18 14 18H6C4.89543 18 4 17.1046 4 16V5ZM7 9C6.44772 9 6 9.44772 6 10C6 10.5523 6.44772 11 7 11H7.01C7.56228 11 8.01 10.5523 8.01 10C8.01 9.44772 7.56228 9 7.01 9H7ZM10 9C9.44772 9 9 9.44772 9 10C9 10.5523 9.44772 11 10 11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H10ZM7 13C6.44772 13 6 13.4477 6 14C6 14.5523 6.44772 15 7 15H7.01C7.56228 15 8.01 14.5523 8.01 14C8.01 13.4477 7.56228 13 7.01 13H7ZM10 13C9.44772 13 9 13.4477 9 14C9 14.5523 9.44772 15 10 15H13C13.5523 15 14 14.5523 14 14C14 13.4477 13.5523 13 13 13H10Z" fill="hsl(0, 0%, 10%)" />
+                            </svg>
                             {this.state.shareClicked ?
                                 `Link Copied!`
                                 : `Get Shareable Link`}
@@ -222,6 +237,7 @@ export default class Project extends React.Component {
                                 deleteTask={this.deleteTask}
                                 moveTask={this.moveTask}
                                 addTag={this.addTag}
+                                deleteTag={this.deleteTag}
                                 deleteCategory={this.deleteCategory} />)
                         : null}
 
@@ -229,7 +245,7 @@ export default class Project extends React.Component {
                         <form className="project__create-category-form" onSubmit={this.createCategory}>
                             <label htmlFor="newCategoryName" hidden>New Category</label>
                             <input placeholder="Category Name" onBlur={this.toggleShowAddForm} id="newCategoryName" type="text" />
-                            <button hidden>Create</button>
+                            <button>Add</button>
                         </form>
                         : <AddButton onClick={this.toggleShowAddForm} title="Category" />}
 

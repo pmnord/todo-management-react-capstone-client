@@ -6,12 +6,12 @@
     display: flex;
 }
 .tag:hover {
-    cursor: default;
+    cursor: pointer;
+    background-color: hsl(0, 50%, 80%);
 }
 
 .tag__x {
-    align-items: center;
-}
-.tag__x:hover {
-    cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    margin-top: 0.1rem;
 }
