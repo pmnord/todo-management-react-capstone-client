@@ -1,0 +1,17 @@
+.tag {
+    margin-right: 0.2rem;
+    margin-bottom: 0.2rem;
+    padding: 0.1rem;
+    background-color: hsl(0, 0%, 85%);
+    display: flex;
+}
+.tag:hover {
+    cursor: default;
+}
+
+.tag__x {
+    align-items: center;
+}
+.tag__x:hover {
+    cursor: pointer;
+}

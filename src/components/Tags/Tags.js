@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './tags.css';
 import AddButton from '../AddButton/AddButton';
+import Tag from '../Tag/Tag';
 
 // The Tags component displays tags that have been attached to a Task
 // as well as providing a form for adding new tags
@@ -43,13 +44,8 @@ export default class Tags extends Component {
             <div className="tags" >
 
                 {this.props.tags ?
-                    this.props.tags.map((tag, idx) => 
-                        <span key={idx} className="tags__tag">{tag}
-                        
-                        {/* Expand this into its own Tag component */}
-
-                        </span>)
-
+                    this.props.tags.map((tag, idx) =>
+                        <Tag key={idx} title={tag} />)
                     : null}
 
                 {this.state.showForm ?
