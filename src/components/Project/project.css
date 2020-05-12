@@ -28,3 +28,8 @@
     font-family: 'Open Sans', sans-serif;
     font-size: 0.9rem;
 }
+
+.project__error {
+    color: red;
+    text-align: center;
+}

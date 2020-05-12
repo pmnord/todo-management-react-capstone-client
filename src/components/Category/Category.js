@@ -63,6 +63,7 @@ export default class Category extends Component {
                             title={el.title}
                             index={idx}
                             tags={el.tags}
+                            notes={el.notes}
                             categoryIndex={this.props.index}
                             moveTask={this.props.moveTask}
                             deleteTask={this.props.deleteTask}

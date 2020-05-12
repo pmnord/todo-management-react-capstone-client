@@ -1,12 +1,31 @@
-import jsonData from '../data.json';
+import config from '../config';
 
 const ApiService = {
-    getProjectCategories: function (project_id) {
-        return jsonData.categories;
+    createProject: function () {
+        // Returns a new project UUID, to be associated with a path by the client
+        return fetch(`${config.API_ENDPOINT}/project`, {
+            method: 'POST',
+            headers: {
+                'api-key': config.API_KEY,
+            }
+        })
+        .then(res => res.ok 
+            ? res.json() 
+            : res.json().then(err => Promise.reject(err)))
+        .then(data => data.uuid)
+        .catch(err => console.log(err));
     },
-    getCategoryTasks: function (category_id) {
-
-    }
+    getProjectObject: function (uuid) {
+        return fetch(`${config.API_ENDPOINT}/project/${uuid}`, {
+            headers: {
+                'api-key': config.API_KEY,
+            }
+        })
+        .then(res => res.ok 
+            ? res.json() 
+            : res.json().then(err => Promise.reject(err)))
+        .catch(err => console.log(err));
+    },
 }
 
 export default ApiService;

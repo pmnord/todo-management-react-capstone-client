@@ -3,7 +3,7 @@ import './project.css';
 import Category from '../Category/Category.js';
 import AddButton from '../AddButton/AddButton';
 import utils from '../../utils/utils';
-// import ApiService from '../../service/api-service';
+import ApiService from '../../services/api-service';
 
 export default class Project extends React.Component {
     constructor(props) {
@@ -16,7 +16,7 @@ export default class Project extends React.Component {
     }
 
     componentDidMount() {
-        const newState = {
+        let newState = {
             categories: [
                 {
                     id: utils.uuid(),
@@ -61,11 +61,22 @@ export default class Project extends React.Component {
             ]
         }
 
+        
         // We need two copies of our data since one will be mutated 
         // by our filter function
-        newState.originalCategories = [...newState.categories];
-
-        this.setState(newState);
+        
+        
+        const uuid = this.props.route.match.params.project_id;
+        ApiService
+            .getProjectObject(uuid)
+            .then(data => {
+                if (!data) {return this.setState({ error: 'No project found' })}
+            console.log(data);
+            newState = data;
+            newState.originalCategories = [...newState.categories];
+            this.setState(newState);
+        })
+        
     }
 
     createCategory = (e) => {
@@ -225,6 +236,14 @@ export default class Project extends React.Component {
 
                 </div>
 
+                {/* Error Display */}
+                {this.state.error
+                    ? <div className="project__error">
+                        <h2 >{this.state.error}</h2>
+                    </div>
+                    : null}
+
+                {/* Kanban Board */}
                 <div className="project__board">
                     {this.state.categories
                         ? this.state.categories.map((el, idx) =>
