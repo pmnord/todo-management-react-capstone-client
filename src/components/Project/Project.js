@@ -5,6 +5,10 @@ import AddButton from '../AddButton/AddButton';
 import utils from '../../utils/utils';
 import ApiService from '../../services/api-service';
 
+/* I took the approach of updating the component state first, and then making the
+API call to update the server database. This keeps the app responsive and
+obscures any delays that might be caused by latency */
+
 export default class Project extends React.Component {
     constructor(props) {
         super(props);
@@ -16,67 +20,25 @@ export default class Project extends React.Component {
     }
 
     componentDidMount() {
-        let newState = {
-            categories: [
-                {
-                    id: utils.uuid(),
-                    title: "Backlog",
-                    tasks: [
-                        {
-                            id: utils.uuid(),
-                            title: "Clean the litterbox",
-                            category: 0,
-                            index: 0,
-                            tags: ["Cat", "Cleaning"]
-                        },
-                        {
-                            id: utils.uuid(),
-                            title: "Learn Mandarin",
-                            category: 0,
-                            index: 1,
-                            tags: ["Language", "Learning"]
-                        },
-                        {
-                            id: utils.uuid(),
-                            title: "Implement drag-and-drop",
-                            category: 0,
-                            index: 2,
-                            tags: ["react-dnd", "Someday"]
-                        }
-                    ]
-                },
-                {
-                    id: utils.uuid(),
-                    title: "In Progress",
-                    tasks: [
-                        {
-                            id: utils.uuid(),
-                            title: "A user's data persists between visits",
-                            category: 1,
-                            index: 0,
-                            tags: ["postgresql", "Nodejs", "REST", "API", "backend"]
-                        }
-                    ]
-                }
-            ]
-        }
-
-        
-        // We need two copies of our data since one will be mutated 
-        // by our filter function
-        
-        
+        let newState;
         const uuid = this.props.route.match.params.project_id;
-        ApiService
-            .getProjectObject(uuid)
+
+        ApiService.getProjectObject(uuid)
             .then(data => {
-                if (!data) {return this.setState({ error: 'No project found' })}
-            console.log(data);
-            newState = data;
-            newState.originalCategories = [...newState.categories];
-            this.setState(newState);
-        })
-        
+                if (!data) { return this.setState({ error: 'No project found' }) }
+                console.log(data);
+                newState = data;
+
+                // We need two copies of our data since one will be mutated 
+                // by our filter function
+                newState.originalCategories = utils.deepCopy(newState.categories);
+
+                this.setState(newState);
+            })
+            .catch(err => {
+                this.setState({ error: 'Failed to fetch project' });
+                console.log(err);
+            })
     }
 
     createCategory = (e) => {
@@ -85,19 +47,38 @@ export default class Project extends React.Component {
         const newCategoryName = e.target.newCategoryName.value;
         const newCategory = {
             title: newCategoryName,
-            tasks: []
-        }
-        const newState = { categories: [...this.state.categories, newCategory] }
+            tasks: [],
+            index: this.state.categories.length
+        };
+        const newState = { categories: [...this.state.categories, newCategory] };
         this.setState(newState);
 
         const input = document.getElementById('newCategoryName');
         input.blur();
+
+        // Change to a string so we aren't passing an array into our database
+        newCategory.tasks = '';
+        newCategory.project_id = this.state.id;
+
+        /* After posting the category, the server will respond with the id
+        of the new category in the database. This needs to be set in the
+        application state to support delete and update requests. */
+        ApiService.postCategory(newCategory)
+            .then(dbCategory => {
+                console.log(dbCategory);
+                const newState = { ...this.state };
+                console.log(newState);
+                newState.categories[newState.categories.length - 1].id = dbCategory.id;
+            })
     }
 
     deleteCategory = (categoryIndex) => {
+        const category_id = this.state.categories[categoryIndex].id;
         const newState = { ...this.state };
         newState.categories.splice(categoryIndex, 1);
         this.setState(newState);
+
+        ApiService.deleteCategory(category_id);
     }
 
     createTask = (categoryIndex, newTaskTitle) => {
