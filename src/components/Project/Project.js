@@ -65,9 +65,7 @@ export default class Project extends React.Component {
         application state to support delete and update requests. */
         ApiService.postCategory(newCategory)
             .then(dbCategory => {
-                console.log(dbCategory);
                 const newState = { ...this.state };
-                console.log(newState);
                 newState.categories[newState.categories.length - 1].id = dbCategory.id;
             })
     }
@@ -82,25 +80,43 @@ export default class Project extends React.Component {
     }
 
     createTask = (categoryIndex, newTaskTitle) => {
+        const newTaskIndex = this.state.categories[categoryIndex].tasks.length;
         const newTask = {
             title: newTaskTitle,
             category: categoryIndex,
-            index: null,
+            category_id: this.state.categories[categoryIndex].id,
+            index: newTaskIndex,
             tags: [],
-            id: utils.uuid(),
         }
 
         const newState = { ...this.state };
         newState.categories[categoryIndex].tasks.push(newTask);
 
         this.setState(newState);
+
+        ApiService.postTask(newTask)
+            .then(dbTask => {
+                console.log(dbTask)
+                const newState = { ...this.state };
+                newState.categories[categoryIndex].tasks[newTaskIndex].id = dbTask.id;
+            })
     }
 
     deleteTask = (categoryIndex, taskIndex) => {
+        const task_id = this.state.categories[categoryIndex].tasks[taskIndex].id;
         const newState = { ...this.state };
-        newState.categories[categoryIndex].tasks.splice(taskIndex, 1);
-
+        let newTasks = newState.categories[categoryIndex].tasks;
+        
+        // Remove the task from the new application state
+        newTasks.splice(taskIndex, 1);
+        // reIndex the tasks in our application state
+        newTasks = newTasks.map((task, index) => {task.index = index; return task;});
+        
         this.setState(newState);
+        
+        // Pass the array of tasks to reIndex to our API
+        const toReIndex = this.state.categories[categoryIndex].tasks.slice(taskIndex) || [];
+        ApiService.deleteTask(task_id, toReIndex)
     }
 
     moveTask = (categoryIndex, taskIndex, direction) => {
@@ -137,19 +153,37 @@ export default class Project extends React.Component {
 
     addTag = (categoryIndex, taskIndex, newTag) => {
         const newState = { ...this.state };
+        const task_id = newState.categories[categoryIndex].tasks[taskIndex].id;
+        const newTags = newState.categories[categoryIndex].tasks[taskIndex].tags;
 
-        newState.categories[categoryIndex].tasks[taskIndex].tags.push(newTag);
+        newTags.push(newTag);
 
         this.setState(newState);
+
+        // Send the new tags values to the server to be updated
+        const apiTags = newTags.map(tag => tag.replace(/\s/g, '&#32;')).join(' ')
+        const newValues = {
+            tags: apiTags
+        }
+
+        ApiService.patchTask(task_id, newValues)
     }
 
     deleteTag = (categoryIndex, taskIndex, tagIndex) => {
-        console.log(`So long, ` + this.state.categories[categoryIndex].tasks[taskIndex].tags[tagIndex]
-        )
+        const newState = { ...this.state };
+        const task_id = newState.categories[categoryIndex].tasks[taskIndex].id;
+        const newTags = newState.categories[categoryIndex].tasks[taskIndex].tags;
 
-        const newState = utils.deepCopy(this.state);
-        newState.categories[categoryIndex].tasks[taskIndex].tags.splice(tagIndex, 1);
+        newTags.splice(tagIndex, 1);
         this.setState(newState);
+
+        // Send the new tags values to the server to be updated
+        const apiTags = newTags.map(tag => tag.replace(/\s/g, '&#32;')).join(' ')
+        const newValues = {
+            tags: apiTags
+        }
+
+        ApiService.patchTask(task_id, newValues)
     }
 
     toggleShowAddForm = () => {
