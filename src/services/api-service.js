@@ -89,6 +89,9 @@ const ApiService = {
     patchTask: function (task_id, newValues, swapee) {
         // Handles movement(maybe), tag updates, and note updates
         // swapee: the task_id to swap indexes with on vertical moves
+        if (swapee) {
+            newValues.swapee = swapee;
+        }
 
         return fetch(`${config.API_ENDPOINT}/task/${task_id}`, {
             method: 'PATCH',

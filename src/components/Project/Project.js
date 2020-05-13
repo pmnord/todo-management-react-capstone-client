@@ -135,25 +135,36 @@ export default class Project extends React.Component {
         if (categoryIndex - 1 < 0 && direction === 'left') { return; }
         if (categoryIndex + 1 >= this.state.categories.length && direction === 'right') { return; }
 
-        const newState = { ...this.state };
+        const newState = utils.deepCopy(this.state);
+        const task_id = this.state.categories[categoryIndex].tasks[taskIndex].id;
         let taskToMove;
+        let newCategory;
+        let swapee_id;
 
         switch (direction) {
             case 'left':
                 taskToMove = newState.categories[categoryIndex].tasks.splice(taskIndex, 1)[0];
                 newState.categories[categoryIndex - 1].tasks.push(taskToMove);
+                newCategory = this.state.categories[categoryIndex - 1].id;
+                ApiService.patchTask(task_id, { category_id: newCategory });
                 break;
             case 'down':
                 taskToMove = newState.categories[categoryIndex].tasks.splice(taskIndex, 1)[0];
                 newState.categories[categoryIndex].tasks.splice(taskIndex + 1, 0, taskToMove);
+                swapee_id = this.state.categories[categoryIndex].tasks[taskIndex + 1].id;
+                ApiService.patchTask(task_id, { index: taskIndex + 1 }, { id: swapee_id, index: taskIndex })
                 break;
             case 'up':
                 taskToMove = newState.categories[categoryIndex].tasks.splice(taskIndex, 1)[0];
                 newState.categories[categoryIndex].tasks.splice(taskIndex - 1, 0, taskToMove);
+                swapee_id = this.state.categories[categoryIndex].tasks[taskIndex - 1].id;
+                ApiService.patchTask(task_id, { index: taskIndex - 1 }, { id: swapee_id, index: taskIndex })
                 break;
             case 'right':
                 taskToMove = newState.categories[categoryIndex].tasks.splice(taskIndex, 1)[0];
                 newState.categories[categoryIndex + 1].tasks.push(taskToMove);
+                newCategory = this.state.categories[categoryIndex + 1].id;
+                ApiService.patchTask(task_id, { category_id: newCategory });
                 break;
             default:
                 throw Error('A bad direction was passed to the moveTask() function')
