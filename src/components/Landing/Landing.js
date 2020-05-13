@@ -1,21 +1,25 @@
 import React from 'react';
 import './landing.css';
 import { Link } from 'react-router-dom';
+import ApiService from '../../services/api-service';
 
 // The landing page handles registration and logging in, as well as providing basic information about the app
 
 export default class Landing extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            newProjectClicked: false
+        }
     }
 
-    handleRegistration(e) {
-        e.preventDefault();
-    }
+    handleNewProject = (e) => {
+        this.setState({ newProjectClicked: true })
 
-    handleLogin(e) {
-        e.preventDefault();
+        ApiService.postProject()
+            .then(uuid => {
+                return this.props.push(`/project/${uuid}`);
+            })
     }
 
     render() {
@@ -29,11 +33,14 @@ export default class Landing extends React.Component {
                     <p>We Do is a collaborative planning tool that takes a minimalist approach.</p>
                     <p>Get up and running with your co-collaborators in seconds. Plan and track a new project. Or brainstorm new ideas.</p>
                     <p>The template is unoppinionated, allowing <em>you</em> to organize your collab in any way you choose.</p>
-                <Link aria-label="button"
-                    to="/project/demo"
-                    className="landing__create-project">
-                    New Project
-                </Link>
+                <div aria-label="button"
+                    
+                    className="landing__create-project"
+                    onClick={this.handleNewProject}>
+                    {this.state.newProjectClicked
+                        ? 'Loading...'
+                        : 'New Project'}
+                </div>
                 </section>
 
 

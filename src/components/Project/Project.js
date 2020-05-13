@@ -260,10 +260,13 @@ export default class Project extends React.Component {
             <section className="project">
 
                 <div className="project__toolbar">
-                    <form onSubmit={(e) => { e.preventDefault(); }} className="project__toolbar--filter">
+
+                    {/* TODO: Fix the filter feature to only affect _display_ and not change the state */}
+                    {/* Filter Feature */}
+                    {/* <form onSubmit={(e) => { e.preventDefault(); }} className="project__toolbar--filter">
                         <label htmlFor="filter-by-tag-input">Filter by Tag: </label>
                         <input onChange={this.filterByTag} type="text" id="filter-by-tag-input"></input>
-                    </form>
+                    </form> */}
 
                     <div className="project__toolbar--share">
                         <input id="project__toolbar--share--input" type='text' readOnly value={`https://wedo-l3x19dfd3.now.sh/project/${this.props.route.match.params.project_id}`} />

@@ -42,15 +42,18 @@ class App extends Component {
 
         <ErrorBoundary>
 
-          <Route path='/' exact>
-            <Landing />
-            <Footer />
-          </Route>
+          <Route path='/' exact render={route => {
+            return (
+              <>
+                <Landing push={route.history.push} />
+                <Footer />
+              </>
+            )
+          }} />
 
           <Route path='/project/:project_id' render={route => {
             return <Project route={route} />
-          }}>
-          </Route>
+          }} />
 
           <Route path='/error' exact render={() => {
             throw Error('This is the error route')
