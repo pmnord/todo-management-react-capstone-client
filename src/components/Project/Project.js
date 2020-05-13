@@ -56,14 +56,16 @@ export default class Project extends React.Component {
         const input = document.getElementById('newCategoryName');
         input.blur();
 
+        // Set up a new category object to avoid mutating the one in our state
         // Change to a string so we aren't passing an array into our database
-        newCategory.tasks = '';
-        newCategory.project_id = this.state.id;
+        const apiCategory = { ...newCategory }
+        apiCategory.tasks = '';
+        apiCategory.project_id = this.state.id;
 
         /* After posting the category, the server will respond with the id
         of the new category in the database. This needs to be set in the
         application state to support delete and update requests. */
-        ApiService.postCategory(newCategory)
+        ApiService.postCategory(apiCategory)
             .then(dbCategory => {
                 const newState = { ...this.state };
                 newState.categories[newState.categories.length - 1].id = dbCategory.id;
@@ -71,12 +73,20 @@ export default class Project extends React.Component {
     }
 
     deleteCategory = (categoryIndex) => {
+        // This needs to re-index all categories higher than it
+
         const category_id = this.state.categories[categoryIndex].id;
         const newState = { ...this.state };
         newState.categories.splice(categoryIndex, 1);
         this.setState(newState);
 
-        ApiService.deleteCategory(category_id);
+        const toReIndex = this.state.categories[categoryIndex]
+            ? this.state.categories.slice(categoryIndex).map(cat => ({ id: cat.id, index: cat.index }) )
+            : [];
+
+        console.log(toReIndex);
+
+        ApiService.deleteCategory(category_id, toReIndex);
     }
 
     createTask = (categoryIndex, newTaskTitle) => {
@@ -91,6 +101,7 @@ export default class Project extends React.Component {
 
         const newState = { ...this.state };
         newState.categories[categoryIndex].tasks.push(newTask);
+        // TypeError: newState.categories[categoryIndex].tasks.push is not a function
 
         this.setState(newState);
 
@@ -186,6 +197,15 @@ export default class Project extends React.Component {
         ApiService.patchTask(task_id, newValues)
     }
 
+    updateNote = (categoryIndex, taskIndex, newNote) => {
+        const task_id = this.state.categories[categoryIndex].tasks[taskIndex].id;
+        const newValues = {
+            notes: newNote
+        }
+
+        ApiService.patchTask(task_id, newValues)
+    }
+
     toggleShowAddForm = () => {
         this.setState({ showAddForm: !this.state.showAddForm });
     }
@@ -220,6 +240,11 @@ export default class Project extends React.Component {
     }
 
     render() {
+        if (this.state.error) {return (
+            <div className="project__error">
+                        <h2 >{this.state.error}</h2>
+                    </div>
+        )}
         return (
             <section className="project">
 
@@ -247,7 +272,7 @@ export default class Project extends React.Component {
                         </button>
                     </div>
 
-
+                    <p className="project__toolbar--hint">Hint: Remember to bookmark this page so you can come back to your project later.</p>
 
                 </div>
 
@@ -272,7 +297,8 @@ export default class Project extends React.Component {
                                 moveTask={this.moveTask}
                                 addTag={this.addTag}
                                 deleteTag={this.deleteTag}
-                                deleteCategory={this.deleteCategory} />)
+                                deleteCategory={this.deleteCategory}
+                                updateNote={this.updateNote} />)
                         : null}
 
                     {this.state.showAddForm ?

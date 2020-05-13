@@ -10,6 +10,11 @@ export default function Task(props) {
         props.deleteTask(props.categoryIndex, props.index);
     }
 
+    function handleUpdateNote (e) {
+        const newNote = e.target.value;
+        return props.updateNote(props.categoryIndex, props.index, newNote);
+    }
+
     return (
         <div className="task">
             <div className="task__header">
@@ -30,7 +35,7 @@ export default function Task(props) {
                     deleteTag={props.deleteTag} />
             </div>
 
-            <textarea rows="5" cols="39" defaultValue={props.notes}></textarea>
+            <textarea rows="5" cols="39" defaultValue={props.notes} onBlur={handleUpdateNote} ></textarea>
 
             <div className="task__nav-arrows">
                 {/* Left */}

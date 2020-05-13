@@ -68,7 +68,8 @@ export default class Category extends Component {
                             moveTask={this.props.moveTask}
                             deleteTask={this.props.deleteTask}
                             addTag={this.props.addTag}
-                            deleteTag={this.props.deleteTag} />)
+                            deleteTag={this.props.deleteTag}
+                            updateNote={this.props.updateNote} />)
                     : null
                 }
 

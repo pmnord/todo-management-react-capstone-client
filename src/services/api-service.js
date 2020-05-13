@@ -40,12 +40,14 @@ const ApiService = {
                 : res.json().then(err => Promise.reject(err)))
             .catch(err => console.log(err));
     },
-    deleteCategory: function (category_id) {
+    deleteCategory: function (category_id, toReIndex) {
         return fetch(`${config.API_ENDPOINT}/category/${category_id}`, {
             method: 'DELETE',
             headers: {
+                'content-type': 'application/json',
                 'api-key': config.API_KEY
-            }
+            },
+            body: JSON.stringify({ toReIndex })
         })
             .then(res => res.ok
                 ? null

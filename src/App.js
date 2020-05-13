@@ -25,8 +25,7 @@ class App extends Component {
     ];
 
     const loggedOutLinks = [
-      { path: '/', title: 'Log In' },
-      { path: '/error', title: 'See an Error' },
+      { path: '/', title: 'About' },
       { path: '/project/demo', title: 'Demo' },
     ];
 

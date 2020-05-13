@@ -22,12 +22,22 @@ export default class Landing extends React.Component {
 
         return (
             <section className="landing">
+
+                <h2>We Do</h2>
+
                 <section className="landing__pitch">
-                    <h2>Todos Together!</h2>
-                    <p>Lorem ipsum dolor set amet</p>
-                    <p>Lorem ipsum dolor set amet</p>
+                    <p>We Do is a collaborative planning tool that takes a minimalist approach.</p>
+                    <p>Get up and running with your co-collaborators in seconds. Plan and track a new project. Or brainstorm new ideas.</p>
+                    <p>The template is unoppinionated, allowing <em>you</em> to organize your collab in any way you choose.</p>
+                <Link aria-label="button"
+                    to="/project/demo"
+                    className="landing__create-project">
+                    New Project
+                </Link>
                 </section>
-                <section className="landing__credentials">
+
+
+                {/* <section className="landing__credentials">
                     <form className="landing__form landing__registration" onSubmit={this.handleRegistration}>
                         <h3>Registration</h3>
                         <div>
@@ -55,7 +65,8 @@ export default class Landing extends React.Component {
                     <Link to='/project/demo'>
                         <button className="landing__demo">Demo the App</button>
                     </Link>
-                </section>
+                </section> */}
+
             </section>
         )
     }

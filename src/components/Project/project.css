@@ -29,6 +29,11 @@
     font-size: 0.9rem;
 }
 
+.project__toolbar--hint {
+    padding: 0;
+    margin: 0 0.8rem;
+}
+
 .project__error {
     color: red;
     text-align: center;
