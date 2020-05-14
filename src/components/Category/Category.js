@@ -24,9 +24,12 @@ export default class Category extends Component {
 
     handleCreateTask = (e) => {
         e.preventDefault();
+        this.toggleShowAddForm();
+
         const inputId = `newTaskName${this.props.title}`;
 
         const newTaskTitle = e.target[inputId].value;
+        if (newTaskTitle === '') { return; } // Disallow empty task titles
 
         this.props.createTask(this.props.index, newTaskTitle);
 
@@ -58,12 +61,14 @@ export default class Category extends Component {
                 {this.props.tasks ?
                     this.props.tasks.map((el, idx) =>
                         <Task
-                            key={el.id}
+                            key={idx}
                             id={el.id}
                             title={el.title}
+                            dbIndex={el.index}
                             index={idx}
                             tags={el.tags}
                             notes={el.notes}
+                            display={el.display}
                             categoryIndex={this.props.index}
                             moveTask={this.props.moveTask}
                             deleteTask={this.props.deleteTask}
@@ -76,7 +81,7 @@ export default class Category extends Component {
                 {this.state.showAddForm ?
                     <form className="category__create-task-form" onSubmit={this.handleCreateTask}>
                         <label hidden htmlFor={`newTaskName${this.props.title}`}>New Task</label>
-                        <input placeholder="Task Name" onBlur={this.toggleShowAddForm} id={`newTaskName${this.props.title}`} type="text" />
+                        <input placeholder="Task Name" id={`newTaskName${this.props.title}`} type="text" />
                         <button>Add</button>
                     </form>
                     : <AddButton title="Task" onClick={() => this.toggleShowAddForm()} />}

@@ -22,28 +22,28 @@ export default class Nav extends Component {
     }
 
     componentDidMount() {
-        const root = document.getElementById('root')
-
+        // Add a listener to close the nav menu if it is open
+        const root = document.getElementById('root');
         root.addEventListener('mousedown', (e) => {
+            // Prevent the nav from toggling off unless the user clicks outside of the nav div
+            for (let element of e.path) {
+                if (element.className === "nav") { return; }
+            }
 
-            if(e.path[2].className === "nav__menu") {return;}
-
-            else if (this.state.showMenu) {
+            if (this.state.showMenu) {
                 this.toggleMenu();
             }
         })
     }
 
     handleNavClick = () => {
-        if (!this.state.showMenu) {
             this.toggleMenu();
-        }
     }
 
     render() {
         return (
             <nav className="nav">
-                
+
                 {/* Menu Icon */}
                 <svg onClick={this.handleNavClick} className="nav__icon" width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" clipRule="evenodd" d="M3 5C3 4.44772 3.44772 4 4 4H16C16.5523 4 17 4.44772 17 5C17 5.55228 16.5523 6 16 6H4C3.44772 6 3 5.55228 3 5Z" fill="#000000" />
@@ -52,7 +52,7 @@ export default class Nav extends Component {
                 </svg>
 
                 {this.state.showMenu ?
-                    <ul onBlur={this.toggleMenu} onClick={this.toggleMenu} className="nav__menu">
+                    <ul onClick={this.toggleMenu} className="nav__menu">
                         {this.props.links.map((link, idx) => {
                             return <Link key={idx} to={link.path}><li>{link.title}</li></Link>
                         })}

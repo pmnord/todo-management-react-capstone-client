@@ -32,7 +32,10 @@ export default class Tags extends Component {
 
     handleAddTag = (e) => {
         e.preventDefault();
+        this.toggleForm();
+
         const input = e.target[`add--tag--input--${this.props.taskId}`];
+        if (input.value === '') { return; } // Don't allow empty tags
 
         this.props.addTag(input.value);
 
@@ -55,7 +58,7 @@ export default class Tags extends Component {
                 {this.state.showForm ?
                     <form onSubmit={e => this.handleAddTag(e)} className="tags__add--tag--form" id={`add--tag--form--${this.props.taskId}`}>
                         <label htmlFor={`add--tag--input--${this.props.taskId}`} hidden>Tag Name</label>
-                        <input onBlur={this.toggleForm} placeholder="Tag Name" type="text" id={`add--tag--input--${this.props.taskId}`} />
+                        <input onBlur={this.setClickoutEvent} placeholder="Tag Name" type="text" id={`add--tag--input--${this.props.taskId}`} />
                         <button>Add</button>
                     </form >
                     : <AddButton onClick={this.toggleForm} title="Tag" />

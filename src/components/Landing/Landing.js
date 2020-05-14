@@ -1,6 +1,5 @@
 import React from 'react';
 import './landing.css';
-import { Link } from 'react-router-dom';
 import ApiService from '../../services/api-service';
 
 // The landing page handles registration and logging in, as well as providing basic information about the app
@@ -30,8 +29,8 @@ export default class Landing extends React.Component {
                 <h2>We Do</h2>
 
                 <section className="landing__pitch">
-                    <p>We Do is a collaborative planning tool that takes a minimalist approach.</p>
-                    <p>Get up and running with your co-collaborators in seconds. Plan and track a new project. Or brainstorm new ideas.</p>
+                    <p>We Do is a kanban-style collaborative planning tool with a minimalist approach.</p>
+                    <p>Get up and running with your team in seconds. Plan and track a new project, or brainstorm new ideas.</p>
                     <p>The template is unoppinionated, allowing <em>you</em> to organize your collab in any way you choose.</p>
                 <div aria-label="button"
                     

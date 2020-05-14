@@ -26,12 +26,7 @@ export default class Project extends React.Component {
         ApiService.getProjectObject(uuid)
             .then(data => {
                 if (!data) { return this.setState({ error: 'No project found' }) }
-                console.log(data);
                 newState = data;
-
-                // We need two copies of our data since one will be mutated 
-                // by our filter function
-                newState.originalCategories = utils.deepCopy(newState.categories);
 
                 this.setState(newState);
             })
@@ -39,12 +34,32 @@ export default class Project extends React.Component {
                 this.setState({ error: 'Failed to fetch project' });
                 console.log(err);
             })
+
+/* -------------------------------------------------------------------------- */
+/*                To enable live updating, uncomment this code                */
+/* -------------------------------------------------------------------------- */
+        // window.setInterval(() => {
+        //     ApiService.getProjectObject(uuid)
+        //     .then(data => {
+        //         if (!data) { return this.setState({ error: 'No project found' }) }
+        //         newState = data;
+
+        //         this.setState(newState);
+        //     })
+        //     .catch(err => {
+        //         this.setState({ error: 'Failed to fetch project' });
+        //         console.log(err);
+        //     })
+        // }, 1000)
     }
 
     createCategory = (e) => {
         e.preventDefault();
+        this.toggleShowAddForm();
 
         const newCategoryName = e.target.newCategoryName.value;
+        if (newCategoryName === '') { return; } // Disallow empty category titles
+
         const newCategory = {
             title: newCategoryName,
             tasks: [],
@@ -84,8 +99,6 @@ export default class Project extends React.Component {
             ? this.state.categories.slice(categoryIndex).map(cat => ({ id: cat.id, index: cat.index }) )
             : [];
 
-        console.log(toReIndex);
-
         ApiService.deleteCategory(category_id, toReIndex);
     }
 
@@ -107,10 +120,10 @@ export default class Project extends React.Component {
 
         ApiService.postTask(newTask)
             .then(dbTask => {
-                console.log(dbTask)
                 const newState = { ...this.state };
                 newState.categories[categoryIndex].tasks[newTaskIndex].id = dbTask.id;
             })
+            .catch(err => this.setState({ error: err }))
     }
 
     deleteTask = (categoryIndex, taskIndex) => {
@@ -131,14 +144,17 @@ export default class Project extends React.Component {
     }
 
     moveTask = (categoryIndex, taskIndex, direction) => {
-        if (taskIndex - 1 < 0 && direction === 'up') { return; }
-        if (categoryIndex - 1 < 0 && direction === 'left') { return; }
-        if (categoryIndex + 1 >= this.state.categories.length && direction === 'right') { return; }
+        // Ignore any calls in cases where there is no valid space to move to
+        if (direction === 'up' && taskIndex - 1 < 0) { return; }
+        if (direction === 'left' && categoryIndex - 1 < 0) { return; }
+        if (direction === 'right' && categoryIndex + 1 >= this.state.categories.length) { return; }
+        if (direction === 'down' && taskIndex + 1 > this.state.categories[categoryIndex].tasks.length - 1) { return; }
 
         const newState = utils.deepCopy(this.state);
         const task_id = this.state.categories[categoryIndex].tasks[taskIndex].id;
         let taskToMove;
         let newCategory;
+        let newIndex;
         let swapee_id;
 
         switch (direction) {
@@ -146,7 +162,8 @@ export default class Project extends React.Component {
                 taskToMove = newState.categories[categoryIndex].tasks.splice(taskIndex, 1)[0];
                 newState.categories[categoryIndex - 1].tasks.push(taskToMove);
                 newCategory = this.state.categories[categoryIndex - 1].id;
-                ApiService.patchTask(task_id, { category_id: newCategory });
+                newIndex = this.state.categories[categoryIndex - 1].tasks.length;
+                ApiService.patchTask(task_id, { category_id: newCategory, index: newIndex });
                 break;
             case 'down':
                 taskToMove = newState.categories[categoryIndex].tasks.splice(taskIndex, 1)[0];
@@ -164,7 +181,8 @@ export default class Project extends React.Component {
                 taskToMove = newState.categories[categoryIndex].tasks.splice(taskIndex, 1)[0];
                 newState.categories[categoryIndex + 1].tasks.push(taskToMove);
                 newCategory = this.state.categories[categoryIndex + 1].id;
-                ApiService.patchTask(task_id, { category_id: newCategory });
+                newIndex = this.state.categories[categoryIndex + 1].tasks.length;
+                ApiService.patchTask(task_id, { category_id: newCategory, index: newIndex });
                 break;
             default:
                 throw Error('A bad direction was passed to the moveTask() function')
@@ -232,19 +250,24 @@ export default class Project extends React.Component {
         const filterValue = e.target.value.toLowerCase();
 
         // It's important to create a deep copy to avoid mutating the nested reference types
-        const newCategories = utils.deepCopy(this.state.originalCategories);
+        const newCategories = utils.deepCopy(this.state.categories);
 
         newCategories.forEach(category => {
-            const newTasks = category.tasks.filter(task => {
+            category.tasks.forEach(task => {
                 let taskHasTag = false;
+
                 task.tags.forEach(tag => {
                     if (tag.toLowerCase().includes(filterValue)) {
                         taskHasTag = true;
                     }
                 })
-                return taskHasTag;
+                
+                if (filterValue === '') { // This is a bit hacky. The whole function should be rewritten.
+                    taskHasTag = true;
+                }
+
+                task.display = taskHasTag ? 'block' : 'none';
             })
-            category.tasks = newTasks;
         })
 
         this.setState({ categories: newCategories });
@@ -263,10 +286,10 @@ export default class Project extends React.Component {
 
                     {/* TODO: Fix the filter feature to only affect _display_ and not change the state */}
                     {/* Filter Feature */}
-                    {/* <form onSubmit={(e) => { e.preventDefault(); }} className="project__toolbar--filter">
+                    <form onSubmit={(e) => { e.preventDefault(); }} className="project__toolbar--filter">
                         <label htmlFor="filter-by-tag-input">Filter by Tag: </label>
                         <input onChange={this.filterByTag} type="text" id="filter-by-tag-input"></input>
-                    </form> */}
+                    </form>
 
                     <div className="project__toolbar--share">
                         <input id="project__toolbar--share--input" type='text' readOnly value={`https://wedo-l3x19dfd3.now.sh/project/${this.props.route.match.params.project_id}`} />
@@ -318,7 +341,7 @@ export default class Project extends React.Component {
                     {this.state.showAddForm ?
                         <form className="project__create-category-form" onSubmit={this.createCategory}>
                             <label htmlFor="newCategoryName" hidden>New Category</label>
-                            <input placeholder="Category Name" onBlur={this.toggleShowAddForm} id="newCategoryName" type="text" />
+                            <input placeholder="Category Name" id="newCategoryName" type="text" />
                             <button>Add</button>
                         </form>
                         : <AddButton onClick={this.toggleShowAddForm} title="Category" />}

@@ -18,11 +18,26 @@ header {
   align-items: center;
 }
 
-h1 {
+header h1 {
   margin: 0;
+}
+header h1:hover {
+  cursor: default;
 }
 
 a {
   text-decoration: none;
   color: hsl(0, 0%, 10%);
+}
+
+@media screen and (max-device-width: 500px) {
+  .App__header {
+    width: 100vw;
+    box-sizing: border-box;
+    height: 7vh;
+  }
+
+  .App__header-spacer {
+    height: 7vh;
+  }
 }

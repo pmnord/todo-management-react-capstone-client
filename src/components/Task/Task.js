@@ -16,7 +16,7 @@ export default function Task(props) {
     }
 
     return (
-        <div className="task">
+        <div className="task" style={{ display: props.display }}>
             <div className="task__header">
                 <h4>{props.title}</h4>
 

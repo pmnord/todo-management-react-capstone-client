@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Landing from './components/Landing/Landing.js';
 import Footer from './components/Footer/Footer';
 import Project from './components/Project/Project';
@@ -33,12 +33,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <Link to="/">
+        <header className="App__header">
             <h1>we ¯\_(ツ)_/¯ do</h1>
-          </Link>
           <Nav links={navLinks} />
         </header>
+        <div className="App__header-spacer"></div>
 
         <ErrorBoundary>
 

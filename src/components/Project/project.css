@@ -6,6 +6,8 @@
 .project__toolbar {
     padding: 0.5rem;
     display: flex;
+    background-color: hsl(0, 0%, 97%);
+    justify-content: center;
 }
 
 .project__toolbar--filter input {
