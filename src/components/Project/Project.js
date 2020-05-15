@@ -292,7 +292,7 @@ export default class Project extends React.Component {
                     </form>
 
                     <div className="project__toolbar--share">
-                        <input id="project__toolbar--share--input" type='text' readOnly value={`https://wedo-l3x19dfd3.now.sh/project/${this.props.route.match.params.project_id}`} />
+                        <input id="project__toolbar--share--input" type='text' readOnly value={window.location.href} />
                         <button aria-label="Copy to clipboard" onClick={() => {
                             utils.copyToClipboard(`project__toolbar--share--input`);
                             this.setState({ shareClicked: true })

@@ -40,3 +40,7 @@
     color: red;
     text-align: center;
 }
+
+.project__toolbar--share button {
+    width: 162px;
+}

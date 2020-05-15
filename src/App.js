@@ -17,25 +17,14 @@ class App extends Component {
   }
 
   render() {
-
-    const loggedInLinks = [
-      { path: '/', title: 'Log Out' },
-      { path: '/error', title: 'See an Error' },
-      { path: '/project/demo', title: 'Demo' },
-    ];
-
-    const loggedOutLinks = [
-      { path: '/', title: 'About' },
-      { path: '/project/demo', title: 'Demo' },
-    ];
-
-    const navLinks = this.state.loggedIn ? loggedInLinks : loggedOutLinks;
-
     return (
       <div className="App">
         <header className="App__header">
-            <h1>we ¯\_(ツ)_/¯ do</h1>
-          <Nav links={navLinks} />
+          <h1>we ¯\_(ツ)_/¯ do</h1>
+          <Route path="/" render={route => {
+            return <Nav push={route.history.push} />
+          }} />
+          {/* <Nav /> */}
         </header>
         <div className="App__header-spacer"></div>
 
@@ -58,7 +47,7 @@ class App extends Component {
             throw Error('This is the error route')
           }
           }>
-            
+
           </Route>
 
         </ErrorBoundary>

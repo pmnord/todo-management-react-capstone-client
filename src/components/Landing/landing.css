@@ -14,18 +14,25 @@
 .landing__pitch {
     text-align: center;
     font-size: 1.2rem;
-    background-color: hsl(0, 0%, 90%);
+    background-color: hsl(220, 20%, 90%);
     padding: 3rem 2rem;
     border-radius: 5px;
     font-weight: 800;
+    box-shadow: 0px 4px 8px 3px rgba(17, 17, 17, .06);
+    letter-spacing: 0.5px;
+}
+
+.landing__pitch p:first-child {
+    font-size: 1.7rem;
 }
 
 .landing__create-project {
     font-weight: 800;
-    border: solid 1px black;
+    border: solid 1px hsl(0, 0%, 40%);
+    background-color: hsl(220, 50%, 90%);
     padding: 0.8rem 1rem;
     font-size: 1.4rem;
-    border-radius: 5px;
+    border-radius: 25px;
     display: block;
     width: 10rem;
     margin: 0 auto;
@@ -33,11 +40,9 @@
     box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, .7);
 }
 .landing__create-project:hover {
-    background-color: white;
+    background-color: hsl(220, 50%, 85%);
     cursor: pointer;
 }
-
-
 
 .landing__credentials {
     display: flex;

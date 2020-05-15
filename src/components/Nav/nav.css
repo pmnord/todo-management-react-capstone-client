@@ -2,13 +2,12 @@
 
 .nav__icon:hover {
     cursor: pointer;
-    background-color: white;
 }
 
 .nav__menu {
     list-style: none;
     padding: 0;
-    background-color: hsl(0, 0%, 92%);
+    background-color: hsl(220, 20%, 90%);
     position: absolute;
     top: 40px;
     right: 45px;
@@ -26,5 +25,5 @@
 
 .nav__menu li:hover {
     background-color: white;
-    text-decoration: underline;
+    cursor: pointer;
 }
