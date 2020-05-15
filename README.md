@@ -1,6 +1,6 @@
-## we  do
+## We Do
 
-A kanban-style issue tracker supporting concurrent users, implemented with React on the front end and Node.js on the back end.
+We Do is a kanban-style issue tracker supporting concurrent users, implemented with React on the front end and Node.js on the back end.
 
 [Backend Documentation](https://github.com/pmnord/todo-management-react-capstone-server)
 
