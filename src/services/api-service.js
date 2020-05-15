@@ -12,7 +12,7 @@ const ApiService = {
             .then(res => res.ok
                 ? res.json()
                 : res.json().then(err => Promise.reject(err)))
-            .then(data => data.uuid)
+            .then(uuid => uuid)
             .catch(err => console.log(err));
     },
     getProjectObject: function (uuid) {
