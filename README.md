@@ -2,8 +2,6 @@
 
 A kanban board for organizing tasks using categories and tags, implemented with React on the front end and Node.js on the back end.
 
-[Demo](https://we-do.pmnord.now.sh/)
-
 [Backend Documentation](https://github.com/pmnord/todo-management-react-capstone-server)
 
 | | | | | |
