@@ -201,12 +201,12 @@ export default class Project extends React.Component {
         this.setState(newState);
 
         // Send the new tags values to the server to be updated
-        const apiTags = newTags.map(tag => tag.replace(/\s/g, '&#32;')).join(' ')
+        const apiTags = newTags.map(tag => tag.replace(/\s/g, '&#32;')).join(' ');
         const newValues = {
             tags: apiTags
-        }
+        };
 
-        ApiService.patchTask(task_id, newValues)
+        ApiService.patchTask(task_id, newValues);
     }
 
     deleteTag = (categoryIndex, taskIndex, tagIndex) => {
@@ -218,21 +218,21 @@ export default class Project extends React.Component {
         this.setState(newState);
 
         // Send the new tags values to the server to be updated
-        const apiTags = newTags.map(tag => tag.replace(/\s/g, '&#32;')).join(' ')
+        const apiTags = newTags.map(tag => tag.replace(/\s/g, '&#32;')).join(' ');
         const newValues = {
             tags: apiTags
-        }
+        };
 
-        ApiService.patchTask(task_id, newValues)
+        ApiService.patchTask(task_id, newValues);
     }
 
     updateNote = (categoryIndex, taskIndex, newNote) => {
         const task_id = this.state.categories[categoryIndex].tasks[taskIndex].id;
         const newValues = {
             notes: newNote
-        }
+        };
 
-        ApiService.patchTask(task_id, newValues)
+        ApiService.patchTask(task_id, newValues);
     }
 
     toggleShowAddForm = () => {
@@ -295,7 +295,7 @@ export default class Project extends React.Component {
                         <input id="project__toolbar--share--input" type='text' readOnly value={window.location.href} />
                         <button aria-label="Copy to clipboard" onClick={() => {
                             utils.copyToClipboard(`project__toolbar--share--input`);
-                            this.setState({ shareClicked: true })
+                            this.setState({ shareClicked: true });
                         }} >
 
                             {/* Clipboard Icon */}

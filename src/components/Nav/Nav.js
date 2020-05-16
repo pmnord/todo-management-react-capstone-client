@@ -35,6 +35,11 @@ export default class Nav extends Component {
             })
     }
 
+    handleDemoClick = () => {
+        this.props.push(`/project/demo`);
+        window.location.reload(true);
+    }
+
     toggleMenu = () => {
         this.setState({ showMenu: !this.state.showMenu });
     }
@@ -59,7 +64,7 @@ export default class Nav extends Component {
                     <ul onClick={this.toggleMenu} className="nav__menu">
                         <Link to='/'><li>About</li></Link>
                         <li onClick={this.handleNewProject}>New Project</li>
-                        <Link to='/project/demo'><li>Demo</li></Link>
+                        <li onClick={this.handleDemoClick}>Demo</li>
                     </ul>
                     : null}
 
