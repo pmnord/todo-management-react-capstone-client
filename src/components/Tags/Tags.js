@@ -52,7 +52,11 @@ export default class Tags extends Component {
 
                 {this.props.tags ?
                     this.props.tags.map((tag, idx) =>
-                        <Tag key={idx} index={idx} title={tag} deleteTag={this.handleDeleteTag} />)
+                        <Tag key={idx} 
+                            index={idx} 
+                            title={tag} 
+                            deleteTag={this.handleDeleteTag}
+                            hue={this.props.hue} />)
                     : null}
 
                 {this.state.showForm ?

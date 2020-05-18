@@ -39,7 +39,8 @@ export default function Task(props) {
                         taskIndex={props.index}
                         categoryIndex={props.categoryIndex}
                         addTag={(newTag) => props.addTag(props.categoryIndex, props.index, newTag)}
-                        deleteTag={props.deleteTag} />
+                        deleteTag={props.deleteTag}
+                        hue={props.hue} />
                 </div>
                 <textarea rows="5" cols="39" defaultValue={props.notes} onBlur={handleUpdateNote} ></textarea>
             </div>
