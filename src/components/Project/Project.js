@@ -16,6 +16,7 @@ export default class Project extends React.Component {
             categories: [],
             showAddForm: false,
             shareClicked: false,
+            appColor: '220'
         };
     }
 
@@ -35,9 +36,9 @@ export default class Project extends React.Component {
                 console.log(err);
             })
 
-/* -------------------------------------------------------------------------- */
-/*                To enable live updating, uncomment this code                */
-/* -------------------------------------------------------------------------- */
+        /* -------------------------------------------------------------------------- */
+        /*                To enable live updating, uncomment this code                */
+        /* -------------------------------------------------------------------------- */
         // window.setInterval(() => {
         //     ApiService.getProjectObject(uuid)
         //     .then(data => {
@@ -96,7 +97,7 @@ export default class Project extends React.Component {
         this.setState(newState);
 
         const toReIndex = this.state.categories[categoryIndex]
-            ? this.state.categories.slice(categoryIndex).map(cat => ({ id: cat.id, index: cat.index }) )
+            ? this.state.categories.slice(categoryIndex).map(cat => ({ id: cat.id, index: cat.index }))
             : [];
 
         ApiService.deleteCategory(category_id, toReIndex);
@@ -130,14 +131,14 @@ export default class Project extends React.Component {
         const task_id = this.state.categories[categoryIndex].tasks[taskIndex].id;
         const newState = { ...this.state };
         let newTasks = newState.categories[categoryIndex].tasks;
-        
+
         // Remove the task from the new application state
         newTasks.splice(taskIndex, 1);
         // reIndex the tasks in our application state
-        newTasks = newTasks.map((task, index) => {task.index = index; return task;});
-        
+        newTasks = newTasks.map((task, index) => { task.index = index; return task; });
+
         this.setState(newState);
-        
+
         // Pass the array of tasks to reIndex to our API
         const toReIndex = this.state.categories[categoryIndex].tasks.slice(taskIndex) || [];
         ApiService.deleteTask(task_id, toReIndex)
@@ -261,7 +262,7 @@ export default class Project extends React.Component {
                         taskHasTag = true;
                     }
                 })
-                
+
                 if (filterValue === '') { // This is a bit hacky. The whole function should be rewritten.
                     taskHasTag = true;
                 }
@@ -273,31 +274,48 @@ export default class Project extends React.Component {
         this.setState({ categories: newCategories });
     }
 
+    handleChangeColor = (e) => {
+        // TODO: Set a variable in local storage to track a user's color choice
+        const hue = e.target.value;
+
+        this.props.setHeaderColor(hue);
+
+        this.setState({
+            ...this.state,
+            appColor: hue,
+        })
+    }
+
     render() {
-        if (this.state.error) {return (
-            <div className="project__error">
-                        <h2 >{this.state.error}</h2>
-                    </div>
-        )}
+        if (this.state.error) {
+            return (
+                <div className="project__error">
+                    <h2 >{this.state.error}</h2>
+                </div>
+            )
+        }
+
+        const toolbarStyles = {
+            backgroundColor: `hsl(${this.state.appColor}, 20%, 97%)`,
+        };
+
         return (
             <section className="project">
-
-                <div className="project__toolbar">
-
-                    {/* TODO: Fix the filter feature to only affect _display_ and not change the state */}
+                <div style={toolbarStyles} className="project__toolbar">
                     {/* Filter Feature */}
                     <form onSubmit={(e) => { e.preventDefault(); }} className="project__toolbar--filter">
                         <label htmlFor="filter-by-tag-input">Filter by Tag: </label>
                         <input onChange={this.filterByTag} type="text" id="filter-by-tag-input"></input>
                     </form>
 
+                    {/* Shareable Link Button */}
                     <div className="project__toolbar--share">
                         <input id="project__toolbar--share--input" type='text' readOnly value={window.location.href} />
+
                         <button aria-label="Copy to clipboard" onClick={() => {
                             utils.copyToClipboard(`project__toolbar--share--input`);
                             this.setState({ shareClicked: true });
                         }} >
-
                             {/* Clipboard Icon */}
                             <svg width="20" height="20" viewBox="2 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 2C8.44772 2 8 2.44772 8 3C8 3.55228 8.44772 4 9 4H11C11.5523 4 12 3.55228 12 3C12 2.44772 11.5523 2 11 2H9Z" fill="#4A5568" />
@@ -309,7 +327,19 @@ export default class Project extends React.Component {
                         </button>
                     </div>
 
-                    <p className="project__toolbar--hint">Hint: Remember to bookmark this page so you can come back to your project later.</p>
+                    {/* Color Setter */}
+                    <div className="project__toolbar--color">
+                                <label htmlFor="project__toolbar--color--select" className="hidden">Color: </label>
+                                <select defaultValue={"DEFAULT"} onChange={this.handleChangeColor} id="project__toolbar--color--select">
+                                    <option value="DEFAULT" disabled hidden>Color Theme</option>
+                                    <option value="220">Blue</option>
+                                    <option value="0">Red</option>
+                                    <option value="120">Green</option>
+                                    <option value="60">Yellow</option>
+                                    <option value="180">Cyan</option>
+                                    <option value="300">Magenta</option>
+                                </select>
+                    </div>
 
                 </div>
 
@@ -335,7 +365,8 @@ export default class Project extends React.Component {
                                 addTag={this.addTag}
                                 deleteTag={this.deleteTag}
                                 deleteCategory={this.deleteCategory}
-                                updateNote={this.updateNote} />)
+                                updateNote={this.updateNote}
+                                hue={this.state.appColor} />)
                         : null}
 
                     {this.state.showAddForm ?

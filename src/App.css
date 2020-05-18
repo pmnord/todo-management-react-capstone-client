@@ -4,6 +4,7 @@ body {
   min-height: 100vh;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
+  background-color: hsl(0, 0%, 99%);
 }
 
 .App {
@@ -15,7 +16,7 @@ h1, h2, h3, h4, h5 {
 }
 
 header {
-  background-color: hsl(220, 20%, 90%);
+  
   padding: 0.2rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -33,6 +34,10 @@ header h1:hover {
 a {
   text-decoration: none;
   color: hsl(0, 0%, 10%);
+}
+
+.hidden {
+  display: none;
 }
 
 @media screen and (max-device-width: 500px) {

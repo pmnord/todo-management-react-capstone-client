@@ -1,17 +1,21 @@
 .project__board {
     display: flex;
     justify-content: flex-start;
+    margin-top: 5px;
 }
 
 .project__toolbar {
     padding: 0.5rem;
     display: flex;
-    background-color: hsl(0, 0%, 97%);
+    background-color: hsl(220, 20%, 97%);
     justify-content: center;
 }
 
 .project__toolbar--filter input {
     height: 1.2rem;
+}
+.project__toolbar--filter label {
+    font-family: 'Varela Round', sans-serif;
 }
 
 .project__toolbar--share {
@@ -31,9 +35,12 @@
     font-size: 0.9rem;
 }
 
-.project__toolbar--hint {
-    padding: 0;
-    margin: 0 0.8rem;
+.project__toolbar--color select {
+    display: flex;
+    align-items: center;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 1.2rem;
+    margin-left: 1rem;
 }
 
 .project__error {

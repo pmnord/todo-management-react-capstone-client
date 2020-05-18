@@ -2,6 +2,8 @@
 
 .nav__icon:hover {
     cursor: pointer;
+    background-color: rgb(252, 252, 252);
+    border-radius: 100%;
 }
 
 .nav__menu {
@@ -14,16 +16,16 @@
     text-align: center;
 
     width: 15rem;
-    border: solid 1px black;
+    border: solid 0.5px black;
     border-radius: 2%;
 }
 
 .nav__menu li {
     padding: 1rem;
-    border: solid 1px black;
+    border: solid 0.5px black;
 }
 
 .nav__menu li:hover {
-    background-color: white;
+    background-color: hsl(0, 0%, 99%);
     cursor: pointer;
 }

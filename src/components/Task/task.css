@@ -1,16 +1,29 @@
 .task {
     background-color: hsl(0, 0%, 95%);
-    padding: 0.5rem;
     margin-bottom: 0.2rem;
+    border-radius: 2px;
+    display: flex;
+}
+
+.task__body {
+    padding: 0.5rem;
 }
 
 .task__nav-arrows {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    padding: 0.25rem;
+    border-left: 3mm ridge hsl(0, 0%, 80%, 0.2);
+}
+.task__nav-arrow {
+    display: block;
 }
 
 .task__nav-arrow:hover {
     cursor: pointer;
+    background-color: white;
+    border-radius: 5px;
 }
 .task__nav-arrow:active {
     background-color: white;
@@ -29,4 +42,6 @@
 
 .task__header--x:hover {
     cursor: pointer;
+    background-color: white;
+    border-radius: 5px;
 }

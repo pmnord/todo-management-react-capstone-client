@@ -1,10 +1,12 @@
 import React from 'react';
 import './addButton.css';
 
-export default function AddButton({ onClick, title, color }) {
+export default function AddButton({ onClick, title, hue }) {
 
     // Set a color on the AddButton component by passing it a 'color' prop
-    const buttonStyle = { backgroundColor: color };
+    const buttonStyle = { 
+        backgroundColor: `rgb(248, 248, 248)`,
+    };
 
     return (
         <div onClick={onClick} style={buttonStyle} className="add-button">
@@ -22,5 +24,5 @@ export default function AddButton({ onClick, title, color }) {
 
 AddButton.defaultProps = {
     title: 'Add',
-    color: 'transparent',
+    hue: '220',
 };

@@ -43,8 +43,12 @@ export default class Category extends Component {
     }
 
     render() {
+        const categoryStyles = {
+            backgroundColor: `hsl(${this.props.hue}, 20%, 90%)`
+        }
+
         return (
-            <div className="category">
+            <div className="category" style={categoryStyles}>
 
                 <div className="category__header">
                     <h3 onDoubleClick={() => console.log('thats a double')}>
@@ -74,7 +78,8 @@ export default class Category extends Component {
                             deleteTask={this.props.deleteTask}
                             addTag={this.props.addTag}
                             deleteTag={this.props.deleteTag}
-                            updateNote={this.props.updateNote} />)
+                            updateNote={this.props.updateNote}
+                            hue={this.props.hue} />)
                     : null
                 }
 

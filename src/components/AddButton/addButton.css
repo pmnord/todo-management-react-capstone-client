@@ -1,24 +1,25 @@
 .add-button {
     color: rgb(45, 47, 49);
-    border: solid 2px rgb(45, 47, 49);
-    border-radius: 3px;
+    border: solid 0.5px hsl(0, 0%, 55%);
+    border-radius: 2px;
 
     display: inline-flex;
     align-items: center;
-    height: 1.3rem;
+    height: 1.6rem;
+    box-sizing: border-box;
+    background-color: red;
+    
 }
 
 .add-button:hover {
     cursor: pointer;
-    background-color: hsl(0, 0%, 100%) !important;
+    border: solid 0.5px hsl(0, 0%, 15%);
 }
 
-.add-button--plus-icon {
-    border-right: solid 2px rgb(45, 47, 49);
-    height: 100%;
-}
 
 .add-button__title {
-    padding: 0 0.2rem;
+    padding-right: 0.3rem;
+    margin: 0;
     font-weight: 800;
+    
 }

@@ -11,18 +11,28 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: '',
-      loggedIn: false
+      appColor: '220'
     }
   }
 
+  setHeaderColor = (hue) => {
+    this.setState({
+      ...this.state,
+      appColor: hue,
+    });
+  }
+
   render() {
+    const headerStyles = {
+      backgroundColor: `hsl(${this.state.appColor}, 20%, 90%)`
+    }
+
     return (
       <div className="App">
-        <header className="App__header">
+        <header style={headerStyles} className="App__header">
           <h1>we ¯\_(ツ)_/¯ do</h1>
           <Route path="/" render={route => {
-            return <Nav push={route.history.push} />
+            return <Nav push={route.history.push} hue={this.state.appColor} />
           }} />
           {/* <Nav /> */}
         </header>
@@ -40,7 +50,7 @@ class App extends Component {
           }} />
 
           <Route path='/project/:project_id' render={route => {
-            return <Project route={route} />
+            return <Project route={route} setHeaderColor={this.setHeaderColor} />
           }} />
 
           <Route path='/error' exact render={() => {
