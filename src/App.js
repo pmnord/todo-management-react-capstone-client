@@ -30,7 +30,7 @@ class App extends Component {
     return (
       <div className="App">
         <header style={headerStyles} className="App__header">
-          <h1>we ¯\_(ツ)_/¯ do</h1>
+          <h1>we do</h1>
           <Route path="/" render={route => {
             return <Nav push={route.history.push} hue={this.state.appColor} />
           }} />

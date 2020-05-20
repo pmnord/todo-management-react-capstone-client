@@ -342,6 +342,7 @@ export default class Project extends React.Component {
                     </div>
 
                 </div>
+                <div className="project__toolbar--spacer"></div>
 
                 {/* Error Display */}
                 {this.state.error

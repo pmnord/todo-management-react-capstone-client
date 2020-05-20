@@ -1,7 +1,10 @@
 .project__board {
     display: flex;
     justify-content: flex-start;
+    align-items: flex-start;
     margin-top: 5px;
+    padding-right: 1rem;
+    box-sizing: border-box;
 }
 
 .project__toolbar {
@@ -10,6 +13,16 @@
     background-color: hsl(220, 20%, 97%);
     justify-content: center;
     align-items: center;
+
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    height: 2.7rem;
+    top: 2.9rem;
+    box-sizing: border-box;
+}
+.project__toolbar--spacer {
+    height: 2.7rem;
 }
 
 .project__toolbar--filter input {

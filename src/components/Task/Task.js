@@ -42,7 +42,7 @@ export default function Task(props) {
                         deleteTag={props.deleteTag}
                         hue={props.hue} />
                 </div>
-                <textarea rows="5" cols="39" defaultValue={props.notes} onBlur={handleUpdateNote} ></textarea>
+                <textarea rows="5" cols="33" defaultValue={props.notes} onBlur={handleUpdateNote} style={{resize: "none"}} ></textarea>
             </div>
 
             <div className="task__nav-arrows">

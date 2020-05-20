@@ -46,3 +46,7 @@
     background-color: white;
     border-radius: 5px;
 }
+
+.task__body--textarea {
+    resize: none;
+}

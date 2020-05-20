@@ -51,6 +51,7 @@ Create categories, create tasks, tag your tasks, move your tasks, filter your ta
 ||||priority||
 
 ## Developer Roadmap
+- Refactor the project toolbar and header into a new component
 - Refactor to use Context API
 - Refactor to use React Hooks
 - Support multiple projects by the same user
