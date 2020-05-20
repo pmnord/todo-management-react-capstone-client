@@ -6,16 +6,16 @@
     border-radius: 2px;
     min-width: 20rem;
     overflow-y: auto;
-    max-height: 80vh;
+    max-height: 90vh;
 }
 
 .category::-webkit-scrollbar {
-    width: 0.2rem;
+    width: 0.21rem;
     background-color: lightgray;
 }
 .category::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
+    background-color: hsl(0, 0%, 0%, 0.2);
+    outline: 1px solid hsl(0, 0%, 0%, 0.1);
   }
 
 .category__header {

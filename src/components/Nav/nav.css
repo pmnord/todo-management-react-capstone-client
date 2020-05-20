@@ -11,21 +11,33 @@
     padding: 0;
     background-color: hsl(220, 20%, 90%);
     position: absolute;
-    top: 40px;
-    right: 45px;
+    top: 30px;
+    right: 10px;
     text-align: center;
 
-    width: 15rem;
-    border: solid 0.5px black;
-    border-radius: 2%;
+    width: 16rem;
+    box-shadow: 0px 0px 5px gray;
+    border-radius: 10px;
 }
 
 .nav__menu li {
-    padding: 1rem;
-    border: solid 0.5px black;
+    padding: 2rem 1rem;
+    border-bottom: solid 0.5px gray;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 1.2rem;
+}
+.nav__menu li:last-of-type {
+    border-bottom: none;
 }
 
 .nav__menu li:hover {
     background-color: hsl(0, 0%, 99%);
     cursor: pointer;
+}
+
+.nav__menu li:last-of-type:hover {
+    border-radius: 0 0 10px 10px;
+}
+.nav__menu li:first-of-type:hover {
+    border-radius: 10px 10px 0 0;
 }

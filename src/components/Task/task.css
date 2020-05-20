@@ -8,6 +8,7 @@
 
 .task__body {
     padding: 0.5rem;
+    width: 100%;
 }
 
 .task__nav-arrows {

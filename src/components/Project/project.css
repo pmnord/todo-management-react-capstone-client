@@ -1,10 +1,13 @@
+.project {
+    height: 100%;
+}
+
 .project__board {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     margin-top: 5px;
-    padding-right: 1rem;
-    box-sizing: border-box;
+    border-right: solid 5px transparent;
 }
 
 .project__toolbar {
@@ -15,7 +18,7 @@
     align-items: center;
 
     position: fixed;
-    z-index: 1;
+    z-index: auto;
     width: 100vw;
     height: 2.7rem;
     top: 2.9rem;
@@ -65,4 +68,13 @@
 
 .project__toolbar--share button {
     width: 162px;
+}
+
+@media screen and (max-width: 600px) {
+    .project__toolbar {
+        display: none;
+    }
+    .project__toolbar--spacer {
+        display: none;
+    }
 }

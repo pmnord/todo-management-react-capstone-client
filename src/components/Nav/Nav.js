@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './nav.css';
-import { Link } from 'react-router-dom';
 import ApiService from '../../services/api-service';
 
 export default class Nav extends Component {
@@ -51,7 +50,7 @@ export default class Nav extends Component {
 
     render() {
         const menuStyles = {
-            backgroundColor: `hsl(${this.props.hue}, 40%, 90%)`,
+            backgroundColor: `hsl(${this.props.hue}, 50%, 92%)`,
         }
 
         const iconStyles = {
@@ -73,7 +72,7 @@ export default class Nav extends Component {
 
                 {this.state.showMenu ?
                     <ul style={menuStyles} onClick={this.toggleMenu} className="nav__menu">
-                        <Link to='/'><li>About</li></Link>
+                        <li onClick={() => this.props.push('/')}>About</li>
                         <li onClick={this.handleNewProject}>New Project</li>
                         <li onClick={this.handleDemoClick}>Demo</li>
                     </ul>
