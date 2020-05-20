@@ -57,6 +57,7 @@ Create categories, create tasks, tag your tasks, move your tasks, filter your ta
 - Support multiple projects by the same user
 - Support shared projects and concurrency with websockets
 - Support drag and drop task movement with react-dnd
+- Add additional security layers
 
 ## User Stories
 

@@ -16,7 +16,6 @@ const ApiService = {
             .catch(err => console.log(err));
     },
     getProjectObject: function (uuid) {
-        console.log(config.API_ENDPOINT)
         return fetch(`${config.API_ENDPOINT}/project/${uuid}`, {
             headers: {
                 'api-key': config.API_KEY,

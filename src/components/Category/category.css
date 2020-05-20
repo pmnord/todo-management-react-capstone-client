@@ -6,7 +6,7 @@
     border-radius: 2px;
     min-width: 20rem;
     overflow-y: auto;
-    max-height: 90vh;
+    max-height: 80vh;
 }
 
 .category::-webkit-scrollbar {
