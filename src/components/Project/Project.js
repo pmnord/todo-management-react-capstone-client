@@ -267,7 +267,7 @@ export default class Project extends React.Component {
                     taskHasTag = true;
                 }
 
-                task.display = taskHasTag ? 'block' : 'none';
+                task.display = taskHasTag ? 'flex' : 'none';
             })
         })
 
