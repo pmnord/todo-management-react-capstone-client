@@ -32,9 +32,11 @@ class App extends Component {
         <header style={headerStyles} className="App__header">
           <h1>we do</h1>
           <Route path="/" render={route => {
-            return <Nav push={route.history.push} hue={this.state.appColor} />
+            return <Nav 
+              push={route.history.push} 
+              hue={this.state.appColor}
+              setHeaderColor={this.setHeaderColor} />
           }} />
-          {/* <Nav /> */}
         </header>
         <div className="App__header-spacer"></div>
 

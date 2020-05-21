@@ -1,9 +1,9 @@
 .landing {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    min-height: 60vh;
+    height: 70vh;
 }
 
 .landing h2 {
@@ -28,16 +28,16 @@
 
 .landing__create-project {
     font-weight: 800;
-    border: solid 1px hsl(0, 0%, 40%);
     background-color: hsl(220, 50%, 90%);
-    padding: 0.8rem 1rem;
+    padding: 1rem 1.2rem;
     font-size: 1.4rem;
     border-radius: 25px;
     display: block;
     width: 10rem;
     margin: 0 auto;
     margin-top: 3rem;
-    box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, .7);
+    box-shadow: 0px 0px 5px gray;
+    border-radius: 10px;
 }
 .landing__create-project:hover {
     background-color: hsl(220, 50%, 85%);

@@ -39,6 +39,11 @@ export default class Nav extends Component {
         window.location.reload(true);
     }
 
+    handleAboutClick = () => {
+        this.props.push('/');
+        this.props.setHeaderColor('220');
+    }
+
     toggleMenu = () => {
         this.setState({ showMenu: !this.state.showMenu });
     }
@@ -72,7 +77,7 @@ export default class Nav extends Component {
 
                 {this.state.showMenu ?
                     <ul style={menuStyles} onClick={this.toggleMenu} className="nav__menu">
-                        <li onClick={() => this.props.push('/')}>About</li>
+                        <li onClick={this.handleAboutClick}>About</li>
                         <li onClick={this.handleNewProject}>New Project</li>
                         <li onClick={this.handleDemoClick}>Demo</li>
                     </ul>
