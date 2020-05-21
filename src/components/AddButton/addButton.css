@@ -8,7 +8,7 @@
     height: 1.6rem;
     box-sizing: border-box;
     background-color: red;
-    
+    box-sizing: border-box;
 }
 
 .add-button:hover {
@@ -23,3 +23,13 @@
     font-weight: 800;
     
 }
+
+.AddButton__form {
+    height: 1.6rem;
+    box-sizing: border-box;
+}
+
+.AddButton__form input {
+    width: 9rem;
+}
+

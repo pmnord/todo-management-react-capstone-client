@@ -12,6 +12,7 @@
 
 .project__toolbar {
     padding: 0.5rem;
+    padding-top: 0.6rem;
     display: flex;
     background-color: hsl(220, 20%, 97%);
     justify-content: center;

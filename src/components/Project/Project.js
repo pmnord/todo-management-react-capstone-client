@@ -14,7 +14,6 @@ export default class Project extends React.Component {
         super(props);
         this.state = {
             categories: [],
-            showAddForm: false,
             shareClicked: false,
             appColor: '220'
         };
@@ -39,6 +38,7 @@ export default class Project extends React.Component {
         /* -------------------------------------------------------------------------- */
         /*                To enable live updating, uncomment this code                */
         /* -------------------------------------------------------------------------- */
+
         // window.setInterval(() => {
         //     ApiService.getProjectObject(uuid)
         //     .then(data => {
@@ -54,11 +54,7 @@ export default class Project extends React.Component {
         // }, 1000)
     }
 
-    createCategory = (e) => {
-        e.preventDefault();
-        this.toggleShowAddForm();
-
-        const newCategoryName = e.target.newCategoryName.value;
+    createCategory = (newCategoryName) => {
         if (newCategoryName === '') { return; } // Disallow empty category titles
 
         const newCategory = {
@@ -68,9 +64,6 @@ export default class Project extends React.Component {
         };
         const newState = { categories: [...this.state.categories, newCategory] };
         this.setState(newState);
-
-        const input = document.getElementById('newCategoryName');
-        input.blur();
 
         // Set up a new category object to avoid mutating the one in our state
         // Change to a string so we aren't passing an array into our database
@@ -370,13 +363,11 @@ export default class Project extends React.Component {
                                 hue={this.state.appColor} />)
                         : null}
 
-                    {this.state.showAddForm ?
-                        <form className="project__create-category-form" onSubmit={this.createCategory}>
-                            <label htmlFor="newCategoryName" hidden>New Category</label>
-                            <input placeholder="Category Name" id="newCategoryName" type="text" />
-                            <button>Add</button>
-                        </form>
-                        : <AddButton onClick={this.toggleShowAddForm} title="Category" />}
+                    <AddButton 
+                            onClick={this.toggleShowAddForm} 
+                            title="Category"
+                            onSubmit={(newCategoryName) => {this.createCategory(newCategoryName)}}
+                            id={`create-category-button`} />
 
                 </div>
 
