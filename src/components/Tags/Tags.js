@@ -1,74 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './tags.css';
 import AddButton from '../AddButton/AddButton';
 import Tag from '../Tag/Tag';
 
 // The Tags component displays tags that have been attached to a Task
-// as well as providing a form for adding new tags
-export default class Tags extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showForm: false,
-        }
+
+export default function Tags(props) {
+
+    const handleDeleteTag = (tagIndex) => {
+        props.deleteTag(props.categoryIndex, props.taskIndex, tagIndex)
     }
 
-    static defaultProps = {
-        addTag: () => { },
-    }
+    return (
+        <div className="tags" >
 
-    componentDidUpdate = () => {
-        if (this.state.showForm) {
-            const formInput = document.getElementById(`add--tag--input--${this.props.taskId}`);
-            formInput.focus();
-        }
-    }
+            {props.tags ?
+                props.tags.map((tag, idx) =>
+                    <Tag key={idx}
+                        index={idx}
+                        title={tag}
+                        deleteTag={handleDeleteTag}
+                        hue={props.hue} />)
+                : null}
 
-    toggleForm = () => {
-        this.setState({
-            showForm: !this.state.showForm
-        });
-    }
+            <AddButton
+                title="Tag"
+                id={`cat-${props.categoryIndex}-task-${props.taskIndex}-tags`}
+                onSubmit={(tagName) => props.addTag(tagName)} />
 
-    handleAddTag = (e) => {
-        e.preventDefault();
-        this.toggleForm();
+        </div >
+    )
+}
 
-        const input = e.target[`add--tag--input--${this.props.taskId}`];
-        if (input.value === '') { return; } // Don't allow empty tags
-
-        this.props.addTag(input.value);
-
-        input.value = '';
-    }
-
-    handleDeleteTag = (tagIndex) => {
-        this.props.deleteTag(this.props.categoryIndex, this.props.taskIndex, tagIndex)
-    }
-
-    render() {
-        return (
-            <div className="tags" >
-
-                {this.props.tags ?
-                    this.props.tags.map((tag, idx) =>
-                        <Tag key={idx} 
-                            index={idx} 
-                            title={tag} 
-                            deleteTag={this.handleDeleteTag}
-                            hue={this.props.hue} />)
-                    : null}
-
-                {this.state.showForm ?
-                    <form onSubmit={e => this.handleAddTag(e)} className="tags__add--tag--form" id={`add--tag--form--${this.props.taskId}`}>
-                        <label htmlFor={`add--tag--input--${this.props.taskId}`} hidden>Tag Name</label>
-                        <input onBlur={this.setClickoutEvent} placeholder="Tag Name" type="text" id={`add--tag--input--${this.props.taskId}`} />
-                        <button>Add</button>
-                    </form >
-                    : <AddButton onClick={this.toggleForm} title="Tag" />
-                }
-
-            </div >
-        )
-    }
+Tags.defaultProps = {
+    addTag: () => { }
 }

@@ -71,7 +71,6 @@ const ApiService = {
     deleteTask: function (task_id, toReIndex = []) {
         // We have to re-index all tasks higher than the target
         // toReIndex: an array of task_ids to have their index decremented by 1
-        console.log('api-service toReIndex: ', toReIndex)
         return fetch(`${config.API_ENDPOINT}/task/${task_id}`, {
             method: 'DELETE',
             headers: {
