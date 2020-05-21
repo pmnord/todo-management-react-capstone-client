@@ -295,6 +295,7 @@ export default class Project extends React.Component {
         return (
             <section className="project">
                 <div style={toolbarStyles} className="project__toolbar">
+                    
                     {/* Filter Feature */}
                     <form onSubmit={(e) => { e.preventDefault(); }} className="project__toolbar--filter">
                         <label htmlFor="filter-by-tag-input">Filter by Tag: </label>

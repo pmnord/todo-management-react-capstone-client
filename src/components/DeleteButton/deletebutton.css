@@ -1,0 +1,24 @@
+.DeleteButton {
+    position: relative;
+}
+
+.DeleteButton__x:hover {
+    cursor: pointer;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.DeleteButton__confirm-box {
+    position: absolute;
+    right: 0;
+    width: 9rem;
+    padding: 0.5rem;
+
+    box-shadow: 0px 0px 5px gray;
+    border-radius: 10px;
+}
+
+.DeleteButton__confirm-box p {
+    margin: 0;
+    padding: 0;
+}

@@ -15,7 +15,8 @@ export default function AddButton({ onSubmit, title, id }) {
 
             const root = document.getElementById('root');
             root.addEventListener('mousedown', (e) => {
-                // Prevent the nav from toggling off unless the user clicks outside of the nav div
+                
+                // Prevent the nav from toggling off unless the user clicks outside of the element
                 for (let element of e.path) {
                     if (element.className === "AddButton__form") { return; }
                 }
