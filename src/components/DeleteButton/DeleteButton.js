@@ -41,8 +41,10 @@ export default function DeleteButton({ thingDeleted, deleteCallback, hue, id }) 
             {showConfirmBox ?
                 <div className="DeleteButton__confirm-box" style={confirmBoxStyles}>
                     <p>Delete this {thingDeleted}?</p>
-                    <button onClick={handleDelete}>Delete</button>
-                    <button onClick={() => setShowConfirmBox(false)}>Cancel</button>
+                    <div>
+                        <button onClick={handleDelete}>Delete</button>
+                        <button onClick={() => setShowConfirmBox(false)}>Cancel</button>
+                    </div>
                 </div>
                 : null}
 

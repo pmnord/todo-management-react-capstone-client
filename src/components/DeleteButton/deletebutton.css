@@ -11,10 +11,14 @@
 .DeleteButton__confirm-box {
     position: absolute;
     right: 0;
-    width: 9rem;
-    padding: 0.5rem;
-
+    min-width: 10rem;
+    padding: 0.4rem;
     border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .DeleteButton__confirm-box p {
