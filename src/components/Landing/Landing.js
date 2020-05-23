@@ -35,7 +35,7 @@ export default class Landing extends React.Component {
                 <section className="landing__pitch">
                     <p>We Do is a kanban-style collaborative organizer with a minimalist approach.</p>
                     <p>Get up and running with your team in seconds. Plan a project, track issues, or brainstorm new ideas.</p>
-                    <p>The template is unoppinionated, allowing <em>you</em> to organize your collab in any way you choose.</p>
+                    <p>The template is unoppinionated, so you can organize your collab in any way you choose.</p>
                 <div aria-label="button"
                     
                     className="landing__create-project"

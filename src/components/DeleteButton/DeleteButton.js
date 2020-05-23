@@ -29,7 +29,7 @@ export default function DeleteButton({ thingDeleted, deleteCallback, hue, id }) 
     }
 
     const confirmBoxStyles = {
-        backgroundColor: `hsl(${hue}, 25%, 80%)`
+        backgroundColor: `hsl(${hue}, 50%, 89%)`
     }
 
     return (

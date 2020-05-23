@@ -3,10 +3,10 @@
     display: flex;
     justify-content: center;
     padding: 5px;
-    margin-top: 20px;
 
     position: absolute;
     width: 100%;
     bottom: 0px;
     box-sizing: border-box;
+    height: 2.9rem;
 }

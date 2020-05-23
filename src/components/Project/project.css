@@ -71,6 +71,18 @@
     width: 162px;
 }
 
+.project__getting-started {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+}
+.project__getting-started h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    margin-left: 0.3rem;
+}
+
 @media screen and (max-width: 600px) {
     .project__toolbar {
         display: none;
