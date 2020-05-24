@@ -6,13 +6,21 @@ import DeleteButton from '../DeleteButton/DeleteButton.js';
 export default function Task(props) {
 
     function handleDeleteTask() {
-        
+
         props.deleteTask(props.categoryIndex, props.index);
     }
 
-    function handleUpdateNote (e) {
+    // For updating the note on the backend
+    function handleUpdateNote(e) {
         const newNote = e.target.value;
         return props.updateNote(props.categoryIndex, props.index, newNote);
+    }
+
+    // For updating our controlled input component in Project state
+    function handleNoteChange(e) {
+        const newNoteValue = e.target.value;
+
+        props.handleChangeNote(props.categoryIndex, props.index, newNoteValue)
     }
 
     const taskStyles = {
@@ -27,9 +35,9 @@ export default function Task(props) {
             <div className="task__body">
                 <div className="task__header">
                     <h4>{props.title}</h4>
-                
+
                     {/* X icon */}
-                    <DeleteButton 
+                    <DeleteButton
                         hue={props.hue}
                         id={`cat-${props.categoryIndex}-task-${props.index}-delete`}
                         deleteCallback={handleDeleteTask}
@@ -50,7 +58,7 @@ export default function Task(props) {
                         deleteTag={props.deleteTag}
                         hue={props.hue} />
                 </div>
-                <textarea rows="5" cols="33" value={props.notes} onBlur={handleUpdateNote} style={{resize: "none"}} ></textarea>
+                <textarea rows="5" cols="33" onChange={handleNoteChange} value={props.notes} onBlur={handleUpdateNote} style={{ resize: "none" }} ></textarea>
             </div>
 
             <div className="task__nav-arrows">

@@ -17,6 +17,9 @@ export default class Landing extends React.Component {
     }
 
     handleNewProject = (e) => {
+        // Prevent multiple clicks from making multiple API requests
+        if (this.state.newProjectClicked) { return; }
+
         this.setState({ newProjectClicked: true })
 
         ApiService.postProject()

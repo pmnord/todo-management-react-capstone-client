@@ -47,7 +47,8 @@ export default function Category(props) {
                         addTag={props.addTag}
                         deleteTag={props.deleteTag}
                         updateNote={props.updateNote}
-                        hue={props.hue} />)
+                        hue={props.hue}
+                        handleChangeNote={props.handleChangeNote} />)
                 : null
             }
 

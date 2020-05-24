@@ -79,7 +79,7 @@ export default class Nav extends Component {
                     <ul style={menuStyles} onClick={this.toggleMenu} className="nav__menu">
                         <li onClick={this.handleAboutClick}>About</li>
                         <li onClick={this.handleNewProject}>New Project</li>
-                        <li onClick={this.handleDemoClick}>Demo</li>
+                        {/* <li onClick={this.handleDemoClick}>Demo</li> */}
                     </ul>
                     : null}
 

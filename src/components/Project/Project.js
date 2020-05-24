@@ -220,13 +220,21 @@ export default class Project extends React.Component {
         ApiService.patchTask(task_id, newValues);
     }
 
-    updateNote = (categoryIndex, taskIndex, newNote) => {
+    updateNoteOnServer = (categoryIndex, taskIndex, newNote) => {
         const task_id = this.state.categories[categoryIndex].tasks[taskIndex].id;
         const newValues = {
             notes: newNote
         };
 
         ApiService.patchTask(task_id, newValues);
+    }
+
+    // For handling our controlled input component
+    handleChangeNote = (categoryIndex, taskIndex, newNoteValue) => {
+        const newState = utils.deepCopy(this.state);
+
+        newState.categories[categoryIndex].tasks[taskIndex].notes = newNoteValue;
+        this.setState(newState);
     }
 
     toggleShowAddForm = () => {
@@ -360,7 +368,8 @@ export default class Project extends React.Component {
                                 addTag={this.addTag}
                                 deleteTag={this.deleteTag}
                                 deleteCategory={this.deleteCategory}
-                                updateNote={this.updateNote}
+                                updateNote={this.updateNoteOnServer}
+                                handleChangeNote={this.handleChangeNote}
                                 hue={this.state.appColor} />)
                         : null}
 

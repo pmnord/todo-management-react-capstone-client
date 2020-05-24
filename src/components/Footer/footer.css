@@ -2,11 +2,19 @@
     background-color: hsl(220, 20%, 90%);
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 5px;
 
     position: absolute;
     width: 100%;
     bottom: 0px;
     box-sizing: border-box;
-    height: 2.9rem;
+    height: 3.9rem;
+}
+
+.footer i {
+    color: hsl(0, 0%, 20%);
+}
+.footer i:hover {
+    color: hsl(0, 0%, 30%);
 }
