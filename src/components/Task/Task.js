@@ -58,7 +58,7 @@ export default function Task(props) {
                         deleteTag={props.deleteTag}
                         hue={props.hue} />
                 </div>
-                <textarea rows="5" cols="33" onChange={handleNoteChange} value={props.notes} onBlur={handleUpdateNote} style={{ resize: "none" }} ></textarea>
+                <textarea rows="4" onChange={handleNoteChange} value={props.notes} onBlur={handleUpdateNote} style={{ resize: "none" }} ></textarea>
             </div>
 
             <div className="task__nav-arrows">

@@ -4,6 +4,7 @@
     border-radius: 2px;
     display: flex;
     box-shadow: 1px 1px 2px 0.5px hsl(0, 0%, 99%);
+    width: 100%;
 }
 
 .task__body {
@@ -50,4 +51,8 @@
 
 .task__body--textarea {
     resize: none;
+}
+
+.task textarea {
+    width: 95%;
 }
