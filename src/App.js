@@ -33,7 +33,7 @@ class App extends Component {
           <h1>we do</h1>
           <Route path="/" render={route => {
             return <Nav 
-              push={route.history.push} 
+              push={route.history.push}
               hue={this.state.appColor}
               setHeaderColor={this.setHeaderColor} />
           }} />

@@ -2,28 +2,22 @@
 
 We Do is a kanban-style issue tracker supporting concurrent users, implemented with React on the front end and Node.js on the back end.
 
+[Demo](https://wedo.now.sh/)
 [Backend Documentation](https://github.com/pmnord/todo-management-react-capstone-server)
 
 | | | | | |
 |-|-|-|-|-|
-|**Front-End**|React|ES10|CSS3||
+|**Front-End**|React|HTML5|ES10|CSS3|
 |**Back-End**|Node.js|Express|PostgreSQL|RESTful API|
 |**Development**|Jest|Mocha|Chai|Heroku|Zeit|
 | | | | | |
 
-## Views
 
-### Landing Page
+### Example Project View
 
-Supports user registration and log in.
+Create categories, create tasks, tag your tasks, move your tasks, filter your tasks, and share your board with others.
 
-// Add screenshot
-
-### Application Page
-
-Create categories, create tasks, tag your tasks, move your tasks, filter your tasks, share your board with others!
-
-// Add screenshot
+![Application View](./resources/screenshot1.png)
 
 ## Site Map & User Flow
 
@@ -33,12 +27,12 @@ Create categories, create tasks, tag your tasks, move your tasks, filter your ta
       - Set tags and comments on your tasks
         - Share your board with others
 
-## Mockups
+## Original Mockups
 
 ![Desktop Wireframe](./resources/cap3wireframes.png)
 ![Mobile Wireframe](./resources/cap3wireframes-mobile.png)
 
-## Entity Relationships (PostgreSQL tables)
+<!-- ## Entity Relationships (PostgreSQL tables)
 
 |Users|Projects|Categories|Tasks|Project_Users|
 |-|-|-|-|-|
@@ -48,7 +42,7 @@ Create categories, create tasks, tag your tasks, move your tasks, filter your ta
 |project_id|||assigned_user||
 ||||due_date||
 ||||note||
-||||priority||
+||||priority|| -->
 
 ## Developer Roadmap
 - Refactor the project toolbar and header into a new component
@@ -59,7 +53,7 @@ Create categories, create tasks, tag your tasks, move your tasks, filter your ta
 - Support drag and drop task movement with react-dnd
 - Add additional security layers
 
-## User Stories
+<!-- ## User Stories
 
 - As a user I can create categories so I can organize my tasks
 - As a user I can create task cards so I can track the status and details of my tasks
@@ -76,4 +70,4 @@ Create categories, create tasks, tag your tasks, move your tasks, filter your ta
 ---
 - As a user I can create an account so I can use the app
 - As a user I can log in to my account so I can use the app
-- As a user I will be automatically logged off the app after not interacting for a period of time so my account will be secured
+- As a user I will be automatically logged off the app after not interacting for a period of time so my account will be secured -->

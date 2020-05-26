@@ -15,7 +15,9 @@ export default class Nav extends Component {
         const root = document.getElementById('root');
         root.addEventListener('mousedown', (e) => {
             // Prevent the nav from toggling off unless the user clicks outside of the nav div
-            for (let element of e.path) {
+            var path = e.path || (e.composedPath && e.composedPath()); // event.path is not standardized - this line is required for compatibilty with firefox
+
+            for (let element of path) {
                 if (element.className === "nav") { return; }
             }
 

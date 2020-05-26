@@ -15,9 +15,10 @@ export default function AddButton({ onSubmit, title, id }) {
 
             const root = document.getElementById('root');
             root.addEventListener('mousedown', (e) => {
-                
+                var path = e.path || (e.composedPath && e.composedPath()); // event.path is not standardized - this line is required for compatibilty with firefox
+
                 // Prevent the nav from toggling off unless the user clicks outside of the element
-                for (let element of e.path) {
+                for (let element of path) {
                     if (element.className === "AddButton__form") { return; }
                 }
 
