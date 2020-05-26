@@ -15,7 +15,8 @@ export default class Project extends React.Component {
         this.state = {
             categories: [],
             shareClicked: false,
-            appColor: '220'
+            appColor: '220',
+            projectLoaded: false,
         };
     }
 
@@ -28,6 +29,7 @@ export default class Project extends React.Component {
                 if (!data) { return this.setState({ error: 'No project found' }) }
                 newState = data;
 
+                newState.projectLoaded = true;
                 this.setState(newState);
             })
             .catch(err => {
@@ -104,6 +106,7 @@ export default class Project extends React.Component {
             category_id: this.state.categories[categoryIndex].id,
             index: newTaskIndex,
             tags: [],
+            notes: '',
         }
 
         const newState = { ...this.state };
@@ -296,6 +299,22 @@ export default class Project extends React.Component {
             )
         }
 
+        if (!this.state.projectLoaded) {
+            return (
+                <div className="project__loading">
+                    <h2>Fetching your project...</h2>
+
+                    {/* Spinner generously provided by https://github.com/tobiasahlin/SpinKit under The MIT License */}
+                    <div class="spinner">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+
+                </div>
+            )
+        }
+
         const toolbarStyles = {
             backgroundColor: `hsl(${this.state.appColor}, 20%, 97%)`,
         };
@@ -379,7 +398,7 @@ export default class Project extends React.Component {
                         onSubmit={(newCategoryName) => { this.createCategory(newCategoryName) }}
                         id={`create-category-button`} />
 
-                        {/* Display tutorial instruction if no categories have been created yet */}
+                    {/* Display tutorial instruction if no categories have been created yet */}
                     {this.state.categories.length < 1 ?
                         <div className="project__getting-started">
                             <svg width="25" height="25" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

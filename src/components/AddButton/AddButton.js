@@ -51,7 +51,9 @@ export default function AddButton({ onSubmit, title, id }) {
         return (
             <form onSubmit={handleFormSubmit} className="AddButton__form">
                 <label htmlFor={`add--tag--input--${id}`} hidden>{title} Name</label>
-                <input placeholder={`${title} Name`} type="text" id={`add--tag--input--${id}`} />
+                <input 
+                    required 
+                    placeholder={`${title} Name`} type="text" id={`add--tag--input--${id}`} />
                 <button>Add</button>
             </form>
         );
