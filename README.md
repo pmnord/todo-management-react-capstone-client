@@ -3,6 +3,7 @@
 We Do is a kanban-style issue tracker supporting concurrent users, implemented with React on the front end and Node.js on the back end.
 
 [Demo](https://wedo.now.sh/)
+
 [Backend Documentation](https://github.com/pmnord/todo-management-react-capstone-server)
 
 | | | | | |
@@ -30,7 +31,6 @@ Create categories, create tasks, tag your tasks, move your tasks, filter your ta
 ## Original Mockups
 
 ![Desktop Wireframe](./resources/cap3wireframes.png)
-![Mobile Wireframe](./resources/cap3wireframes-mobile.png)
 
 <!-- ## Entity Relationships (PostgreSQL tables)
 
@@ -45,13 +45,10 @@ Create categories, create tasks, tag your tasks, move your tasks, filter your ta
 ||||priority|| -->
 
 ## Developer Roadmap
-- Refactor the project toolbar and header into a new component
-- Refactor to use Context API
-- Refactor to use React Hooks
-- Support multiple projects by the same user
-- Support shared projects and concurrency with websockets
-- Support drag and drop task movement with react-dnd
-- Add additional security layers
+- Refactor to use the React Context API
+- Refactor to use Websockets
+- Support drag and drop task/category movement with react-dnd
+- Refactor to use React Hooks where possible
 
 <!-- ## User Stories
 
