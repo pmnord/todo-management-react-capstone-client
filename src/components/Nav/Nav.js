@@ -13,18 +13,21 @@ export default class Nav extends Component {
     componentDidMount() {
         // Add a listener to close the nav menu if it is open
         const root = document.getElementById('root');
-        root.addEventListener('mousedown', (e) => {
-            // Prevent the nav from toggling off unless the user clicks outside of the nav div
-            var path = e.path || (e.composedPath && e.composedPath()); // event.path is not standardized - this line is required for compatibilty with firefox
 
-            for (let element of path) {
-                if (element.className === "nav") { return; }
-            }
-
-            if (this.state.showMenu) {
-                this.toggleMenu();
-            }
-        })
+        if (root) {
+            root.addEventListener('mousedown', (e) => {
+                // Prevent the nav from toggling off unless the user clicks outside of the nav div
+                var path = e.path || (e.composedPath && e.composedPath()); // event.path is not standardized - this line is required for compatibilty with firefox
+    
+                for (let element of path) {
+                    if (element.className === "nav") { return; }
+                }
+    
+                if (this.state.showMenu) {
+                    this.toggleMenu();
+                }
+            })
+        }
     }
 
     handleNewProject = () => {
