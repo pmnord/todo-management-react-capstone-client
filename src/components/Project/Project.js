@@ -331,8 +331,10 @@ export default class Project extends React.Component {
                     </form>
 
                     {/* Shareable Link Button */}
-                    <div className="project__toolbar--share">
-                        <input id="project__toolbar--share--input" type='text' readOnly value={window.location.href} />
+                    <div className="project__toolbar--share project__toolbar--mobile-hidden">
+                        <input id="project__toolbar--share--input" 
+                            type='text' 
+                            readOnly value={window.location.href} />
 
                         <button aria-label="Copy to clipboard" onClick={() => {
                             utils.copyToClipboard(`project__toolbar--share--input`);
@@ -349,8 +351,8 @@ export default class Project extends React.Component {
                         </button>
                     </div>
 
-                    {/* Color Setter */}
-                    <div className="project__toolbar--color">
+                    {/* Color Theme Picker */}
+                    <div className="project__toolbar--color project__toolbar--mobile-hidden">
                         <label htmlFor="project__toolbar--color--select" className="hidden">Color: </label>
                         <select defaultValue={"DEFAULT"} onChange={this.handleChangeColor} id="project__toolbar--color--select">
                             <option value="DEFAULT" disabled hidden>Color Theme</option>

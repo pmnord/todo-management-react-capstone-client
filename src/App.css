@@ -55,3 +55,10 @@ a {
 .hidden {
   display: none;
 }
+
+@media screen and (max-width: 650px){
+  html{
+    overflow-y: hidden;
+    position: absolute;
+  }
+}

@@ -138,11 +138,11 @@
 
 /* Mobile Styling */
 
-@media screen and (max-width: 600px) {
-    .project__toolbar {
+@media screen and (max-width: 650px) {
+    .project__toolbar--mobile-hidden {
         display: none;
     }
     .project__toolbar--spacer {
-        display: none;
+        /* display: none; */
     }
 }
