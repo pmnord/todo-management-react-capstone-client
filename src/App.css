@@ -60,5 +60,6 @@ a {
   html{
     overflow-y: hidden;
     position: absolute;
+    /* Had an issue on mobile with the html element not expanding horizontally to accommodate child elements */
   }
 }

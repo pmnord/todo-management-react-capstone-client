@@ -47,3 +47,20 @@
     background-color: hsl(220, 50%, 90%);
     cursor: pointer;
 }
+
+@media screen and (max-width: 650px){
+    .landing h2 {
+        display: none;
+    }
+
+    .landing__pitch {
+        padding: 0.1rem 0.3rem;
+        background-color: transparent;
+        font-size: 1rem;
+        box-shadow: none;
+    }
+
+    .landing__create-project {
+        margin: 0.1rem auto;
+    }
+  }
