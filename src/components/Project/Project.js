@@ -305,10 +305,10 @@ export default class Project extends React.Component {
                     <h2>Fetching your project...</h2>
 
                     {/* Spinner generously provided by https://github.com/tobiasahlin/SpinKit under The MIT License */}
-                    <div class="spinner">
-                        <div class="bounce1"></div>
-                        <div class="bounce2"></div>
-                        <div class="bounce3"></div>
+                    <div className="spinner">
+                        <div className="bounce1"></div>
+                        <div className="bounce2"></div>
+                        <div className="bounce3"></div>
                     </div>
 
                 </div>
@@ -326,7 +326,8 @@ export default class Project extends React.Component {
                     {/* Filter Feature */}
                     <form onSubmit={(e) => { e.preventDefault(); }} className="project__toolbar--filter">
                         <label htmlFor="filter-by-tag-input">Filter by Tag: </label>
-                        <input onChange={this.filterByTag} type="text" id="filter-by-tag-input"></input>
+                        <input onChange={this.filterByTag} type="text" id="filter-by-tag-input">
+                        </input>
                     </form>
 
                     {/* Shareable Link Button */}
