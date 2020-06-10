@@ -17,6 +17,7 @@ export default class Project extends React.Component {
             shareClicked: false,
             appColor: '220',
             projectLoaded: false,
+            projectId: null,
         };
     }
 
@@ -30,7 +31,14 @@ export default class Project extends React.Component {
                 newState = data;
 
                 newState.projectLoaded = true;
+                newState.projectId = uuid;
                 this.setState(newState);
+
+                const storedColor = window.localStorage.getItem(uuid + '-color');
+                if (storedColor) {
+                    this.setState({ appColor: storedColor });
+                    this.props.setHeaderColor(storedColor)
+                }
             })
             .catch(err => {
                 this.setState({ error: 'Failed to fetch project' });
@@ -283,11 +291,11 @@ export default class Project extends React.Component {
         const hue = e.target.value;
 
         this.props.setHeaderColor(hue);
-
         this.setState({
             ...this.state,
             appColor: hue,
         })
+        window.localStorage.setItem(`${this.state.projectId}-color`, hue);
     }
 
     render() {
@@ -332,8 +340,8 @@ export default class Project extends React.Component {
 
                     {/* Shareable Link Button */}
                     <div className="project__toolbar--share project__toolbar--mobile-hidden">
-                        <input id="project__toolbar--share--input" 
-                            type='text' 
+                        <input id="project__toolbar--share--input"
+                            type='text'
                             readOnly value={window.location.href} />
 
                         <button aria-label="Copy to clipboard" onClick={() => {
