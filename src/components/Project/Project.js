@@ -1,11 +1,11 @@
-import React from "react";
-import utils from "../../utils/utils";
-import ApiService from "../../services/api-service";
-import { DragDropContext } from "react-beautiful-dnd";
-import "./project.css";
+import React from 'react';
+import utils from '../../utils/utils';
+import ApiService from '../../services/api-service';
+import { DragDropContext } from 'react-beautiful-dnd';
+import './project.css';
 
-import Category from "../Category/Category.js";
-import AddButton from "../AddButton/AddButton";
+import Category from '../Category/Category.js';
+import AddButton from '../AddButton/AddButton';
 /* I took the approach of updating the component state first, and then making the
 API call to update the server database. This keeps the app highly responsive and
 obscures any delays that might be caused by latency */
@@ -16,7 +16,7 @@ export default class Project extends React.Component {
     this.state = {
       categories: [],
       shareClicked: false,
-      appColor: "220",
+      appColor: '220',
       projectLoaded: false,
       projectId: null,
     };
@@ -29,7 +29,7 @@ export default class Project extends React.Component {
     ApiService.getProjectObject(uuid)
       .then((data) => {
         if (!data) {
-          return this.setState({ error: "No project found" });
+          return this.setState({ error: 'No project found' });
         }
         newState = data;
 
@@ -37,14 +37,14 @@ export default class Project extends React.Component {
         newState.projectId = uuid;
         this.setState(newState);
 
-        const storedColor = window.localStorage.getItem(uuid + "-color");
+        const storedColor = window.localStorage.getItem(uuid + '-color');
         if (storedColor) {
           this.setState({ appColor: storedColor });
           this.props.setHeaderColor(storedColor);
         }
       })
       .catch((err) => {
-        this.setState({ error: "Failed to fetch project" });
+        this.setState({ error: 'Failed to fetch project' });
         console.log(err);
       });
 
@@ -69,25 +69,26 @@ export default class Project extends React.Component {
     // }, 1000);
   }
 
-  createCategory = (newCategoryName) => {
-    if (newCategoryName === "") {
+  createCategory = (newCategoryTitle) => {
+    if (newCategoryTitle === '') {
       return;
     } // Disallow empty category titles
 
+    const uuid = utils.uuid();
     const newCategory = {
-      uuid: utils.uuid(),
-      title: newCategoryName,
+      uuid,
+      title: newCategoryTitle,
       tasks: [],
       index: this.state.categories.length,
     };
-    console.log(newCategory)
+    console.log(newCategory);
     const newState = { categories: [...this.state.categories, newCategory] };
     this.setState(newState);
 
     // Set up a new category object to avoid mutating the one in our state
     // Change to a string so we aren't passing an array into our database
     const apiCategory = { ...newCategory };
-    apiCategory.tasks = "";
+    apiCategory.tasks = '';
     apiCategory.project_id = this.state.id;
 
     // Send the new category to the server to be stored in the database
@@ -114,15 +115,16 @@ export default class Project extends React.Component {
   };
 
   createTask = (categoryIndex, newTaskTitle) => {
+    const uuid = utils.uuid();
     const newTaskIndex = this.state.categories[categoryIndex].tasks.length;
     const newTask = {
-      uuid: utils.uuid(),
+      uuid,
       title: newTaskTitle,
       category: categoryIndex,
-      category_id: this.state.categories[categoryIndex].uuid,
+      category_uuid: this.state.categories[categoryIndex].uuid,
       index: newTaskIndex,
       tags: [],
-      notes: "",
+      notes: '',
     };
 
     const newState = { ...this.state };
@@ -162,20 +164,20 @@ export default class Project extends React.Component {
 
   moveTask = (categoryIndex, taskIndex, direction) => {
     // Ignore any calls in cases where there is no valid space to move to
-    if (direction === "up" && taskIndex - 1 < 0) {
+    if (direction === 'up' && taskIndex - 1 < 0) {
       return;
     }
-    if (direction === "left" && categoryIndex - 1 < 0) {
+    if (direction === 'left' && categoryIndex - 1 < 0) {
       return;
     }
     if (
-      direction === "right" &&
+      direction === 'right' &&
       categoryIndex + 1 >= this.state.categories.length
     ) {
       return;
     }
     if (
-      direction === "down" &&
+      direction === 'down' &&
       taskIndex + 1 > this.state.categories[categoryIndex].tasks.length - 1
     ) {
       return;
@@ -189,7 +191,7 @@ export default class Project extends React.Component {
     let swapee_id;
 
     switch (direction) {
-      case "left":
+      case 'left':
         taskToMove = newState.categories[categoryIndex].tasks.splice(
           taskIndex,
           1
@@ -202,7 +204,7 @@ export default class Project extends React.Component {
           index: newIndex,
         });
         break;
-      case "down":
+      case 'down':
         taskToMove = newState.categories[categoryIndex].tasks.splice(
           taskIndex,
           1
@@ -220,7 +222,7 @@ export default class Project extends React.Component {
           { id: swapee_id, index: taskIndex }
         );
         break;
-      case "up":
+      case 'up':
         taskToMove = newState.categories[categoryIndex].tasks.splice(
           taskIndex,
           1
@@ -238,7 +240,7 @@ export default class Project extends React.Component {
           { id: swapee_id, index: taskIndex }
         );
         break;
-      case "right":
+      case 'right':
         taskToMove = newState.categories[categoryIndex].tasks.splice(
           taskIndex,
           1
@@ -252,7 +254,7 @@ export default class Project extends React.Component {
         });
         break;
       default:
-        throw Error("A bad direction was passed to the moveTask() function");
+        throw Error('A bad direction was passed to the moveTask() function');
     }
 
     this.setState(newState);
@@ -268,7 +270,7 @@ export default class Project extends React.Component {
     this.setState(newState);
 
     // Send the new tags values to the server to be updated
-    const apiTags = newTags.map((tag) => tag.replace(/\s/g, "&#32;")).join(" ");
+    const apiTags = newTags.map((tag) => tag.replace(/\s/g, '&#32;')).join(' ');
     const newValues = {
       tags: apiTags,
     };
@@ -285,7 +287,7 @@ export default class Project extends React.Component {
     this.setState(newState);
 
     // Send the new tags values to the server to be updated
-    const apiTags = newTags.map((tag) => tag.replace(/\s/g, "&#32;")).join(" ");
+    const apiTags = newTags.map((tag) => tag.replace(/\s/g, '&#32;')).join(' ');
     const newValues = {
       tags: apiTags,
     };
@@ -316,7 +318,7 @@ export default class Project extends React.Component {
 
   componentDidUpdate() {
     if (this.state.showAddForm) {
-      const input = document.getElementById("newCategoryName");
+      const input = document.getElementById('newCategoryName');
       input.focus();
     }
   }
@@ -337,12 +339,12 @@ export default class Project extends React.Component {
           }
         });
 
-        if (filterValue === "") {
+        if (filterValue === '') {
           // This is a bit hacky. The whole function should be rewritten.
           taskHasTag = true;
         }
 
-        task.display = taskHasTag ? "flex" : "none";
+        task.display = taskHasTag ? 'flex' : 'none';
       });
     });
 
@@ -363,12 +365,42 @@ export default class Project extends React.Component {
 
   onDragEnd = (result) => {
     console.log(result);
+    console.log(this.state);
+    const newState = { ...this.state };
+    console.log(newState);
+
+    const fromIndex = result.source.index;
+    const toIndex = result.destination.index;
+    let sourceCategoryIndex;
+    newState.categories.forEach((category, idx) => {
+      if (category.uuid === result.source.droppableId) {
+        sourceCategoryIndex = idx;
+      }
+    });
+    let destinationCategoryIndex;
+    newState.categories.forEach((category, idx) => {
+      if (category.uuid === result.destination.droppableId) {
+        destinationCategoryIndex = idx;
+      }
+    });
+    console.log(sourceCategoryIndex, destinationCategoryIndex);
+
+    const task = newState.categories[sourceCategoryIndex].tasks.splice(
+      fromIndex,
+      1
+    )[0];
+    newState.categories[destinationCategoryIndex].tasks.splice(
+      toIndex,
+      0,
+      task
+    );
+    this.setState(newState);
   };
 
   render() {
     if (this.state.error) {
       return (
-        <div className="project__error">
+        <div className='project__error'>
           <h2>{this.state.error}</h2>
         </div>
       );
@@ -376,14 +408,14 @@ export default class Project extends React.Component {
 
     if (!this.state.projectLoaded) {
       return (
-        <div className="project__loading">
+        <div className='project__loading'>
           <h2>Fetching your project...</h2>
 
           {/* Spinner generously provided by https://github.com/tobiasahlin/SpinKit under The MIT License */}
-          <div className="spinner">
-            <div className="bounce1"></div>
-            <div className="bounce2"></div>
-            <div className="bounce3"></div>
+          <div className='spinner'>
+            <div className='bounce1'></div>
+            <div className='bounce2'></div>
+            <div className='bounce3'></div>
           </div>
         </div>
       );
@@ -394,34 +426,34 @@ export default class Project extends React.Component {
     };
 
     return (
-      <section className="project">
-        <div style={toolbarStyles} className="project__toolbar">
+      <section className='project'>
+        <div style={toolbarStyles} className='project__toolbar'>
           {/* Filter Feature */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
             }}
-            className="project__toolbar--filter"
+            className='project__toolbar--filter'
           >
-            <label htmlFor="filter-by-tag-input">Filter by Tag: </label>
+            <label htmlFor='filter-by-tag-input'>Filter by Tag: </label>
             <input
               onChange={this.filterByTag}
-              type="text"
-              id="filter-by-tag-input"
+              type='text'
+              id='filter-by-tag-input'
             ></input>
           </form>
 
           {/* Shareable Link Button */}
-          <div className="project__toolbar--share project__toolbar--mobile-hidden">
+          <div className='project__toolbar--share project__toolbar--mobile-hidden'>
             <input
-              id="project__toolbar--share--input"
-              type="text"
+              id='project__toolbar--share--input'
+              type='text'
               readOnly
               value={window.location.href}
             />
 
             <button
-              aria-label="Copy to clipboard"
+              aria-label='Copy to clipboard'
               onClick={() => {
                 utils.copyToClipboard(`project__toolbar--share--input`);
                 this.setState({ shareClicked: true });
@@ -429,21 +461,21 @@ export default class Project extends React.Component {
             >
               {/* Clipboard Icon */}
               <svg
-                width="20"
-                height="20"
-                viewBox="2 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                width='20'
+                height='20'
+                viewBox='2 0 20 20'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
               >
                 <path
-                  d="M9 2C8.44772 2 8 2.44772 8 3C8 3.55228 8.44772 4 9 4H11C11.5523 4 12 3.55228 12 3C12 2.44772 11.5523 2 11 2H9Z"
-                  fill="#4A5568"
+                  d='M9 2C8.44772 2 8 2.44772 8 3C8 3.55228 8.44772 4 9 4H11C11.5523 4 12 3.55228 12 3C12 2.44772 11.5523 2 11 2H9Z'
+                  fill='#4A5568'
                 />
                 <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M4 5C4 3.89543 4.89543 3 6 3C6 4.65685 7.34315 6 9 6H11C12.6569 6 14 4.65685 14 3C15.1046 3 16 3.89543 16 5V16C16 17.1046 15.1046 18 14 18H6C4.89543 18 4 17.1046 4 16V5ZM7 9C6.44772 9 6 9.44772 6 10C6 10.5523 6.44772 11 7 11H7.01C7.56228 11 8.01 10.5523 8.01 10C8.01 9.44772 7.56228 9 7.01 9H7ZM10 9C9.44772 9 9 9.44772 9 10C9 10.5523 9.44772 11 10 11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H10ZM7 13C6.44772 13 6 13.4477 6 14C6 14.5523 6.44772 15 7 15H7.01C7.56228 15 8.01 14.5523 8.01 14C8.01 13.4477 7.56228 13 7.01 13H7ZM10 13C9.44772 13 9 13.4477 9 14C9 14.5523 9.44772 15 10 15H13C13.5523 15 14 14.5523 14 14C14 13.4477 13.5523 13 13 13H10Z"
-                  fill="hsl(0, 0%, 10%)"
+                  fillRule='evenodd'
+                  clipRule='evenodd'
+                  d='M4 5C4 3.89543 4.89543 3 6 3C6 4.65685 7.34315 6 9 6H11C12.6569 6 14 4.65685 14 3C15.1046 3 16 3.89543 16 5V16C16 17.1046 15.1046 18 14 18H6C4.89543 18 4 17.1046 4 16V5ZM7 9C6.44772 9 6 9.44772 6 10C6 10.5523 6.44772 11 7 11H7.01C7.56228 11 8.01 10.5523 8.01 10C8.01 9.44772 7.56228 9 7.01 9H7ZM10 9C9.44772 9 9 9.44772 9 10C9 10.5523 9.44772 11 10 11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H10ZM7 13C6.44772 13 6 13.4477 6 14C6 14.5523 6.44772 15 7 15H7.01C7.56228 15 8.01 14.5523 8.01 14C8.01 13.4477 7.56228 13 7.01 13H7ZM10 13C9.44772 13 9 13.4477 9 14C9 14.5523 9.44772 15 10 15H13C13.5523 15 14 14.5523 14 14C14 13.4477 13.5523 13 13 13H10Z'
+                  fill='hsl(0, 0%, 10%)'
                 />
               </svg>
               {this.state.shareClicked ? `Link Copied!` : `Get Shareable Link`}
@@ -451,49 +483,49 @@ export default class Project extends React.Component {
           </div>
 
           {/* Color Theme Picker */}
-          <div className="project__toolbar--color project__toolbar--mobile-hidden">
-            <label htmlFor="project__toolbar--color--select" className="hidden">
-              Color:{" "}
+          <div className='project__toolbar--color project__toolbar--mobile-hidden'>
+            <label htmlFor='project__toolbar--color--select' className='hidden'>
+              Color:{' '}
             </label>
             <select
-              defaultValue={"DEFAULT"}
+              defaultValue={'DEFAULT'}
               onChange={this.handleChangeColor}
-              id="project__toolbar--color--select"
+              id='project__toolbar--color--select'
             >
-              <option value="DEFAULT" disabled hidden>
+              <option value='DEFAULT' disabled hidden>
                 Color Theme
               </option>
-              <option value="220">Blue</option>
-              <option value="0">Red</option>
-              <option value="120">Green</option>
-              <option value="60">Yellow</option>
-              <option value="180">Cyan</option>
-              <option value="300">Magenta</option>
+              <option value='220'>Blue</option>
+              <option value='0'>Red</option>
+              <option value='120'>Green</option>
+              <option value='60'>Yellow</option>
+              <option value='180'>Cyan</option>
+              <option value='300'>Magenta</option>
             </select>
           </div>
         </div>
-        <div className="project__toolbar--spacer"></div>
+        <div className='project__toolbar--spacer'></div>
 
         {/* Error Display */}
         {this.state.error ? (
-          <div className="project__error">
+          <div className='project__error'>
             <h2>{this.state.error}</h2>
           </div>
         ) : null}
 
         {/* Kanban Board */}
-        <div className="project__board">
+        <div className='project__board'>
           <DragDropContext onDragEnd={this.onDragEnd}>
             {/* DragDrop Context callbacks: onDragStart, onDragUpdate, onDragEnd(required) */}
             {this.state.categories
-              ? this.state.categories.map((el, idx) => (
+              ? this.state.categories.map((category, idx) => (
                   <Category
                     key={idx}
-                    uuid={el.uuid}
-                    dbIndex={el.index}
+                    uuid={category.uuid}
+                    dbIndex={category.index}
                     index={idx}
-                    title={el.title}
-                    tasks={el.tasks}
+                    title={category.title}
+                    tasks={category.tasks}
                     createTask={this.createTask}
                     deleteTask={this.deleteTask}
                     moveTask={this.moveTask}
@@ -509,7 +541,7 @@ export default class Project extends React.Component {
 
             <AddButton
               onClick={this.toggleShowAddForm}
-              title="Category"
+              title='Category'
               onSubmit={(newCategoryName) => {
                 this.createCategory(newCategoryName);
               }}
@@ -518,19 +550,19 @@ export default class Project extends React.Component {
 
             {/* Display tutorial instruction if no categories have been created yet */}
             {this.state.categories.length < 1 ? (
-              <div className="project__getting-started">
+              <div className='project__getting-started'>
                 <svg
-                  width="25"
-                  height="25"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width='25'
+                  height='25'
+                  viewBox='0 0 20 20'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
                 >
                   <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M9.70711 16.7071C9.31658 17.0976 8.68342 17.0976 8.29289 16.7071L2.29289 10.7071C1.90237 10.3166 1.90237 9.68342 2.29289 9.29289L8.29289 3.29289C8.68342 2.90237 9.31658 2.90237 9.70711 3.29289C10.0976 3.68342 10.0976 4.31658 9.70711 4.70711L5.41421 9H17C17.5523 9 18 9.44772 18 10C18 10.5523 17.5523 11 17 11L5.41421 11L9.70711 15.2929C10.0976 15.6834 10.0976 16.3166 9.70711 16.7071Z"
-                    fill="hsl(0, 0%, 0%)"
+                    fillRule='evenodd'
+                    clipRule='evenodd'
+                    d='M9.70711 16.7071C9.31658 17.0976 8.68342 17.0976 8.29289 16.7071L2.29289 10.7071C1.90237 10.3166 1.90237 9.68342 2.29289 9.29289L8.29289 3.29289C8.68342 2.90237 9.31658 2.90237 9.70711 3.29289C10.0976 3.68342 10.0976 4.31658 9.70711 4.70711L5.41421 9H17C17.5523 9 18 9.44772 18 10C18 10.5523 17.5523 11 17 11L5.41421 11L9.70711 15.2929C10.0976 15.6834 10.0976 16.3166 9.70711 16.7071Z'
+                    fill='hsl(0, 0%, 0%)'
                   />
                 </svg>
                 <h2>Create your first category</h2>

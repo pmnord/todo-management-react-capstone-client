@@ -1,10 +1,10 @@
-import React from "react";
-import "./category.css";
-import { Droppable } from "react-beautiful-dnd";
+import React from 'react';
+import './category.css';
+import { Droppable } from 'react-beautiful-dnd';
 
-import Task from "../Task/Task";
-import AddButton from "../AddButton/AddButton";
-import DeleteButton from "../DeleteButton/DeleteButton.js";
+import Task from '../Task/Task';
+import AddButton from '../AddButton/AddButton';
+import DeleteButton from '../DeleteButton/DeleteButton.js';
 
 export default function Category(props) {
   const handleDeleteCategory = () => {
@@ -16,8 +16,8 @@ export default function Category(props) {
   };
 
   return (
-    <div className="category" style={categoryStyles}>
-      <div className="category__header">
+    <div className='category' style={categoryStyles}>
+      <div className='category__header'>
         {/* TODO: Enable title edits on double click */}
         <h3 onDoubleClick={() => {}}>{props.title}</h3>
 
@@ -27,7 +27,7 @@ export default function Category(props) {
           <DeleteButton
             id={`cat-${props.index}-delete`}
             hue={props.hue}
-            thingDeleted="category"
+            thingDeleted='category'
             deleteCallback={handleDeleteCategory}
           />
         ) : null}
@@ -38,16 +38,16 @@ export default function Category(props) {
           <div>
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {props.tasks &&
-                props.tasks.map((el, idx) => (
+                props.tasks.map((task, idx) => (
                   <Task
                     key={idx}
-                    uuid={el.uuid}
-                    title={el.title}
-                    dbIndex={el.index}
+                    uuid={task.uuid}
+                    title={task.title}
+                    dbIndex={task.index}
                     index={idx}
-                    tags={el.tags}
-                    notes={el.notes}
-                    display={el.display}
+                    tags={task.tags}
+                    notes={task.notes}
+                    display={task.display}
                     categoryIndex={props.index}
                     moveTask={props.moveTask}
                     deleteTask={props.deleteTask}
@@ -65,7 +65,7 @@ export default function Category(props) {
       </Droppable>
 
       <AddButton
-        title="Task"
+        title='Task'
         onSubmit={(newTaskTitle) => {
           props.createTask(props.index, newTaskTitle);
         }}
