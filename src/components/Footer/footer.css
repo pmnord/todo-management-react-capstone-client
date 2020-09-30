@@ -2,13 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px;
 
-  position: absolute;
   width: 100%;
-  bottom: 0px;
   box-sizing: border-box;
-  height: 3.9rem;
+  height: 4rem;
 }
 
 .footer__source {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
 import Landing from './components/Landing/Landing.js';
-import Footer from './components/Footer/Footer';
 import Project from './components/Project/Project';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
@@ -25,7 +24,6 @@ class App extends Component {
               return (
                 <>
                   <Landing push={route.history.push} />
-                  <Footer />
                 </>
               );
             }}
