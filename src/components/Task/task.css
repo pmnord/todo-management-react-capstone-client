@@ -1,58 +1,38 @@
 .task {
-    background-color: hsl(0, 0%, 95%);
-    margin-bottom: 0.5rem;
-    border-radius: 2px;
-    display: flex;
-    box-shadow: 1px 1px 2px 0.5px hsl(0, 0%, 99%);
-    width: 100%;
+  background-color: hsl(0, 0%, 95%);
+  margin-bottom: 0.5rem;
+  border-radius: 2px;
+  display: flex;
+  box-shadow: 1px 1px 2px 0.5px hsl(0, 0%, 99%);
+  width: 100%;
 }
 
 .task__body {
-    padding: 0.5rem;
-    width: 100%;
-}
-
-.task__nav-arrows {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0.25rem;
-    border-left: 3mm ridge hsl(0, 0%, 80%, 0.2);
-}
-.task__nav-arrow {
-    display: block;
-}
-
-.task__nav-arrow:hover {
-    cursor: pointer;
-    background-color: white;
-    border-radius: 5px;
-}
-.task__nav-arrow:active {
-    background-color: white;
+  padding: 0.5rem;
+  width: 100%;
 }
 
 .task__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .task__header h4 {
-    margin: 0;
+  margin: 0;
 }
 
 .task__header--x:hover {
-    cursor: pointer;
-    background-color: white;
-    border-radius: 5px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 5px;
 }
 
 .task__body--textarea {
-    resize: none;
+  resize: none;
 }
 
 .task textarea {
-    width: 95%;
+  width: 95%;
 }

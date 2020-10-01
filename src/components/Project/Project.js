@@ -2,10 +2,12 @@ import React from 'react';
 import utils from '../../utils/utils';
 import ApiService from '../../services/api-service';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { Link } from 'react-router-dom';
 import './project.css';
 
 import Category from '../Category/Category.js';
 import AddButton from '../AddButton/AddButton';
+import ProjectToolbar from '../ProjectToolbar/ProjectToolbar';
 /* I took the approach of updating the component state first, and then making the
 API call to update the server database. This keeps the app highly responsive and
 obscures any delays that might be caused by latency */
@@ -40,7 +42,6 @@ export default class Project extends React.Component {
         const storedColor = window.localStorage.getItem(uuid + '-color');
         if (storedColor) {
           this.setState({ appColor: storedColor });
-          this.props.setHeaderColor(storedColor);
         }
       })
       .catch((err) => {
@@ -162,104 +163,6 @@ export default class Project extends React.Component {
     ApiService.deleteTask(task_id, toReIndex);
   };
 
-  moveTask = (categoryIndex, taskIndex, direction) => {
-    // Ignore any calls in cases where there is no valid space to move to
-    if (direction === 'up' && taskIndex - 1 < 0) {
-      return;
-    }
-    if (direction === 'left' && categoryIndex - 1 < 0) {
-      return;
-    }
-    if (
-      direction === 'right' &&
-      categoryIndex + 1 >= this.state.categories.length
-    ) {
-      return;
-    }
-    if (
-      direction === 'down' &&
-      taskIndex + 1 > this.state.categories[categoryIndex].tasks.length - 1
-    ) {
-      return;
-    }
-
-    const newState = utils.deepCopy(this.state);
-    const task_id = this.state.categories[categoryIndex].tasks[taskIndex].id;
-    let taskToMove;
-    let newCategory;
-    let newIndex;
-    let swapee_id;
-
-    switch (direction) {
-      case 'left':
-        taskToMove = newState.categories[categoryIndex].tasks.splice(
-          taskIndex,
-          1
-        )[0];
-        newState.categories[categoryIndex - 1].tasks.push(taskToMove);
-        newCategory = this.state.categories[categoryIndex - 1].id;
-        newIndex = this.state.categories[categoryIndex - 1].tasks.length;
-        ApiService.patchTask(task_id, {
-          category_id: newCategory,
-          index: newIndex,
-        });
-        break;
-      case 'down':
-        taskToMove = newState.categories[categoryIndex].tasks.splice(
-          taskIndex,
-          1
-        )[0];
-        newState.categories[categoryIndex].tasks.splice(
-          taskIndex + 1,
-          0,
-          taskToMove
-        );
-        swapee_id = this.state.categories[categoryIndex].tasks[taskIndex + 1]
-          .id;
-        ApiService.patchTask(
-          task_id,
-          { index: taskIndex + 1 },
-          { id: swapee_id, index: taskIndex }
-        );
-        break;
-      case 'up':
-        taskToMove = newState.categories[categoryIndex].tasks.splice(
-          taskIndex,
-          1
-        )[0];
-        newState.categories[categoryIndex].tasks.splice(
-          taskIndex - 1,
-          0,
-          taskToMove
-        );
-        swapee_id = this.state.categories[categoryIndex].tasks[taskIndex - 1]
-          .id;
-        ApiService.patchTask(
-          task_id,
-          { index: taskIndex - 1 },
-          { id: swapee_id, index: taskIndex }
-        );
-        break;
-      case 'right':
-        taskToMove = newState.categories[categoryIndex].tasks.splice(
-          taskIndex,
-          1
-        )[0];
-        newState.categories[categoryIndex + 1].tasks.push(taskToMove);
-        newCategory = this.state.categories[categoryIndex + 1].id;
-        newIndex = this.state.categories[categoryIndex + 1].tasks.length;
-        ApiService.patchTask(task_id, {
-          category_id: newCategory,
-          index: newIndex,
-        });
-        break;
-      default:
-        throw Error('A bad direction was passed to the moveTask() function');
-    }
-
-    this.setState(newState);
-  };
-
   addTag = (categoryIndex, taskIndex, newTag) => {
     const newState = { ...this.state };
     const task_id = newState.categories[categoryIndex].tasks[taskIndex].id;
@@ -269,10 +172,8 @@ export default class Project extends React.Component {
 
     this.setState(newState);
 
-    // Send the new tags values to the server to be updated
-    const apiTags = newTags.map((tag) => tag.replace(/\s/g, '&#32;')).join(' ');
     const newValues = {
-      tags: apiTags,
+      tags: newTags,
     };
 
     ApiService.patchTask(task_id, newValues);
@@ -287,7 +188,7 @@ export default class Project extends React.Component {
     this.setState(newState);
 
     // Send the new tags values to the server to be updated
-    const apiTags = newTags.map((tag) => tag.replace(/\s/g, '&#32;')).join(' ');
+    const apiTags = [...newTags];
     const newValues = {
       tags: apiTags,
     };
@@ -355,7 +256,6 @@ export default class Project extends React.Component {
     // TODO: Set a variable in local storage to track a user's color choice
     const hue = e.target.value;
 
-    this.props.setHeaderColor(hue);
     this.setState({
       ...this.state,
       appColor: hue,
@@ -363,38 +263,56 @@ export default class Project extends React.Component {
     window.localStorage.setItem(`${this.state.projectId}-color`, hue);
   };
 
-  onDragEnd = (result) => {
-    console.log(result);
+  onDragEnd = ({ source, destination }) => {
+    if (!destination) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
     console.log(this.state);
     const newState = { ...this.state };
     console.log(newState);
-
-    const fromIndex = result.source.index;
-    const toIndex = result.destination.index;
+    const fromIndex = source.index;
+    const toIndex = destination.index;
     let sourceCategoryIndex;
     newState.categories.forEach((category, idx) => {
-      if (category.uuid === result.source.droppableId) {
+      if (category.uuid === source.droppableId) {
         sourceCategoryIndex = idx;
       }
     });
     let destinationCategoryIndex;
     newState.categories.forEach((category, idx) => {
-      if (category.uuid === result.destination.droppableId) {
+      if (category.uuid === destination.droppableId) {
         destinationCategoryIndex = idx;
       }
     });
-    console.log(sourceCategoryIndex, destinationCategoryIndex);
 
     const task = newState.categories[sourceCategoryIndex].tasks.splice(
       fromIndex,
       1
     )[0];
+
+    task.category_uuid = destination.droppableId;
+
     newState.categories[destinationCategoryIndex].tasks.splice(
       toIndex,
       0,
       task
     );
+
+    // Optomistically update the State before getting confirmation on the server update
     this.setState(newState);
+
+    const toReIndex = [
+      { ...newState.categories[sourceCategoryIndex] },
+      { ...newState.categories[destinationCategoryIndex] },
+    ];
+
+    console.log(task);
+    ApiService.patchTask(task.id, task, toReIndex);
   };
 
   render() {
@@ -428,6 +346,9 @@ export default class Project extends React.Component {
     return (
       <section className='project'>
         <div style={toolbarStyles} className='project__toolbar'>
+          <Link to='/'>
+            <h1 className='toolbar__h1'>Coɩɩab</h1>
+          </Link>
           {/* Filter Feature */}
           <form
             onSubmit={(e) => {
@@ -435,7 +356,7 @@ export default class Project extends React.Component {
             }}
             className='project__toolbar--filter'
           >
-            <label htmlFor='filter-by-tag-input'>Filter by Tag: </label>
+            <label htmlFor='filter-by-tag-input'>Tag: </label>
             <input
               onChange={this.filterByTag}
               type='text'
@@ -453,6 +374,7 @@ export default class Project extends React.Component {
             />
 
             <button
+              className='btn toolbar__invite-btn'
               aria-label='Copy to clipboard'
               onClick={() => {
                 utils.copyToClipboard(`project__toolbar--share--input`);
@@ -478,7 +400,7 @@ export default class Project extends React.Component {
                   fill='hsl(0, 0%, 10%)'
                 />
               </svg>
-              {this.state.shareClicked ? `Link Copied!` : `Get Shareable Link`}
+              {this.state.shareClicked ? `Link Copied` : `Invite`}
             </button>
           </div>
 
@@ -498,13 +420,13 @@ export default class Project extends React.Component {
               <option value='220'>Blue</option>
               <option value='0'>Red</option>
               <option value='120'>Green</option>
-              <option value='60'>Yellow</option>
+              {/* <option value='60'>Yellow</option> This really needs more saturation to look good */}
               <option value='180'>Cyan</option>
               <option value='300'>Magenta</option>
             </select>
           </div>
         </div>
-        <div className='project__toolbar--spacer'></div>
+        <div className='toolbar__spacer'></div>
 
         {/* Error Display */}
         {this.state.error ? (

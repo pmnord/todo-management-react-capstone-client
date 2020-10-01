@@ -35,31 +35,33 @@ export default function Category(props) {
 
       <Droppable droppableId={props.uuid}>
         {(provided) => (
-          <div>
-            <div ref={provided.innerRef} {...provided.droppableProps}>
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            <ul className='category__tasks-ul'>
               {props.tasks &&
                 props.tasks.map((task, idx) => (
-                  <Task
-                    key={idx}
-                    uuid={task.uuid}
-                    title={task.title}
-                    dbIndex={task.index}
-                    index={idx}
-                    tags={task.tags}
-                    notes={task.notes}
-                    display={task.display}
-                    categoryIndex={props.index}
-                    moveTask={props.moveTask}
-                    deleteTask={props.deleteTask}
-                    addTag={props.addTag}
-                    deleteTag={props.deleteTag}
-                    updateNote={props.updateNote}
-                    hue={props.hue}
-                    handleChangeNote={props.handleChangeNote}
-                  />
+                  <li key={task.uuid}>
+                    <Task
+                      uuid={task.uuid}
+                      title={task.title}
+                      dbIndex={task.index}
+                      index={idx}
+                      tags={task.tags}
+                      notes={task.notes}
+                      display={task.display}
+                      categoryIndex={props.index}
+                      category_uuid={props.category_uuid}
+                      moveTask={props.moveTask}
+                      deleteTask={props.deleteTask}
+                      addTag={props.addTag}
+                      deleteTag={props.deleteTag}
+                      updateNote={props.updateNote}
+                      hue={props.hue}
+                      handleChangeNote={props.handleChangeNote}
+                    />
+                  </li>
                 ))}
               {provided.placeholder}
-            </div>
+            </ul>
           </div>
         )}
       </Droppable>
