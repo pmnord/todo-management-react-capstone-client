@@ -235,7 +235,7 @@ export default class Project extends React.Component {
     window.localStorage.setItem(`${this.state.projectId}-color`, hue);
   };
 
-  onDragEnd = ({ source, destination }) => {
+  onDragEnd = ({ source, destination, type }) => {
     if (!destination) return;
     if (
       destination.droppableId === source.droppableId &&
@@ -244,47 +244,57 @@ export default class Project extends React.Component {
       return;
     }
 
-    console.log(this.state);
-    const newState = { ...this.state };
-    console.log(newState);
-    const fromIndex = source.index;
-    const toIndex = destination.index;
-    let sourceCategoryIndex;
-    newState.categories.forEach((category, idx) => {
-      if (category.uuid === source.droppableId) {
-        sourceCategoryIndex = idx;
-      }
-    });
-    let destinationCategoryIndex;
-    newState.categories.forEach((category, idx) => {
-      if (category.uuid === destination.droppableId) {
-        destinationCategoryIndex = idx;
-      }
-    });
+    if (type === 'task') {
+      const newState = { ...this.state };
+      const fromIndex = source.index;
+      const toIndex = destination.index;
+      let sourceCategoryIndex;
+      newState.categories.forEach((category, idx) => {
+        if (category.uuid === source.droppableId) {
+          sourceCategoryIndex = idx;
+        }
+      });
+      let destinationCategoryIndex;
+      newState.categories.forEach((category, idx) => {
+        if (category.uuid === destination.droppableId) {
+          destinationCategoryIndex = idx;
+        }
+      });
 
-    const task = newState.categories[sourceCategoryIndex].tasks.splice(
-      fromIndex,
-      1
-    )[0];
+      const task = newState.categories[sourceCategoryIndex].tasks.splice(
+        fromIndex,
+        1
+      )[0];
 
-    task.category_uuid = destination.droppableId;
+      task.category_uuid = destination.droppableId;
 
-    newState.categories[destinationCategoryIndex].tasks.splice(
-      toIndex,
-      0,
-      task
-    );
+      newState.categories[destinationCategoryIndex].tasks.splice(
+        toIndex,
+        0,
+        task
+      );
 
-    // Optomistically update the State before getting confirmation on the server update
-    this.setState(newState);
+      // Optomistically Update the State before getting confirmation on the server update
+      this.setState(newState);
 
-    const toReIndex = [
-      { ...newState.categories[sourceCategoryIndex] },
-      { ...newState.categories[destinationCategoryIndex] },
-    ];
+      const toReIndex = [
+        { ...newState.categories[sourceCategoryIndex] },
+        { ...newState.categories[destinationCategoryIndex] },
+      ];
 
-    console.log(task);
-    ApiService.patchTask(task.id, task, toReIndex);
+      console.log(task);
+      ApiService.patchTask(task.id, task, toReIndex);
+    } else if (type === 'category') {
+      const newCategories = [...this.state.categories];
+
+      const fromIndex = source.index;
+      const toIndex = destination.index;
+
+      const droppedCategory = newCategories.splice(fromIndex, 1)[0]; // Splice out the moved category
+      newCategories.splice(toIndex, 0, droppedCategory);
+
+      this.setState({ categories: newCategories });
+    }
   };
 
   render() {
@@ -398,7 +408,7 @@ export default class Project extends React.Component {
         {/* Kanban Board */}
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable
-            droppableId={this.state.projectId}
+            droppableId='categories'
             direction='horizontal'
             type='category'
           >
@@ -412,7 +422,7 @@ export default class Project extends React.Component {
                 {this.state.categories &&
                   this.state.categories.map((category, idx) => (
                     <Category
-                      key={idx}
+                      key={category.uuid}
                       uuid={category.uuid}
                       dbIndex={category.index}
                       index={idx}
@@ -429,7 +439,6 @@ export default class Project extends React.Component {
                       hue={this.state.appColor}
                     />
                   ))}
-
                 {provided.placeholder}
               </div>
             )}
@@ -448,20 +457,6 @@ export default class Project extends React.Component {
         {/* Display tutorial instruction if no categories have been created yet */}
         {this.state.categories.length < 1 ? (
           <div className='project__getting-started'>
-            <svg
-              width='25'
-              height='25'
-              viewBox='0 0 20 20'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                fillRule='evenodd'
-                clipRule='evenodd'
-                d='M9.70711 16.7071C9.31658 17.0976 8.68342 17.0976 8.29289 16.7071L2.29289 10.7071C1.90237 10.3166 1.90237 9.68342 2.29289 9.29289L8.29289 3.29289C8.68342 2.90237 9.31658 2.90237 9.70711 3.29289C10.0976 3.68342 10.0976 4.31658 9.70711 4.70711L5.41421 9H17C17.5523 9 18 9.44772 18 10C18 10.5523 17.5523 11 17 11L5.41421 11L9.70711 15.2929C10.0976 15.6834 10.0976 16.3166 9.70711 16.7071Z'
-                fill='hsl(0, 0%, 0%)'
-              />
-            </svg>
             <h2>Create your first category</h2>
           </div>
         ) : null}

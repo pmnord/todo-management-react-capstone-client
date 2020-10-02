@@ -20,9 +20,9 @@ export default function Category(props) {
       {(provided) => (
         <div
           className='category'
+          style={categoryStyles}
           ref={provided.innerRef}
           {...provided.draggableProps}
-          style={categoryStyles}
         >
           <div className='category__header' {...provided.dragHandleProps}>
             <h3 onDoubleClick={() => {}}>{props.title}</h3>

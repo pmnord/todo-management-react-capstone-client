@@ -68,22 +68,6 @@ const ApiService = {
       )
       .catch((err) => console.log(err));
   },
-  deleteTask: function (task_id, toReIndex = []) {
-    // We have to re-index all tasks higher than the target
-    // toReIndex: an array of task_ids to have their index decremented by 1
-    return fetch(`${config.API_ENDPOINT}/task/${task_id}`, {
-      method: 'DELETE',
-      headers: {
-        'content-type': 'application/json',
-        'api-key': config.API_KEY,
-      },
-      body: JSON.stringify({ toReIndex }),
-    })
-      .then((res) =>
-        res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
-      )
-      .catch((err) => console.log(err));
-  },
   patchTask: function (task_id, newValues, toReIndex) {
     // Handles task movement, tag updates, and note updates
     const toApi = { ...newValues }; // The values are spread into a new object to avoid creating a circular object when we add the toReIndex array of categories
@@ -106,6 +90,22 @@ const ApiService = {
       },
       body: JSON.stringify(toApi),
     });
+  },
+  deleteTask: function (task_id, toReIndex = []) {
+    // We have to re-index all tasks higher than the target
+    // toReIndex: an array of task_ids to have their index decremented by 1
+    return fetch(`${config.API_ENDPOINT}/task/${task_id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        'api-key': config.API_KEY,
+      },
+      body: JSON.stringify({ toReIndex }),
+    })
+      .then((res) =>
+        res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
+      )
+      .catch((err) => console.log(err));
   },
 };
 
