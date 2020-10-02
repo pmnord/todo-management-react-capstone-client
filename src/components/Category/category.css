@@ -7,6 +7,7 @@
   max-width: 21rem;
   overflow-y: auto;
   max-height: 80vh;
+  box-shadow: 0 0 1rem hsl(0, 0%, 0%, 0.2);
 }
 
 .category::-webkit-scrollbar {
@@ -20,7 +21,7 @@
 
 .category__header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
 }
@@ -33,11 +34,10 @@
 
 .category h3 {
   margin: 0;
+  font-size: 1.3rem;
 }
 
 .category__tasks-ul {
-  list-style: none;
-  padding: 0;
   flex-grow: 1;
   min-height: 1rem;
 }

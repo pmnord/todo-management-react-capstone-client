@@ -25,6 +25,17 @@
   box-sizing: border-box;
 }
 
+.toolbar__logo {
+  flex: 0;
+}
+
+.toolbar__tools {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .toolbar__h1 {
   margin: 0;
 }
@@ -162,8 +173,5 @@
 @media screen and (max-width: 650px) {
   .project__toolbar--mobile-hidden {
     display: none;
-  }
-  .project__toolbar--spacer {
-    /* display: none; */
   }
 }

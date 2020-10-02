@@ -1,28 +1,3 @@
-.add-button {
-  color: var(--black);
-  background-color: transparent;
-  border: solid 2px var(--black);
-  border-radius: 3px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 1.6rem;
-  box-sizing: border-box;
-  background-color: none;
-  padding: 0.2rem 0.4rem;
-}
-
-.add-button:hover {
-  cursor: pointer;
-}
-
-.add-button__title {
-  padding-right: 0.3rem;
-  margin: 0;
-  font-weight: 800;
-}
-
 .AddButton__form {
   box-sizing: border-box;
 }
