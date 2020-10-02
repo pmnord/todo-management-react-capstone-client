@@ -1,7 +1,7 @@
 import React from 'react';
 import utils from '../../utils/utils';
 import ApiService from '../../services/api-service';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Link } from 'react-router-dom';
 import './project.css';
 
@@ -224,34 +224,6 @@ export default class Project extends React.Component {
     }
   }
 
-  filterByTag = (e) => {
-    const filterValue = e.target.value.toLowerCase();
-
-    // It's important to create a deep copy to avoid mutating the nested reference types
-    const newCategories = utils.deepCopy(this.state.categories);
-
-    newCategories.forEach((category) => {
-      category.tasks.forEach((task) => {
-        let taskHasTag = false;
-
-        task.tags.forEach((tag) => {
-          if (tag.toLowerCase().includes(filterValue)) {
-            taskHasTag = true;
-          }
-        });
-
-        if (filterValue === '') {
-          // This is a bit hacky. The whole function should be rewritten.
-          taskHasTag = true;
-        }
-
-        task.display = taskHasTag ? 'flex' : 'none';
-      });
-    });
-
-    this.setState({ categories: newCategories });
-  };
-
   handleChangeColor = (e) => {
     // TODO: Set a variable in local storage to track a user's color choice
     const hue = e.target.value;
@@ -392,21 +364,6 @@ export default class Project extends React.Component {
               </button>
             </div>
 
-            {/* Filter Feature */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-              className='project__toolbar--filter'
-            >
-              <label htmlFor='filter-by-tag-input'>Tag: </label>
-              <input
-                onChange={this.filterByTag}
-                type='text'
-                id='filter-by-tag-input'
-              ></input>
-            </form>
-
             {/* Color Theme Picker */}
             <div className='project__toolbar--color project__toolbar--mobile-hidden'></div>
             <label htmlFor='project__toolbar--color--select' className='hidden'>
@@ -439,62 +396,75 @@ export default class Project extends React.Component {
         ) : null}
 
         {/* Kanban Board */}
-        <div className='project__board'>
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            {/* DragDrop Context callbacks: onDragStart, onDragUpdate, onDragEnd(required) */}
-            {this.state.categories
-              ? this.state.categories.map((category, idx) => (
-                  <Category
-                    key={idx}
-                    uuid={category.uuid}
-                    dbIndex={category.index}
-                    index={idx}
-                    title={category.title}
-                    tasks={category.tasks}
-                    createTask={this.createTask}
-                    deleteTask={this.deleteTask}
-                    moveTask={this.moveTask}
-                    addTag={this.addTag}
-                    deleteTag={this.deleteTag}
-                    deleteCategory={this.deleteCategory}
-                    updateNote={this.updateNoteOnServer}
-                    handleChangeNote={this.handleChangeNote}
-                    hue={this.state.appColor}
-                  />
-                ))
-              : null}
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Droppable
+            droppableId={this.state.projectId}
+            direction='horizontal'
+            type='category'
+          >
+            {(provided) => (
+              <div
+                className='project__board'
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {/* DragDrop Context callbacks: onDragStart, onDragUpdate, onDragEnd(required) */}
+                {this.state.categories &&
+                  this.state.categories.map((category, idx) => (
+                    <Category
+                      key={idx}
+                      uuid={category.uuid}
+                      dbIndex={category.index}
+                      index={idx}
+                      title={category.title}
+                      tasks={category.tasks}
+                      createTask={this.createTask}
+                      deleteTask={this.deleteTask}
+                      moveTask={this.moveTask}
+                      addTag={this.addTag}
+                      deleteTag={this.deleteTag}
+                      deleteCategory={this.deleteCategory}
+                      updateNote={this.updateNoteOnServer}
+                      handleChangeNote={this.handleChangeNote}
+                      hue={this.state.appColor}
+                    />
+                  ))}
 
-            <AddButton
-              onClick={this.toggleShowAddForm}
-              title='Category'
-              onSubmit={(newCategoryName) => {
-                this.createCategory(newCategoryName);
-              }}
-              id={`create-category-button`}
-            />
-
-            {/* Display tutorial instruction if no categories have been created yet */}
-            {this.state.categories.length < 1 ? (
-              <div className='project__getting-started'>
-                <svg
-                  width='25'
-                  height='25'
-                  viewBox='0 0 20 20'
-                  fill='none'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M9.70711 16.7071C9.31658 17.0976 8.68342 17.0976 8.29289 16.7071L2.29289 10.7071C1.90237 10.3166 1.90237 9.68342 2.29289 9.29289L8.29289 3.29289C8.68342 2.90237 9.31658 2.90237 9.70711 3.29289C10.0976 3.68342 10.0976 4.31658 9.70711 4.70711L5.41421 9H17C17.5523 9 18 9.44772 18 10C18 10.5523 17.5523 11 17 11L5.41421 11L9.70711 15.2929C10.0976 15.6834 10.0976 16.3166 9.70711 16.7071Z'
-                    fill='hsl(0, 0%, 0%)'
-                  />
-                </svg>
-                <h2>Create your first category</h2>
+                {provided.placeholder}
               </div>
-            ) : null}
-          </DragDropContext>
-        </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+
+        <AddButton
+          onClick={this.toggleShowAddForm}
+          title='Category'
+          onSubmit={(newCategoryName) => {
+            this.createCategory(newCategoryName);
+          }}
+          id={`create-category-button`}
+        />
+
+        {/* Display tutorial instruction if no categories have been created yet */}
+        {this.state.categories.length < 1 ? (
+          <div className='project__getting-started'>
+            <svg
+              width='25'
+              height='25'
+              viewBox='0 0 20 20'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                fillRule='evenodd'
+                clipRule='evenodd'
+                d='M9.70711 16.7071C9.31658 17.0976 8.68342 17.0976 8.29289 16.7071L2.29289 10.7071C1.90237 10.3166 1.90237 9.68342 2.29289 9.29289L8.29289 3.29289C8.68342 2.90237 9.31658 2.90237 9.70711 3.29289C10.0976 3.68342 10.0976 4.31658 9.70711 4.70711L5.41421 9H17C17.5523 9 18 9.44772 18 10C18 10.5523 17.5523 11 17 11L5.41421 11L9.70711 15.2929C10.0976 15.6834 10.0976 16.3166 9.70711 16.7071Z'
+                fill='hsl(0, 0%, 0%)'
+              />
+            </svg>
+            <h2>Create your first category</h2>
+          </div>
+        ) : null}
       </section>
     );
   }

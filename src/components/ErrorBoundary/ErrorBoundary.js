@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './errorBoundary.css';
 
 // Any class component with a componentDidCatch() lifecycle method
@@ -36,9 +35,9 @@ export default class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <div className='error-boundary'>
-          <Link to='/' className='error-boundary__back'>
+          <a href='http://localhost:3000' className='error-boundary__back'>
             ⇦ Go Back
-          </Link>
+          </a>
           <h2>Something went wrong.</h2>
           <div className='koala'>
             <div className='koala__ear koala__ear--1'></div>
