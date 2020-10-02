@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ProjectToolbar from './ProjectToolbar';
+import ProjectHeader from './ProjectHeader';
 
-it('Renders the ProjectToolbar component', () => {
+it('Renders the ProjectHeader component', () => {
   const div = document.createElement('div');
 
-  ReactDOM.render(<ProjectToolbar />, div);
+  ReactDOM.render(<ProjectHeader />, div);
 
   ReactDOM.unmountComponentAtNode(div);
 });

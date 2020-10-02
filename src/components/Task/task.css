@@ -4,11 +4,13 @@
   display: flex;
   box-shadow: 0 0 1rem hsl(0, 0%, 10%, 0.2);
   width: 100%;
+  box-sizing: border-box;
 }
 
 .task__body {
   padding: 0.5rem;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .task__header {
@@ -21,6 +23,7 @@
 .task__header h4 {
   margin: 0;
   font-size: 1.7rem;
+  width: 100%;
 }
 
 .task__header--x:hover {

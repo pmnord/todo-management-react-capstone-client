@@ -24,12 +24,13 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
+  position: relative;
 }
 
-.category__header--x:hover {
-  cursor: pointer;
-  background-color: white;
-  border-radius: 5px;
+.category__delete-button-container {
+  position: absolute;
+  top: 2px;
+  right: 2px;
 }
 
 .category h3 {

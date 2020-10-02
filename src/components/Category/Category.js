@@ -29,14 +29,16 @@ export default function Category(props) {
 
             {/* X icon */}
             {/* Only display a delete button if the category is empty */}
-            {props.tasks.length === 0 ? (
-              <DeleteButton
-                id={`cat-${props.index}-delete`}
-                hue={props.hue}
-                thingDeleted='category'
-                deleteCallback={handleDeleteCategory}
-              />
-            ) : null}
+            <div className='category__delete-button-container'>
+              {props.tasks.length === 0 ? (
+                <DeleteButton
+                  id={`cat-${props.index}-delete`}
+                  hue={props.hue}
+                  thingDeleted='category'
+                  deleteCallback={handleDeleteCategory}
+                />
+              ) : null}
+            </div>
           </div>
 
           <Droppable droppableId={props.uuid} type='task'>

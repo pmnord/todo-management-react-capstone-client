@@ -2,10 +2,14 @@
   position: relative;
 }
 
+.DeleteButton__x {
+  border: solid 1px transparent;
+  border-radius: 5px;
+}
+
 .DeleteButton__x:hover {
   cursor: pointer;
-  background-color: white;
-  border-radius: 5px;
+  border-color: black;
 }
 
 .DeleteButton__confirm-box {

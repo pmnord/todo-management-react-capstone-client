@@ -11,27 +11,30 @@ export default function Tags(props) {
   };
 
   return (
-    <div className='tags'>
-      <ul className='tags__ul'>
-        {props.tags
-          ? props.tags.map((tag, idx) => (
-              <li key={idx}>
-                <Tag
-                  index={idx}
-                  title={tag}
-                  deleteTag={handleDeleteTag}
-                  hue={props.hue}
-                />
-              </li>
-            ))
-          : null}
-      </ul>
+    <div>
+      <label>Tags:</label>
+      <div className='tags'>
+        <ul className='tags__ul'>
+          {props.tags
+            ? props.tags.map((tag, idx) => (
+                <li key={idx}>
+                  <Tag
+                    index={idx}
+                    title={tag}
+                    deleteTag={handleDeleteTag}
+                    hue={props.hue}
+                  />
+                </li>
+              ))
+            : null}
+        </ul>
 
-      <AddButton
-        title='Tag'
-        id={`cat-${props.categoryIndex}-task-${props.taskIndex}-tags`}
-        onSubmit={(tagName) => props.addTag(tagName)}
-      />
+        <AddButton
+          title='Tag'
+          id={`cat-${props.categoryIndex}-task-${props.taskIndex}-tags`}
+          onSubmit={(tagName) => props.addTag(tagName)}
+        />
+      </div>
     </div>
   );
 }

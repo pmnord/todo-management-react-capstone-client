@@ -5,7 +5,7 @@ import './addButton.css';
 a title for the content being added, 
 and a unique id for labeling and setting event listeners */
 
-export default function AddButton({ onSubmit, title, id }) {
+export default function AddButton({ onSubmit, title, id, style }) {
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
@@ -65,9 +65,12 @@ export default function AddButton({ onSubmit, title, id }) {
     );
   } else {
     return (
-      <button onClick={() => setShowForm(true)} className='btn add-button'>
+      <button
+        onClick={() => setShowForm(true)}
+        className='AddButton__btn'
+        style={style}
+      >
         <svg
-          className='add-button--plus-icon'
           width='18'
           height='18'
           viewBox='0 0 20 20'

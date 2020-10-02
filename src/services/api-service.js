@@ -54,6 +54,19 @@ const ApiService = {
       )
       .catch((err) => console.log(err));
   },
+  patchCategory: function (category_id, updateValues) {
+    // updateValues must be an object with either a title property or a toReIndex property
+    console.log(updateValues);
+
+    return fetch(`${config.API_ENDPOINT}/category/${category_id}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        'api-key': config.API_KEY,
+      },
+      body: JSON.stringify(updateValues),
+    });
+  },
   postTask: function (newTask) {
     return fetch(`${config.API_ENDPOINT}/task`, {
       method: 'POST',
