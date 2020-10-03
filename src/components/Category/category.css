@@ -6,7 +6,7 @@
   min-width: 21rem;
   max-width: 21rem;
   overflow-y: auto;
-  max-height: 80vh;
+  max-height: 90vh;
   box-shadow: 0 0 1rem hsl(0, 0%, 0%, 0.2);
 }
 
@@ -47,4 +47,20 @@
   .category {
     max-height: 75vh;
   }
+}
+
+.category--blue {
+  background-color: hsl(var(--blue), 50%, 88%);
+}
+.category--green {
+  background-color: hsl(var(--green), 50%, 88%);
+}
+.category--cyan {
+  background-color: hsl(var(--cyan), 50%, 88%);
+}
+.category--peach {
+  background-color: hsl(var(--peach), 50%, 88%);
+}
+.category--magenta {
+  background-color: hsl(var(--magenta), 50%, 88%);
 }

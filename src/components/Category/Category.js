@@ -11,16 +11,11 @@ export default function Category(props) {
     props.deleteCategory(props.index);
   };
 
-  const categoryStyles = {
-    backgroundColor: `hsl(${props.hue}, 20%, 90%)`,
-  };
-
   return (
     <Draggable draggableId={props.uuid} index={props.index}>
       {(provided) => (
         <div
-          className='category'
-          style={categoryStyles}
+          className={`category ${props.color && `category--${props.color}`}`}
           ref={provided.innerRef}
           {...provided.draggableProps}
         >

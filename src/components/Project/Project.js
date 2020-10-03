@@ -18,7 +18,8 @@ export default class Project extends React.Component {
     super(props);
     this.state = {
       categories: [],
-      hue: '220',
+      color: 'blue',
+      hue: null,
       projectLoaded: false,
       projectId: null,
     };
@@ -225,14 +226,15 @@ export default class Project extends React.Component {
   }
 
   handleChangeColor = (e) => {
-    // TODO: Set a variable in local storage to track a user's color choice
-    const hue = e.target.value;
+    let color = e.target.value;
+    if (color === 'gray') {
+      color = null;
+    }
 
     this.setState({
-      ...this.state,
-      hue,
+      color,
     });
-    window.localStorage.setItem(`${this.state.projectId}-color`, hue);
+    window.localStorage.setItem(`${this.state.projectId}-color`, color);
   };
 
   onDragEnd = ({ source, destination, type }) => {
@@ -369,7 +371,7 @@ export default class Project extends React.Component {
                       deleteCategory={this.deleteCategory}
                       updateNote={this.updateNoteOnServer}
                       handleChangeNote={this.handleChangeNote}
-                      hue={this.state.appColor}
+                      color={this.state.color}
                     />
                   ))}
                 {provided.placeholder}

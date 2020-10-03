@@ -18,12 +18,19 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .task__header h4 {
   margin: 0;
   font-size: 1.7rem;
   width: 100%;
+}
+
+.task-header__delete-button-container {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .task__header--x:hover {

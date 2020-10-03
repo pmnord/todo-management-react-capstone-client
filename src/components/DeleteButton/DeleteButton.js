@@ -41,7 +41,11 @@ export default function DeleteButton({
   return (
     <span className='DeleteButton'>
       <svg
+        tabIndex='0'
         onClick={() => setShowConfirmBox(!showConfirmBox)}
+        onKeyDown={(e) =>
+          e.keyCode === 13 && setShowConfirmBox(!showConfirmBox)
+        }
         className='DeleteButton__x'
         width='15'
         height='15'

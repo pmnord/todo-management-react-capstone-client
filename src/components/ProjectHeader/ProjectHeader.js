@@ -20,6 +20,7 @@ const ProjectHeader = (props) => {
           </Link>
         </div>
         <div className='toolbar__tools'>
+          <span></span>
           {/* Shareable Link Button */}
           <div className='project__toolbar--share project__toolbar--mobile-hidden'>
             <input
@@ -37,25 +38,28 @@ const ProjectHeader = (props) => {
                 setShareClicked(true);
               }}
             >
-              {/* Clipboard Icon */}
+              {/* Clipboard-copy */}
               <svg
-                width='20'
-                height='20'
-                viewBox='2 0 20 20'
+                width='16'
+                height='16'
+                viewBox='0 0 20 20'
                 fill='none'
                 xmlns='http://www.w3.org/2000/svg'
               >
                 <path
-                  d='M9 2C8.44772 2 8 2.44772 8 3C8 3.55228 8.44772 4 9 4H11C11.5523 4 12 3.55228 12 3C12 2.44772 11.5523 2 11 2H9Z'
-                  fill='#4A5568'
+                  d='M8 2C7.44772 2 7 2.44772 7 3C7 3.55228 7.44772 4 8 4H10C10.5523 4 11 3.55228 11 3C11 2.44772 10.5523 2 10 2H8Z'
+                  fill='hsl(0, 0%, 10%)'
                 />
                 <path
-                  fillRule='evenodd'
-                  clipRule='evenodd'
-                  d='M4 5C4 3.89543 4.89543 3 6 3C6 4.65685 7.34315 6 9 6H11C12.6569 6 14 4.65685 14 3C15.1046 3 16 3.89543 16 5V16C16 17.1046 15.1046 18 14 18H6C4.89543 18 4 17.1046 4 16V5ZM7 9C6.44772 9 6 9.44772 6 10C6 10.5523 6.44772 11 7 11H7.01C7.56228 11 8.01 10.5523 8.01 10C8.01 9.44772 7.56228 9 7.01 9H7ZM10 9C9.44772 9 9 9.44772 9 10C9 10.5523 9.44772 11 10 11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H10ZM7 13C6.44772 13 6 13.4477 6 14C6 14.5523 6.44772 15 7 15H7.01C7.56228 15 8.01 14.5523 8.01 14C8.01 13.4477 7.56228 13 7.01 13H7ZM10 13C9.44772 13 9 13.4477 9 14C9 14.5523 9.44772 15 10 15H13C13.5523 15 14 14.5523 14 14C14 13.4477 13.5523 13 13 13H10Z'
+                  d='M3 5C3 3.89543 3.89543 3 5 3C5 4.65685 6.34315 6 8 6H10C11.6569 6 13 4.65685 13 3C14.1046 3 15 3.89543 15 5V11H10.4142L11.7071 9.70711C12.0976 9.31658 12.0976 8.68342 11.7071 8.29289C11.3166 7.90237 10.6834 7.90237 10.2929 8.29289L7.29289 11.2929C6.90237 11.6834 6.90237 12.3166 7.29289 12.7071L10.2929 15.7071C10.6834 16.0976 11.3166 16.0976 11.7071 15.7071C12.0976 15.3166 12.0976 14.6834 11.7071 14.2929L10.4142 13H15V16C15 17.1046 14.1046 18 13 18H5C3.89543 18 3 17.1046 3 16V5Z'
+                  fill='hsl(0, 0%, 10%)'
+                />
+                <path
+                  d='M15 11H17C17.5523 11 18 11.4477 18 12C18 12.5523 17.5523 13 17 13H15V11Z'
                   fill='hsl(0, 0%, 10%)'
                 />
               </svg>
+
               {shareClicked ? `Link Copied` : `Share Link`}
             </button>
           </div>
@@ -89,6 +93,8 @@ const ProjectHeader = (props) => {
                 <input
                   type='radio'
                   name='color'
+                  value='gray'
+                  onClick={(e) => props.handleChangeColor(e)}
                   className='toolbar__color-option toolbar__color-option--gray'
                 />
                 <span></span>
@@ -97,6 +103,8 @@ const ProjectHeader = (props) => {
                 <input
                   type='radio'
                   name='color'
+                  value='blue'
+                  onClick={(e) => props.handleChangeColor(e)}
                   className='toolbar__color-option toolbar__color-option--blue'
                 />
                 <span></span>
@@ -105,6 +113,8 @@ const ProjectHeader = (props) => {
                 <input
                   type='radio'
                   name='color'
+                  value='green'
+                  onClick={(e) => props.handleChangeColor(e)}
                   className='toolbar__color-option toolbar__color-option--green'
                 />
                 <span></span>
@@ -113,6 +123,8 @@ const ProjectHeader = (props) => {
                 <input
                   type='radio'
                   name='color'
+                  value='cyan'
+                  onClick={(e) => props.handleChangeColor(e)}
                   className='toolbar__color-option toolbar__color-option--cyan'
                 />
                 <span></span>
@@ -121,6 +133,18 @@ const ProjectHeader = (props) => {
                 <input
                   type='radio'
                   name='color'
+                  value='peach'
+                  onClick={(e) => props.handleChangeColor(e)}
+                  className='toolbar__color-option toolbar__color-option--peach'
+                />
+                <span></span>
+              </label>
+              <label className='toolbar__color-option-label'>
+                <input
+                  type='radio'
+                  name='color'
+                  value='magenta'
+                  onClick={(e) => props.handleChangeColor(e)}
                   className='toolbar__color-option toolbar__color-option--magenta'
                 />
                 <span></span>

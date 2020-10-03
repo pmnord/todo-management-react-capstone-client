@@ -43,7 +43,7 @@ export default class Landing extends React.Component {
               Get up and running with your team in seconds on a collaborative
               Kanban board.
             </p>
-            <p>Plan a project, track issues, and brainstorm new ideas!</p>
+            <p>Plan features and track issues — the agile way.</p>
           </section>
           <button className='btn--hover--black' onClick={this.handleNewProject}>
             {this.state.newProjectClicked ? 'Loading...' : 'New Project'}
