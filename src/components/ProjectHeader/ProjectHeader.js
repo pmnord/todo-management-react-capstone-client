@@ -61,25 +61,72 @@ const ProjectHeader = (props) => {
           </div>
 
           {/* Color Theme Picker */}
-          <div className='project__toolbar--color project__toolbar--mobile-hidden'></div>
-          <label htmlFor='project__toolbar--color--select' className='hidden'>
-            Color:{' '}
-          </label>
-          <select
-            defaultValue={'DEFAULT'}
-            onChange={props.handleChangeColor}
-            id='project__toolbar--color--select'
-          >
-            <option value='DEFAULT' disabled hidden>
-              Color Theme
-            </option>
-            <option value='220'>Blue</option>
-            <option value='0'>Red</option>
-            <option value='120'>Green</option>
-            {/* <option value='60'>Yellow</option> This really needs more saturation to look good */}
-            <option value='180'>Cyan</option>
-            <option value='300'>Magenta</option>
-          </select>
+          {/* <div className='project__toolbar--color project__toolbar--mobile-hidden'>
+            <label htmlFor='project__toolbar--color--select' className='hidden'>
+              Color:{' '}
+            </label>
+            <select
+              defaultValue={'DEFAULT'}
+              onChange={props.handleChangeColor}
+              id='project__toolbar--color--select'
+            >
+              <option value='DEFAULT' disabled hidden>
+                Color Theme
+              </option>
+              <option value='220'>Blue</option>
+              <option value='0'>Red</option>
+              <option value='120'>Green</option>
+              <option value='180'>Cyan</option>
+              <option value='300'>Magenta</option>
+            </select>
+          </div> */}
+
+          {/* Color Theme Picker Radio Buttons */}
+          <div className='toolbar__color-picker'>
+            <fieldset>
+              <legend aria-label='App Color Picker'></legend>
+              <label className='toolbar__color-option-label'>
+                <input
+                  type='radio'
+                  name='color'
+                  className='toolbar__color-option toolbar__color-option--gray'
+                />
+                <span></span>
+              </label>
+              <label className='toolbar__color-option-label'>
+                <input
+                  type='radio'
+                  name='color'
+                  className='toolbar__color-option toolbar__color-option--blue'
+                />
+                <span></span>
+              </label>
+              <label className='toolbar__color-option-label'>
+                <input
+                  type='radio'
+                  name='color'
+                  className='toolbar__color-option toolbar__color-option--green'
+                />
+                <span></span>
+              </label>
+              <label className='toolbar__color-option-label'>
+                <input
+                  type='radio'
+                  name='color'
+                  className='toolbar__color-option toolbar__color-option--cyan'
+                />
+                <span></span>
+              </label>
+              <label className='toolbar__color-option-label'>
+                <input
+                  type='radio'
+                  name='color'
+                  className='toolbar__color-option toolbar__color-option--magenta'
+                />
+                <span></span>
+              </label>
+            </fieldset>
+          </div>
         </div>
       </div>
       <div className='toolbar__spacer'></div>

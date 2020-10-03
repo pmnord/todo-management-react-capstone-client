@@ -77,3 +77,54 @@
 .project__toolbar--share button {
   width: 162px;
 }
+
+.toolbar__color-option {
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  border: 0;
+  width: 1;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+}
+
+.toolbar__color-option-label {
+  cursor: pointer;
+}
+
+.toolbar__color-option + span::before {
+  height: 1.5rem;
+  width: 1.5rem;
+  display: inline-block;
+  border-radius: 100%;
+  content: '';
+  margin-left: 1rem;
+  border: solid 4px hsla(0, 0%, 0%, 0);
+}
+
+.toolbar__color-option:checked + span::before {
+  border: solid 4px hsl(0, 0%, 10%);
+  /* box-shadow: 0 0 0 3px hsl(0, 0%, 10%); */
+}
+
+.toolbar__color-option--gray + span::before {
+  background-color: hsl(0, 0%, 50%);
+}
+.toolbar__color-option--blue + span::before {
+  background-color: hsl(220, 20%, 50%);
+}
+.toolbar__color-option--green + span::before {
+  background-color: hsl(120, 20%, 50%);
+}
+.toolbar__color-option--cyan + span::before {
+  background-color: hsl(180, 20%, 50%);
+}
+.toolbar__color-option--magenta + span::before {
+  background-color: hsl(300, 20%, 50%);
+}
+
+.project__toolbar fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
