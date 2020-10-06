@@ -22,7 +22,7 @@ export default function Tags(props) {
                     index={idx}
                     title={tag}
                     deleteTag={handleDeleteTag}
-                    hue={props.hue}
+                    color={props.color}
                   />
                 </li>
               ))

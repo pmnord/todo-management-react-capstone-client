@@ -12,19 +12,18 @@ export default function DeleteButton({
   // Toggles display of confirmation box on clicking out
   useEffect(() => {
     if (showConfirmBox) {
-      const root = document.getElementById('root');
-      root.addEventListener('mousedown', (e) => {
+      const handleClickout = (e) => {
         // Prevent the nav from toggling off unless the user clicks outside of the element
         for (let element of e.path) {
-          if (element.className === 'DeleteButton__confirm-box') {
-            return;
-          }
+          if (element.className === 'DeleteButton__confirm-box') return;
         }
 
-        if (showConfirmBox) {
-          setShowConfirmBox(false);
-        }
-      });
+        if (showConfirmBox) setShowConfirmBox(false);
+      };
+      const root = document.getElementById('root');
+      root.addEventListener('mousedown');
+
+      return () => window.removeEventListener('mousedown', handleClickout);
     }
   }, [showConfirmBox, id]);
 

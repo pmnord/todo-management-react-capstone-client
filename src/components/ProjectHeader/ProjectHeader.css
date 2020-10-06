@@ -104,19 +104,19 @@
   background-color: hsl(0, 0%, 50%);
 }
 .toolbar__color-option--blue + span::before {
-  background-color: hsl(220, 20%, 50%);
+  background-color: hsl(var(--blue), 45%, 66%);
 }
 .toolbar__color-option--green + span::before {
-  background-color: hsl(120, 20%, 50%);
+  background-color: hsl(var(--green), 45%, 66%);
 }
 .toolbar__color-option--cyan + span::before {
-  background-color: hsl(180, 20%, 50%);
+  background-color: hsl(var(--cyan), 45%, 66%);
 }
 .toolbar__color-option--peach + span::before {
-  background-color: hsl(30, 60%, 70%);
+  background-color: hsl(var(--peach), 65%, 80%);
 }
 .toolbar__color-option--magenta + span::before {
-  background-color: hsl(300, 20%, 50%);
+  background-color: hsl(var(--magenta), 45%, 66%);
 }
 
 .project__toolbar fieldset {

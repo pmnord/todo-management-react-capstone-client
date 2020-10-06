@@ -58,7 +58,7 @@ export default function Category(props) {
                           addTag={props.addTag}
                           deleteTag={props.deleteTag}
                           updateNote={props.updateNote}
-                          hue={props.hue}
+                          color={props.color}
                           handleChangeNote={props.handleChangeNote}
                         />
                       </li>

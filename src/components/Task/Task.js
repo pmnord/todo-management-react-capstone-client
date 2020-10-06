@@ -35,7 +35,7 @@ export default function Task(props) {
       {(provided) => (
         <div>
           <div
-            className='task'
+            className={`task ${props.color && `task--${props.color}`}`}
             style={taskStyles}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
@@ -69,7 +69,7 @@ export default function Task(props) {
                     props.addTag(props.categoryIndex, props.index, newTag)
                   }
                   deleteTag={props.deleteTag}
-                  hue={props.hue}
+                  color={props.color}
                 />
               </div>
               <label

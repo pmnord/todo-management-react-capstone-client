@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import utils from '../../utils/utils.js';
 
@@ -6,14 +6,31 @@ import './ProjectHeader.css';
 
 const ProjectHeader = (props) => {
   const [shareClicked, setShareClicked] = useState(false);
+  const [colorSelected, setColorSelected] = useState({
+    gray: true,
+    // blue: false,
+    // green: false,
+    // cyan: false,
+    // peach: false,
+    // magenta: false,
+  });
 
-  const toolbarStyles = {
-    backgroundColor: `hsl(${props.hue}, 20%, 97%)`,
+  useEffect(() => {
+    const storedColor = window.localStorage.getItem(props.uuid + '-color');
+    if (storedColor) {
+      setColorSelected({ [storedColor]: true });
+    }
+  }, [props.uuid]); // The second argument tells useEffect what values to watch and 'hook' onto. If the array is empty it will only run once.
+
+  const handleColorOptionClicked = (e) => {
+    props.handleChangeColor(e);
+
+    setColorSelected({ [e.target.value]: true });
   };
 
   return (
     <div>
-      <div style={toolbarStyles} className='project__toolbar'>
+      <div className='project__toolbar'>
         <div className='toolbar__logo'>
           <Link to='/'>
             <h1 className='toolbar__h1'>Coɩɩab</h1>
@@ -64,27 +81,6 @@ const ProjectHeader = (props) => {
             </button>
           </div>
 
-          {/* Color Theme Picker */}
-          {/* <div className='project__toolbar--color project__toolbar--mobile-hidden'>
-            <label htmlFor='project__toolbar--color--select' className='hidden'>
-              Color:{' '}
-            </label>
-            <select
-              defaultValue={'DEFAULT'}
-              onChange={props.handleChangeColor}
-              id='project__toolbar--color--select'
-            >
-              <option value='DEFAULT' disabled hidden>
-                Color Theme
-              </option>
-              <option value='220'>Blue</option>
-              <option value='0'>Red</option>
-              <option value='120'>Green</option>
-              <option value='180'>Cyan</option>
-              <option value='300'>Magenta</option>
-            </select>
-          </div> */}
-
           {/* Color Theme Picker Radio Buttons */}
           <div className='toolbar__color-picker'>
             <fieldset>
@@ -94,7 +90,8 @@ const ProjectHeader = (props) => {
                   type='radio'
                   name='color'
                   value='gray'
-                  onClick={(e) => props.handleChangeColor(e)}
+                  defaultChecked={colorSelected.gray}
+                  onClick={handleColorOptionClicked}
                   className='toolbar__color-option toolbar__color-option--gray'
                 />
                 <span></span>
@@ -104,7 +101,8 @@ const ProjectHeader = (props) => {
                   type='radio'
                   name='color'
                   value='blue'
-                  onClick={(e) => props.handleChangeColor(e)}
+                  defaultChecked={colorSelected.blue}
+                  onClick={handleColorOptionClicked}
                   className='toolbar__color-option toolbar__color-option--blue'
                 />
                 <span></span>
@@ -114,7 +112,8 @@ const ProjectHeader = (props) => {
                   type='radio'
                   name='color'
                   value='green'
-                  onClick={(e) => props.handleChangeColor(e)}
+                  defaultChecked={colorSelected.green}
+                  onClick={handleColorOptionClicked}
                   className='toolbar__color-option toolbar__color-option--green'
                 />
                 <span></span>
@@ -124,7 +123,8 @@ const ProjectHeader = (props) => {
                   type='radio'
                   name='color'
                   value='cyan'
-                  onClick={(e) => props.handleChangeColor(e)}
+                  defaultChecked={colorSelected.cyan}
+                  onClick={handleColorOptionClicked}
                   className='toolbar__color-option toolbar__color-option--cyan'
                 />
                 <span></span>
@@ -134,7 +134,8 @@ const ProjectHeader = (props) => {
                   type='radio'
                   name='color'
                   value='peach'
-                  onClick={(e) => props.handleChangeColor(e)}
+                  defaultChecked={colorSelected.peach}
+                  onClick={handleColorOptionClicked}
                   className='toolbar__color-option toolbar__color-option--peach'
                 />
                 <span></span>
@@ -144,7 +145,8 @@ const ProjectHeader = (props) => {
                   type='radio'
                   name='color'
                   value='magenta'
-                  onClick={(e) => props.handleChangeColor(e)}
+                  defaultChecked={colorSelected.magenta}
+                  onClick={handleColorOptionClicked}
                   className='toolbar__color-option toolbar__color-option--magenta'
                 />
                 <span></span>

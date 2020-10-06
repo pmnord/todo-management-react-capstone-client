@@ -18,8 +18,7 @@ export default class Project extends React.Component {
     super(props);
     this.state = {
       categories: [],
-      color: 'blue',
-      hue: null,
+      color: 'gray',
       projectLoaded: false,
       projectId: null,
     };
@@ -42,7 +41,7 @@ export default class Project extends React.Component {
 
         const storedColor = window.localStorage.getItem(uuid + '-color');
         if (storedColor) {
-          this.setState({ hue: storedColor });
+          this.setState({ color: storedColor });
         }
       })
       .catch((err) => {
@@ -83,7 +82,6 @@ export default class Project extends React.Component {
       tasks: [],
       index: this.state.categories.length,
     };
-    console.log(newCategory);
     const newState = { categories: [...this.state.categories, newCategory] };
     this.setState(newState);
 
@@ -227,9 +225,6 @@ export default class Project extends React.Component {
 
   handleChangeColor = (e) => {
     let color = e.target.value;
-    if (color === 'gray') {
-      color = null;
-    }
 
     this.setState({
       color,
@@ -284,7 +279,6 @@ export default class Project extends React.Component {
         { ...newState.categories[destinationCategoryIndex] },
       ];
 
-      console.log(task);
       ApiService.patchTask(task.id, task, toReIndex);
     } else if (type === 'category') {
       const newCategories = [...this.state.categories];
@@ -331,6 +325,7 @@ export default class Project extends React.Component {
       <section className='project'>
         <ProjectHeader
           handleChangeColor={this.handleChangeColor}
+          uuid={this.state.uuid}
         ></ProjectHeader>
 
         {/* Error Display */}
@@ -392,7 +387,7 @@ export default class Project extends React.Component {
         {/* Display tutorial instruction if no categories have been created yet */}
         {this.state.categories.length < 1 ? (
           <div className='project__getting-started'>
-            <h2>Create your first category</h2>
+            <h2>↖ Create your first category to get started</h2>
           </div>
         ) : null}
       </section>

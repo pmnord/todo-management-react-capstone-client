@@ -22,3 +22,19 @@
   right: 0px;
   top: 0px;
 }
+
+.tag--blue {
+  background-color: hsl(var(--blue), 50%, 74%);
+}
+.tag--green {
+  background-color: hsl(var(--green), 50%, 74%);
+}
+.tag--cyan {
+  background-color: hsl(var(--cyan), 50%, 74%);
+}
+.tag--peach {
+  background-color: hsl(var(--peach), 70%, 82%);
+}
+.tag--magenta {
+  background-color: hsl(var(--magenta), 50%, 74%);
+}

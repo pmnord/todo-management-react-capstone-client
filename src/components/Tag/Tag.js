@@ -8,15 +8,9 @@ const Tag = (props) => {
     props.deleteTag(props.index);
   };
 
-  // const tagStyles = {
-  //     backgroundColor: showDeleteIcon
-  //         ? `hsl(354, 85%, 70%)`
-  //         : `hsl(${props.hue}, 40%, 85%)`,
-  // }
-
   return (
     <span
-      className='tag'
+      className={`tag ${props.color && `tag--${props.color}`}`}
       onClick={handleDeleteTag}
       onMouseEnter={() => {
         setShowDeleteIcon(true);
@@ -24,12 +18,11 @@ const Tag = (props) => {
       onMouseLeave={() => {
         setShowDeleteIcon(false);
       }}
-      // style={tagStyles}
     >
       {props.title}
 
       {showDeleteIcon ? (
-        // X icon
+        // x icon
         <svg
           className='tag__x'
           width='20'

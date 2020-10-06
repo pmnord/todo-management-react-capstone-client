@@ -46,3 +46,19 @@
 .task textarea {
   width: 95%;
 }
+
+.task--blue {
+  background-color: hsl(var(--blue), 50%, 94%);
+}
+.task--green {
+  background-color: hsl(var(--green), 50%, 94%);
+}
+.task--cyan {
+  background-color: hsl(var(--cyan), 50%, 94%);
+}
+.task--peach {
+  background-color: hsl(var(--peach), 50%, 94%);
+}
+.task--magenta {
+  background-color: hsl(var(--magenta), 50%, 94%);
+}

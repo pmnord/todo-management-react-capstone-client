@@ -56,7 +56,6 @@ const ApiService = {
   },
   patchCategory: function (category_id, updateValues) {
     // updateValues must be an object with either a title property or a toReIndex property
-    console.log(updateValues);
 
     return fetch(`${config.API_ENDPOINT}/category/${category_id}`, {
       method: 'PATCH',
