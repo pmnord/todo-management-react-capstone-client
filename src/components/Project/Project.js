@@ -100,7 +100,7 @@ export default class Project extends React.Component {
   deleteCategory = (categoryIndex) => {
     // This needs to re-index all categories higher than it
 
-    const category_id = this.state.categories[categoryIndex].id;
+    const category_uuid = this.state.categories[categoryIndex].uuid;
     const newState = { ...this.state };
     newState.categories.splice(categoryIndex, 1);
     this.setState(newState);
@@ -108,10 +108,10 @@ export default class Project extends React.Component {
     const toReIndex = this.state.categories[categoryIndex]
       ? this.state.categories
           .slice(categoryIndex)
-          .map((cat) => ({ id: cat.id, index: cat.index }))
+          .map((category) => ({ id: category.uuid, index: category.index }))
       : [];
 
-    ApiService.deleteCategory(category_id, toReIndex);
+    ApiService.deleteCategory(category_uuid, toReIndex);
   };
 
   createTask = (categoryIndex, newTaskTitle) => {
@@ -129,15 +129,15 @@ export default class Project extends React.Component {
 
     const newState = { ...this.state };
     newState.categories[categoryIndex].tasks.push(newTask);
-    // TypeError: newState.categories[categoryIndex].tasks.push is not a function
 
     this.setState(newState);
 
     ApiService.postTask(newTask)
-      .then((dbTask) => {
-        const newState = { ...this.state };
-        newState.categories[categoryIndex].tasks[newTaskIndex].id = dbTask.id;
-      })
+      // .then((dbTask) => {
+      //   // const newState = { ...this.state };
+      //   // // I think this is directly mutating state via a deeply nested reference
+      //   // newState.categories[categoryIndex].tasks[newTaskIndex].id = dbTask.id;
+      // })
       .catch((err) => this.setState({ error: err }));
   };
 
@@ -281,18 +281,26 @@ export default class Project extends React.Component {
 
       ApiService.patchTask(task.id, task, toReIndex);
     } else if (type === 'category') {
-      const newCategories = [...this.state.categories];
+      let newCategories = [...this.state.categories];
       const fromIndex = source.index;
       const toIndex = destination.index;
 
       const droppedCategory = newCategories.splice(fromIndex, 1)[0]; // Splice out the moved category
       newCategories.splice(toIndex, 0, droppedCategory); // Insert the moved category at the new index
+      console.log(newCategories);
+      newCategories = newCategories.map((category, idx) => {
+        return { ...category, index: idx };
+      });
+      console.log(newCategories);
 
+      const apiUpdateValues = newCategories.map(({ uuid }, index) => {
+        return { uuid, index };
+      });
       // Optimistically Update the client state
       this.setState({ categories: newCategories });
 
-      ApiService.patchCategory(droppedCategory.id, {
-        toReIndex: newCategories,
+      ApiService.patchCategory(droppedCategory.uuid, {
+        toReIndex: apiUpdateValues,
       });
     }
   };

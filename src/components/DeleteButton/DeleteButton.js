@@ -21,7 +21,7 @@ export default function DeleteButton({
         if (showConfirmBox) setShowConfirmBox(false);
       };
       const root = document.getElementById('root');
-      root.addEventListener('mousedown');
+      root.addEventListener('mousedown', handleClickout);
 
       return () => window.removeEventListener('mousedown', handleClickout);
     }
@@ -31,10 +31,6 @@ export default function DeleteButton({
     deleteCallback();
     setShowConfirmBox(false);
     return;
-  };
-
-  const confirmBoxStyles = {
-    backgroundColor: `hsl(${hue}, 50%, 89%)`,
   };
 
   return (
@@ -61,7 +57,7 @@ export default function DeleteButton({
       </svg>
 
       {showConfirmBox ? (
-        <div className='DeleteButton__confirm-box' style={confirmBoxStyles}>
+        <div className='DeleteButton__confirm-box'>
           <p>Are you sure?</p>
           <div>
             <button className='btn' onClick={handleDelete}>

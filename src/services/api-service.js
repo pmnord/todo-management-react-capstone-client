@@ -15,8 +15,8 @@ const ApiService = {
       .then((uuid) => uuid)
       .catch((err) => console.log(err));
   },
-  getProjectObject: function (uuid) {
-    return fetch(`${config.API_ENDPOINT}/project/${uuid}`, {
+  getProjectObject: function (project_uuid) {
+    return fetch(`${config.API_ENDPOINT}/project/${project_uuid}`, {
       headers: {
         'api-key': config.API_KEY,
       },
@@ -40,8 +40,8 @@ const ApiService = {
       )
       .catch((err) => console.log(err));
   },
-  deleteCategory: function (category_id, toReIndex) {
-    return fetch(`${config.API_ENDPOINT}/category/${category_id}`, {
+  deleteCategory: function (category_uuid, toReIndex) {
+    return fetch(`${config.API_ENDPOINT}/category/${category_uuid}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',
@@ -54,10 +54,10 @@ const ApiService = {
       )
       .catch((err) => console.log(err));
   },
-  patchCategory: function (category_id, updateValues) {
+  patchCategory: function (category_uuid, updateValues) {
     // updateValues must be an object with either a title property or a toReIndex property
 
-    return fetch(`${config.API_ENDPOINT}/category/${category_id}`, {
+    return fetch(`${config.API_ENDPOINT}/category/${category_uuid}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',
