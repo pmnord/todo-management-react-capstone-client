@@ -9,8 +9,9 @@ it('Renders the App component', () => {
   ReactDOM.render(
     <BrowserRouter>
       <App />
-    </BrowserRouter>
-      , div);
+    </BrowserRouter>,
+    div
+  );
 
   ReactDOM.unmountComponentAtNode(div);
 });
