@@ -2,54 +2,55 @@ import React from 'react';
 import './landing.css';
 import ApiService from '../../services/api-service';
 
+import Footer from '../Footer/Footer';
+
 // The landing page handles registration and logging in, as well as providing basic information about the app
 
 export default class Landing extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            newProjectClicked: false
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      newProjectClicked: false,
+    };
+  }
+
+  componentDidMount() {
+    // Set the color of the header back to default
+  }
+
+  handleNewProject = (e) => {
+    // Prevent multiple clicks from making multiple API requests
+    if (this.state.newProjectClicked) {
+      return;
     }
 
-    componentDidMount() {
-        // Set the color of the header back to default
-    }
+    this.setState({ newProjectClicked: true });
 
-    handleNewProject = (e) => {
-        // Prevent multiple clicks from making multiple API requests
-        if (this.state.newProjectClicked) { return; }
+    ApiService.postProject().then((uuid) => {
+      return this.props.push(`/project/${uuid}`);
+    });
+  };
 
-        this.setState({ newProjectClicked: true })
+  render() {
+    return (
+      <section className='landing'>
+        <div className='landing__main'>
+          <section className='landing__pitch'>
+            <h1 className='landing__h1'>Coɩɩab</h1>
+            <h2>A lightning-fast project starter</h2>
 
-        ApiService.postProject()
-            .then(uuid => {
-                return this.props.push(`/project/${uuid}`);
-            })
-    }
-
-    render() {
-
-        return (
-            <section className="landing">
-
-                <h2>We Do</h2>
-
-                <section className="landing__pitch">
-                    <p>We Do is a kanban-style collaborative organizer with a minimalist approach.</p>
-                    <p>Get up and running with your team in seconds. Plan a project, track issues, or brainstorm new ideas.</p>
-                    <p>The template is unoppinionated, so you can organize your collab in any way you choose.</p>
-                <div aria-label="button"
-                    
-                    className="landing__create-project"
-                    onClick={this.handleNewProject}>
-                    {this.state.newProjectClicked
-                        ? 'Loading...'
-                        : 'New Project'}
-                </div>
-                </section>
-
-            </section>
-        )
-    }
+            <p>
+              Get up and running with your team in seconds on a collaborative
+              Kanban board.
+            </p>
+            <p>Plan features and track issues — the agile way.</p>
+          </section>
+          <button className='btn--hover--black' onClick={this.handleNewProject}>
+            {this.state.newProjectClicked ? 'Loading...' : 'New Project'}
+          </button>
+        </div>
+        <Footer className='landing__footer'></Footer>
+      </section>
+    );
+  }
 }

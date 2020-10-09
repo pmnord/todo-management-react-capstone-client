@@ -2,13 +2,21 @@ import React from 'react';
 import './footer.css';
 
 export default function Footer() {
-
-    return (
-        <footer className="footer">
-            <a href="https://github.com/pmnord" target="_blank" rel="noopener noreferrer">
-                <i className="fab fa-github-square fa-3x"></i>
-                <p className="hidden">Github</p>
-            </a>
-        </footer>
-    )
+  return (
+    <footer className='footer'>
+      <a
+        className='footer__source'
+        href='https://github.com/pmnord/todo-management-react-capstone-client'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <p className='source__p'>View Source on </p>
+        <img
+          className='source__img'
+          src={require('../../assets/GitHub_Logo.png')}
+          alt='GitHub'
+        ></img>
+      </a>
+    </footer>
+  );
 }

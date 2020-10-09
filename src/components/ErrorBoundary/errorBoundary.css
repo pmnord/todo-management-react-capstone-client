@@ -1,4 +1,3 @@
-
 .error-boundary {
   display: flex;
   flex-direction: column;
@@ -9,7 +8,7 @@
 }
 
 .error-boundary h2 {
-  margin-bottom: 1rem;
+  margin-bottom: 24px;
 }
 
 .error-boundary h3 {
@@ -30,7 +29,7 @@
   height: 3rem;
   width: 3rem;
   border-radius: 50%;
-  
+
   border: 1.2rem solid hsla(0, 0%, 88%);
 }
 
@@ -53,7 +52,7 @@
   height: 1.5rem;
   width: 1.5rem;
   border-radius: 50%;
-  
+
   border: 1rem solid white;
 }
 
@@ -74,8 +73,12 @@
   width: 2.5rem;
   background-color: hsl(0, 0%, 15%);
   border-radius: 25%;
-  
+
   position: absolute;
   left: 76px;
   top: 69px;
+}
+
+.error-boundary__back {
+  text-decoration: underline;
 }

@@ -1,0 +1,126 @@
+.project__toolbar {
+  padding: 0.5rem;
+  padding-top: 0.6rem;
+  display: flex;
+  background-color: hsl(220, 20%, 97%);
+  justify-content: space-between;
+  align-items: center;
+
+  position: fixed;
+  z-index: auto;
+  width: 100vw;
+  height: 3rem;
+  top: 0;
+  box-sizing: border-box;
+}
+.toolbar__logo {
+  flex: 0;
+  font-size: 1.2rem;
+}
+
+.toolbar__tools {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toolbar__h1 {
+  margin: 0;
+}
+
+.toolbar__invite-btn {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+  font-weight: bold;
+}
+
+.toolbar__invite-btn:hover {
+  cursor: pointer;
+  border: solid 2px var(--black);
+}
+
+.toolbar__spacer {
+  height: 3.5rem;
+}
+
+.project__toolbar--filter input {
+  height: 1.2rem;
+}
+.project__toolbar--filter label {
+  font-family: 'Varela Round', sans-serif;
+}
+
+.project__toolbar--share input {
+  height: 1.3rem;
+  position: absolute;
+  z-index: -1;
+  left: -3000px;
+}
+
+.project__toolbar--color select {
+  display: flex;
+  align-items: center;
+  /* font-family: 'Varela Round', sans-serif; */
+  font-size: 1.2rem;
+  margin-left: 1rem;
+}
+
+.toolbar__color-option {
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  border: 0;
+  width: 1;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+}
+
+.toolbar__color-option-label {
+  cursor: pointer;
+}
+
+.toolbar__color-option + span::before {
+  height: 1.5rem;
+  width: 1.5rem;
+  display: inline-block;
+  border-radius: 100%;
+  content: '';
+  margin-left: 1rem;
+  border: solid 4px hsla(0, 0%, 0%, 0);
+}
+
+.toolbar__color-option:checked + span::before {
+  border: solid 4px hsl(0, 0%, 10%);
+  /* box-shadow: 0 0 0 3px hsl(0, 0%, 10%); */
+}
+
+.toolbar__color-option--gray + span::before {
+  background-color: hsl(0, 0%, 50%);
+}
+.toolbar__color-option--blue + span::before {
+  background-color: hsl(var(--blue), 45%, 66%);
+}
+.toolbar__color-option--green + span::before {
+  background-color: hsl(var(--green), 45%, 66%);
+}
+.toolbar__color-option--cyan + span::before {
+  background-color: hsl(var(--cyan), 45%, 66%);
+}
+.toolbar__color-option--peach + span::before {
+  background-color: hsl(var(--peach), 65%, 80%);
+}
+.toolbar__color-option--magenta + span::before {
+  background-color: hsl(var(--magenta), 45%, 66%);
+}
+
+.project__toolbar fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}

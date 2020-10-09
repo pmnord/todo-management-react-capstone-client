@@ -1,20 +1,24 @@
 .footer {
-    background-color: hsl(220, 20%, 90%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    position: absolute;
-    width: 100%;
-    bottom: 0px;
-    box-sizing: border-box;
-    height: 3.9rem;
+  width: 100%;
+  box-sizing: border-box;
+  height: 4rem;
 }
 
-.footer i {
-    color: hsl(0, 0%, 20%);
+.footer__source {
+  display: flex;
+  align-items: center;
 }
-.footer i:hover {
-    color: hsl(0, 0%, 30%);
+
+.source__p {
+  font-weight: bold;
+  margin-bottom: 1.05rem;
+  margin-right: 0.2rem;
+}
+
+.source__img {
+  height: 1.5rem;
 }

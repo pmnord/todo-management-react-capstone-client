@@ -1,58 +1,64 @@
 .task {
-    background-color: hsl(0, 0%, 95%);
-    margin-bottom: 0.5rem;
-    border-radius: 2px;
-    display: flex;
-    box-shadow: 1px 1px 2px 0.5px hsl(0, 0%, 99%);
-    width: 100%;
+  background-color: hsl(0, 0%, 95%);
+  margin-bottom: 0.5rem;
+  display: flex;
+  box-shadow: 0 0 1rem hsl(0, 0%, 10%, 0.2);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .task__body {
-    padding: 0.5rem;
-    width: 100%;
-}
-
-.task__nav-arrows {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0.25rem;
-    border-left: 3mm ridge hsl(0, 0%, 80%, 0.2);
-}
-.task__nav-arrow {
-    display: block;
-}
-
-.task__nav-arrow:hover {
-    cursor: pointer;
-    background-color: white;
-    border-radius: 5px;
-}
-.task__nav-arrow:active {
-    background-color: white;
+  padding: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .task__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  position: relative;
 }
 
 .task__header h4 {
-    margin: 0;
+  margin: 0;
+  font-size: 1.7rem;
+  width: 100%;
+}
+
+.task-header__delete-button-container {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .task__header--x:hover {
-    cursor: pointer;
-    background-color: white;
-    border-radius: 5px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 5px;
 }
 
 .task__body--textarea {
-    resize: none;
+  resize: none;
 }
 
 .task textarea {
-    width: 95%;
+  width: 95%;
+}
+
+.task--blue {
+  background-color: hsl(var(--blue), 50%, 94%);
+}
+.task--green {
+  background-color: hsl(var(--green), 50%, 94%);
+}
+.task--cyan {
+  background-color: hsl(var(--cyan), 50%, 94%);
+}
+.task--peach {
+  background-color: hsl(var(--peach), 50%, 94%);
+}
+.task--magenta {
+  background-color: hsl(var(--magenta), 50%, 94%);
 }

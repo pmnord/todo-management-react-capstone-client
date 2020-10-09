@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 const utils = {
 
     deepCopy: (inObject) => {
@@ -39,7 +41,7 @@ const utils = {
     },
 
     uuid: () => {
-        return Math.floor(Math.random() * 1000000);
+        return nanoid();
     },
 
 }
