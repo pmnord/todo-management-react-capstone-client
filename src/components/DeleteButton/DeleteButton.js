@@ -21,9 +21,12 @@ export default function DeleteButton({
         if (showConfirmBox) setShowConfirmBox(false);
       };
       const root = document.getElementById('root');
-      root.addEventListener('mousedown', handleClickout);
+      const clickoutListener = root.addEventListener(
+        'mousedown',
+        handleClickout
+      );
 
-      return () => window.removeEventListener('mousedown', handleClickout);
+      return () => window.removeEventListener('mousedown', clickoutListener);
     }
   }, [showConfirmBox, id]);
 

@@ -2,6 +2,8 @@ import React from 'react';
 import utils from '../../utils/utils';
 import ApiService from '../../services/api-service';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import openSocket from 'socket.io-client';
+
 import './project.css';
 
 import Category from '../Category/Category.js';
@@ -21,10 +23,17 @@ export default class Project extends React.Component {
       color: 'gray',
       projectLoaded: false,
       projectId: null,
+      socket: null,
     };
   }
 
   componentDidMount() {
+    const socket = openSocket('http://localhost:8000');
+    socket.on('update', (categories) => {
+      console.log(categories);
+    });
+    this.setState({ socket: socket });
+
     let newState;
     const uuid = this.props.route.match.params.project_id;
 
@@ -48,26 +57,6 @@ export default class Project extends React.Component {
         this.setState({ error: 'Failed to fetch project' });
         console.log(err);
       });
-
-    /* -------------------------------------------------------------------------- */
-    /*                To enable live updating, uncomment this code                */
-    /* -------------------------------------------------------------------------- */
-
-    // window.setInterval(() => {
-    //   ApiService.getProjectObject(uuid)
-    //     .then((data) => {
-    //       if (!data) {
-    //         return this.setState({ error: "No project found" });
-    //       }
-    //       newState = data;
-
-    //       this.setState(newState);
-    //     })
-    //     .catch((err) => {
-    //       this.setState({ error: "Failed to fetch project" });
-    //       console.log(err);
-    //     });
-    // }, 1000);
   }
 
   createCategory = (newCategoryTitle) => {
@@ -95,6 +84,8 @@ export default class Project extends React.Component {
     ApiService.postCategory(apiCategory).catch((error) => {
       console.log(`Failed to POST category to server: ${error}`);
     });
+
+    this.state.socket && this.state.socket.emit('update', newState.categories);
   };
 
   deleteCategory = (categoryIndex) => {
