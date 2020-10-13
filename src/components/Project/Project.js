@@ -31,6 +31,7 @@ export default class Project extends React.Component {
     const socket = openSocket('http://localhost:8000');
     socket.on('update', (categories) => {
       console.log(categories);
+      this.setState({ categories });
     });
     this.setState({ socket: socket });
 
@@ -57,6 +58,13 @@ export default class Project extends React.Component {
         this.setState({ error: 'Failed to fetch project' });
         console.log(err);
       });
+  }
+
+  componentDidUpdate() {
+    if (this.state.showAddForm) {
+      const input = document.getElementById('newCategoryName');
+      input.focus();
+    }
   }
 
   createCategory = (newCategoryTitle) => {
@@ -92,9 +100,11 @@ export default class Project extends React.Component {
     // This needs to re-index all categories higher than it
 
     const category_uuid = this.state.categories[categoryIndex].uuid;
-    const newState = { ...this.state };
-    newState.categories.splice(categoryIndex, 1);
-    this.setState(newState);
+    const newCategories = [...this.state.categories];
+    newCategories.splice(categoryIndex, 1);
+    this.setState({ categories: newCategories });
+
+    this.state.socket.emit('update', newCategories);
 
     const toReIndex = this.state.categories[categoryIndex]
       ? this.state.categories
@@ -118,10 +128,12 @@ export default class Project extends React.Component {
       notes: '',
     };
 
-    const newState = { ...this.state };
-    newState.categories[categoryIndex].tasks.push(newTask);
+    const newCategories = [...this.state.categories];
+    newCategories[categoryIndex].tasks.push(newTask);
 
-    this.setState(newState);
+    this.setState({ categories: newCategories });
+
+    this.state.socket.emit('update', newCategories);
 
     ApiService.postTask(newTask)
       // .then((dbTask) => {
@@ -134,8 +146,8 @@ export default class Project extends React.Component {
 
   deleteTask = (categoryIndex, taskIndex) => {
     const task_id = this.state.categories[categoryIndex].tasks[taskIndex].id;
-    const newState = { ...this.state };
-    let newTasks = newState.categories[categoryIndex].tasks;
+    const newCategories = [...this.state.categories];
+    let newTasks = newCategories[categoryIndex].tasks;
 
     // Remove the task from the new application state
     newTasks.splice(taskIndex, 1);
@@ -145,7 +157,9 @@ export default class Project extends React.Component {
       return task;
     });
 
-    this.setState(newState);
+    this.setState({ categories: newCategories });
+
+    this.state.socket.emit('update', newCategories);
 
     // Pass the array of tasks to reIndex to our API
     const toReIndex =
@@ -154,28 +168,33 @@ export default class Project extends React.Component {
   };
 
   addTag = (categoryIndex, taskIndex, newTag) => {
-    const newState = { ...this.state };
-    const task_id = newState.categories[categoryIndex].tasks[taskIndex].id;
-    const newTags = newState.categories[categoryIndex].tasks[taskIndex].tags;
+    const newCategories = [...this.state.categories];
+    const task_uuid = newCategories[categoryIndex].tasks[taskIndex].uuid;
+    const newTags = newCategories[categoryIndex].tasks[taskIndex].tags;
 
     newTags.push(newTag);
 
-    this.setState(newState);
+    this.setState({ categories: newCategories });
+
+    this.state.socket.emit('update', newCategories);
 
     const newValues = {
       tags: newTags,
     };
 
-    ApiService.patchTask(task_id, newValues);
+    console.log(task_uuid, newValues);
+    ApiService.patchTask(task_uuid, newValues);
   };
 
   deleteTag = (categoryIndex, taskIndex, tagIndex) => {
-    const newState = { ...this.state };
-    const task_id = newState.categories[categoryIndex].tasks[taskIndex].id;
-    const newTags = newState.categories[categoryIndex].tasks[taskIndex].tags;
+    const newCategories = [...this.state.categories];
+    const task_uuid = newCategories[categoryIndex].tasks[taskIndex].uuid;
+    const newTags = newCategories[categoryIndex].tasks[taskIndex].tags;
 
     newTags.splice(tagIndex, 1);
-    this.setState(newState);
+
+    this.setState({ categories: newCategories });
+    this.state.socket.emit('update', newCategories);
 
     // Send the new tags values to the server to be updated
     const apiTags = [...newTags];
@@ -183,36 +202,33 @@ export default class Project extends React.Component {
       tags: apiTags,
     };
 
-    ApiService.patchTask(task_id, newValues);
+    ApiService.patchTask(task_uuid, newValues);
   };
 
   updateNoteOnServer = (categoryIndex, taskIndex, newNote) => {
-    const task_id = this.state.categories[categoryIndex].tasks[taskIndex].id;
+    const task_uuid = this.state.categories[categoryIndex].tasks[taskIndex]
+      .uuid;
     const newValues = {
       notes: newNote,
     };
 
-    ApiService.patchTask(task_id, newValues);
+    ApiService.patchTask(task_uuid, newValues);
   };
 
   // For handling our controlled input component
   handleChangeNote = (categoryIndex, taskIndex, newNoteValue) => {
-    const newState = utils.deepCopy(this.state);
+    // const newState = utils.deepCopy(this.state);
+    const newCategories = [...this.state.categories];
 
-    newState.categories[categoryIndex].tasks[taskIndex].notes = newNoteValue;
-    this.setState(newState);
+    newCategories[categoryIndex].tasks[taskIndex].notes = newNoteValue;
+
+    this.setState({ categories: newCategories });
+    this.state.socket.emit('update', newCategories);
   };
 
   toggleShowAddForm = () => {
     this.setState({ showAddForm: !this.state.showAddForm });
   };
-
-  componentDidUpdate() {
-    if (this.state.showAddForm) {
-      const input = document.getElementById('newCategoryName');
-      input.focus();
-    }
-  }
 
   handleChangeColor = (e) => {
     let color = e.target.value;
@@ -233,41 +249,38 @@ export default class Project extends React.Component {
     }
 
     if (type === 'task') {
-      const newState = { ...this.state };
+      const newCategories = [...this.state.categories];
       const fromIndex = source.index;
       const toIndex = destination.index;
       let sourceCategoryIndex;
-      newState.categories.forEach((category, idx) => {
+      newCategories.forEach((category, idx) => {
         if (category.uuid === source.droppableId) {
           sourceCategoryIndex = idx;
         }
       });
       let destinationCategoryIndex;
-      newState.categories.forEach((category, idx) => {
+      newCategories.forEach((category, idx) => {
         if (category.uuid === destination.droppableId) {
           destinationCategoryIndex = idx;
         }
       });
 
-      const task = newState.categories[sourceCategoryIndex].tasks.splice(
+      const task = newCategories[sourceCategoryIndex].tasks.splice(
         fromIndex,
         1
       )[0];
 
       task.category_uuid = destination.droppableId;
 
-      newState.categories[destinationCategoryIndex].tasks.splice(
-        toIndex,
-        0,
-        task
-      );
+      newCategories[destinationCategoryIndex].tasks.splice(toIndex, 0, task);
 
       // Optimistically Update the client state
-      this.setState(newState);
+      this.setState({ categories: newCategories });
+      this.state.socket.emit('update', newCategories);
 
       const toReIndex = [
-        { ...newState.categories[sourceCategoryIndex] },
-        { ...newState.categories[destinationCategoryIndex] },
+        { ...newCategories[sourceCategoryIndex] },
+        { ...newCategories[destinationCategoryIndex] },
       ];
 
       ApiService.patchTask(task.id, task, toReIndex);
@@ -282,13 +295,13 @@ export default class Project extends React.Component {
       newCategories = newCategories.map((category, idx) => {
         return { ...category, index: idx };
       });
-      console.log(newCategories);
 
       const apiUpdateValues = newCategories.map(({ uuid }, index) => {
         return { uuid, index };
       });
       // Optimistically Update the client state
       this.setState({ categories: newCategories });
+      this.state.socket.emit('update', newCategories);
 
       ApiService.patchCategory(droppedCategory.uuid, {
         toReIndex: apiUpdateValues,

@@ -80,7 +80,7 @@ const ApiService = {
       )
       .catch((err) => console.log(err));
   },
-  patchTask: function (task_id, newValues, toReIndex) {
+  patchTask: function (task_uuid, newValues, toReIndex) {
     // Handles task movement, tag updates, and note updates
     const toApi = { ...newValues }; // The values are spread into a new object to avoid creating a circular object when we add the toReIndex array of categories
 
@@ -94,7 +94,7 @@ const ApiService = {
       toApi.toReIndex = toReIndex;
     }
 
-    return fetch(`${config.API_ENDPOINT}/task/${task_id}`, {
+    return fetch(`${config.API_ENDPOINT}/task/${task_uuid}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',

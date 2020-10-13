@@ -14,11 +14,15 @@ export default function DeleteButton({
     if (showConfirmBox) {
       const handleClickout = (e) => {
         // Prevent the nav from toggling off unless the user clicks outside of the element
-        for (let element of e.path) {
-          if (element.className === 'DeleteButton__confirm-box') return;
-        }
 
-        if (showConfirmBox) setShowConfirmBox(false);
+        // Firefox does not have a .path property on mouseClick events
+        if (e.path) {
+          for (let element of e.path) {
+            if (element.className === 'DeleteButton__confirm-box') return;
+          }
+
+          if (showConfirmBox) setShowConfirmBox(false);
+        }
       };
       const root = document.getElementById('root');
       const clickoutListener = root.addEventListener(
@@ -26,7 +30,7 @@ export default function DeleteButton({
         handleClickout
       );
 
-      return () => window.removeEventListener('mousedown', clickoutListener);
+      return () => root.removeEventListener('mousedown', clickoutListener);
     }
   }, [showConfirmBox, id]);
 
