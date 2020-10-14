@@ -1,0 +1,12 @@
+.Announcement {
+  position: absolute;
+  top: 3%;
+  left: 50%; /* from window edge */
+  transform: translateX(-50%); /* from element center */
+  padding: 1rem 2rem;
+  background-color: hsl(0, 0%, 10%);
+  color: hsl(0, 0%, 90%);
+  border-radius: 3px;
+  font-size: 1.7rem;
+  font-weight: 800;
+}
