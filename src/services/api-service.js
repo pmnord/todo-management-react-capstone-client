@@ -103,10 +103,10 @@ const ApiService = {
       body: JSON.stringify(toApi),
     });
   },
-  deleteTask: function (task_id, toReIndex = []) {
+  deleteTask: function (task_uuid, toReIndex = []) {
     // We have to re-index all tasks higher than the target
     // toReIndex: an array of task_ids to have their index decremented by 1
-    return fetch(`${config.API_ENDPOINT}/task/${task_id}`, {
+    return fetch(`${config.API_ENDPOINT}/task/${task_uuid}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',

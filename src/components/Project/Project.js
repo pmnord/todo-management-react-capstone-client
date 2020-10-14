@@ -3,12 +3,14 @@ import utils from '../../utils/utils';
 import ApiService from '../../services/api-service';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import openSocket from 'socket.io-client';
+import config from '../../config.js';
 
 import './project.css';
 
 import Category from '../Category/Category.js';
 import AddButton from '../AddButton/AddButton';
 import ProjectHeader from '../ProjectHeader/ProjectHeader';
+import Announcement from '../Announcement/Announcement';
 
 /* I took the approach of updating the component state first, and then making the
 API call to update the server database. This keeps the app highly responsive and
@@ -24,19 +26,31 @@ export default class Project extends React.Component {
       projectLoaded: false,
       projectId: null,
       socket: null,
+      announcement: null,
     };
   }
 
   componentDidMount() {
-    const socket = openSocket('http://localhost:8000');
+    const uuid = this.props.route.match.params.project_id;
+    let newState;
+
+    const socket = openSocket(config.API_ENDPOINT + '/' + uuid);
     socket.on('update', (categories) => {
-      console.log(categories);
       this.setState({ categories });
     });
+    socket.on('connection', () => {
+      this.setState({ announcement: 'A user connected 👋' });
+      setTimeout(() => {
+        this.setState({ announcement: null });
+      }, 3000);
+    });
+    socket.on('disconnect', () => {
+      this.setState({ announcement: 'A user disconnected 🚪' });
+      setTimeout(() => {
+        this.setState({ announcement: null });
+      }, 3000);
+    });
     this.setState({ socket: socket });
-
-    let newState;
-    const uuid = this.props.route.match.params.project_id;
 
     ApiService.getProjectObject(uuid)
       .then((data) => {
@@ -145,7 +159,8 @@ export default class Project extends React.Component {
   };
 
   deleteTask = (categoryIndex, taskIndex) => {
-    const task_id = this.state.categories[categoryIndex].tasks[taskIndex].id;
+    const task_uuid = this.state.categories[categoryIndex].tasks[taskIndex]
+      .uuid;
     const newCategories = [...this.state.categories];
     let newTasks = newCategories[categoryIndex].tasks;
 
@@ -162,9 +177,8 @@ export default class Project extends React.Component {
     this.state.socket.emit('update', newCategories);
 
     // Pass the array of tasks to reIndex to our API
-    const toReIndex =
-      this.state.categories[categoryIndex].tasks.slice(taskIndex) || [];
-    ApiService.deleteTask(task_id, toReIndex);
+    const toReIndex = newTasks;
+    ApiService.deleteTask(task_uuid, toReIndex);
   };
 
   addTag = (categoryIndex, taskIndex, newTag) => {
@@ -291,20 +305,18 @@ export default class Project extends React.Component {
 
       const droppedCategory = newCategories.splice(fromIndex, 1)[0]; // Splice out the moved category
       newCategories.splice(toIndex, 0, droppedCategory); // Insert the moved category at the new index
-      console.log(newCategories);
       newCategories = newCategories.map((category, idx) => {
         return { ...category, index: idx };
       });
 
-      const apiUpdateValues = newCategories.map(({ uuid }, index) => {
-        return { uuid, index };
-      });
       // Optimistically Update the client state
       this.setState({ categories: newCategories });
       this.state.socket.emit('update', newCategories);
 
+      const toReIndex = newCategories.map(({ uuid }) => uuid);
+
       ApiService.patchCategory(droppedCategory.uuid, {
-        toReIndex: apiUpdateValues,
+        toReIndex,
       });
     }
   };
@@ -346,6 +358,10 @@ export default class Project extends React.Component {
             <h2>{this.state.error}</h2>
           </div>
         ) : null}
+
+        {this.state.announcement && (
+          <Announcement message={this.state.announcement} />
+        )}
 
         {/* Kanban Board */}
         <DragDropContext onDragEnd={this.onDragEnd}>
