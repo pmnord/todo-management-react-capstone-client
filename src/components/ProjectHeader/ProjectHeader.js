@@ -33,7 +33,7 @@ const ProjectHeader = (props) => {
       <div className='project__toolbar'>
         <div className='toolbar__logo'>
           <Link to='/'>
-            <h1 className='toolbar__h1'>Coɩɩab</h1>
+            <h1 className='toolbar__h1'>coɩɩab</h1>
           </Link>
         </div>
         <div className='toolbar__tools'>
