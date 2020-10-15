@@ -52,7 +52,7 @@ export default function Category(props) {
                           notes={task.notes}
                           display={task.display}
                           categoryIndex={props.index}
-                          category_uuid={props.category_uuid}
+                          category_uuid={task.category_uuid}
                           moveTask={props.moveTask}
                           deleteTask={props.deleteTask}
                           addTag={props.addTag}
@@ -72,7 +72,7 @@ export default function Category(props) {
           <AddButton
             title='Task'
             onSubmit={(newTaskTitle) => {
-              props.createTask(props.index, newTaskTitle);
+              props.createTask(props.index, props.uuid, newTaskTitle);
             }}
             id={`cat-${props.index}-add-task`}
           />

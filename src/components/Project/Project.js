@@ -129,14 +129,14 @@ export default class Project extends React.Component {
     ApiService.deleteCategory(category_uuid, toReIndex);
   };
 
-  createTask = (categoryIndex, newTaskTitle) => {
+  createTask = (categoryIndex, category_uuid, newTaskTitle) => {
     const uuid = utils.uuid();
     const newTaskIndex = this.state.categories[categoryIndex].tasks.length;
     const newTask = {
       uuid,
       title: newTaskTitle,
       category: categoryIndex,
-      category_uuid: this.state.categories[categoryIndex].uuid,
+      category_uuid,
       index: newTaskIndex,
       tags: [],
       notes: '',
@@ -297,7 +297,7 @@ export default class Project extends React.Component {
         { ...newCategories[destinationCategoryIndex] },
       ];
 
-      ApiService.patchTask(task.id, task, toReIndex);
+      ApiService.patchTask(task.uuid, task, toReIndex);
     } else if (type === 'category') {
       let newCategories = [...this.state.categories];
       const fromIndex = source.index;
