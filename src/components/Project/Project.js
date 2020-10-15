@@ -415,7 +415,9 @@ export default class Project extends React.Component {
         {/* Display tutorial instruction if no categories have been created yet */}
         {this.state.categories.length < 1 ? (
           <div className='project__getting-started'>
-            <h2>↖ Create your first category to get started</h2>
+            <h2 className='getting-started__message'>
+              Create your first category to get started.
+            </h2>
           </div>
         ) : null}
       </section>

@@ -23,12 +23,11 @@
   margin-top: 3rem;
 }
 
-.project__getting-started h2 {
-  margin: 0;
-  font-size: 2.4rem;
-  margin-left: 1rem;
-  margin-top: 2rem;
-  padding-bottom: 3px;
+.getting-started__message {
+  margin: 0 0.6rem;
+  font-size: 1.8rem;
+  font-style: italic;
+  transform: translateY(-2px);
 }
 
 /* Spinner styling */
