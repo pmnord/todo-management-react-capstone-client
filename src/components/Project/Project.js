@@ -219,6 +219,10 @@ export default class Project extends React.Component {
     ApiService.patchTask(task_uuid, newValues);
   };
 
+  addNote = (categoryIndex, taskIndex, newNote) => {};
+
+  deleteNote = (categoryIndex, taskIndex, noteIndex) => {};
+
   updateNoteOnServer = (categoryIndex, taskIndex, newNote) => {
     const task_uuid = this.state.categories[categoryIndex].tasks[taskIndex]
       .uuid;
@@ -405,7 +409,7 @@ export default class Project extends React.Component {
 
         <AddButton
           onClick={this.toggleShowAddForm}
-          title='Category'
+          type='category'
           onSubmit={(newCategoryName) => {
             this.createCategory(newCategoryName);
           }}

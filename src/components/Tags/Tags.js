@@ -12,7 +12,7 @@ export default function Tags(props) {
 
   return (
     <div>
-      <label>Tags:</label>
+      <label>Tags</label>
       <div className='tags'>
         <ul className='tags__ul'>
           {props.tags
@@ -28,12 +28,6 @@ export default function Tags(props) {
               ))
             : null}
         </ul>
-
-        <AddButton
-          title='Tag'
-          id={`cat-${props.categoryIndex}-task-${props.taskIndex}-tags`}
-          onSubmit={(tagName) => props.addTag(tagName)}
-        />
       </div>
     </div>
   );

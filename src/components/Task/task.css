@@ -2,6 +2,7 @@
   background-color: hsl(0, 0%, 95%);
   margin-bottom: 0.5rem;
   display: flex;
+  flex-direction: column;
   box-shadow: 0 0 1rem hsl(0, 0%, 10%, 0.2);
   width: 100%;
   box-sizing: border-box;
@@ -61,4 +62,10 @@
 }
 .task--magenta {
   background-color: hsl(var(--magenta), 50%, 94%);
+}
+
+.Task__buttons {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.3rem;
 }

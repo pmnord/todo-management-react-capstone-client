@@ -63,14 +63,6 @@
   left: -3000px;
 }
 
-.project__toolbar--color select {
-  display: flex;
-  align-items: center;
-  /* font-family: 'Varela Round', sans-serif; */
-  font-size: 1.2rem;
-  margin-left: 1rem;
-}
-
 .toolbar__color-option {
   clip: rect(0 0 0 0);
   overflow: hidden;

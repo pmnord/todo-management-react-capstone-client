@@ -70,7 +70,7 @@ export default function Category(props) {
           </Droppable>
 
           <AddButton
-            title='Task'
+            type='task'
             onSubmit={(newTaskTitle) => {
               props.createTask(props.index, props.uuid, newTaskTitle);
             }}

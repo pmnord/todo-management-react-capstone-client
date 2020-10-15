@@ -20,6 +20,7 @@
   padding: 4px 4px;
   border-radius: 100px;
   transition: all 0.2s;
+  height: fit-content;
 }
 
 .AddButton__btn:hover {

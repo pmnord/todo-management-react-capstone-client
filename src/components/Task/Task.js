@@ -4,6 +4,7 @@ import { Draggable } from 'react-beautiful-dnd';
 
 import Tags from '../Tags/Tags.js';
 import DeleteButton from '../DeleteButton/DeleteButton.js';
+import AddButton from '../AddButton/AddButton';
 
 export default function Task(props) {
   const [showEditDelete, setShowEditDelete] = useState(false);
@@ -25,18 +26,12 @@ export default function Task(props) {
     props.handleChangeNote(props.categoryIndex, props.index, newNoteValue);
   }
 
-  const taskStyles = {
-    backgroundColor: `hsl(${props.hue}, 30%, 95%)`,
-    display: props.display,
-  };
-
   return (
     <Draggable draggableId={props.uuid} index={props.index}>
       {(provided) => (
         <div>
           <div
             className={`task ${props.color && `task--${props.color}`}`}
-            style={taskStyles}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
@@ -59,33 +54,50 @@ export default function Task(props) {
                   )}
                 </div>
               </div>
-              <div className='task__tags'>
-                <Tags
-                  tags={props.tags || null}
-                  taskId={props.id}
-                  taskIndex={props.index}
-                  categoryIndex={props.categoryIndex}
-                  addTag={(newTag) =>
-                    props.addTag(props.categoryIndex, props.index, newTag)
-                  }
-                  deleteTag={props.deleteTag}
-                  color={props.color}
-                />
-              </div>
-              <label
-                className='task__note-label'
-                htmlFor={`task-note-${props.id}`}
-              >
-                Notes:
-              </label>
-              <textarea
-                id={`task-note-${props.id}`}
-                rows='2'
-                onChange={handleNoteChange}
-                value={props.notes}
-                onBlur={handleUpdateNote}
-                style={{ resize: 'none' }}
-              ></textarea>
+              {props.tags.length > 0 && (
+                <div className='task__tags'>
+                  <Tags
+                    tags={props.tags || null}
+                    taskId={props.id}
+                    taskIndex={props.index}
+                    categoryIndex={props.categoryIndex}
+                    addTag={(newTag) =>
+                      props.addTag(props.categoryIndex, props.index, newTag)
+                    }
+                    deleteTag={props.deleteTag}
+                    color={props.color}
+                  />
+                </div>
+              )}
+              {props.notes && (
+                <div>
+                  <label
+                    className='task__note-label'
+                    htmlFor={`task-note-${props.id}`}
+                  >
+                    Notes
+                  </label>
+                  <textarea
+                    id={`task-note-${props.id}`}
+                    rows='2'
+                    onChange={handleNoteChange}
+                    value={props.notes}
+                    onBlur={handleUpdateNote}
+                    style={{ resize: 'none' }}
+                  ></textarea>
+                </div>
+              )}
+            </div>
+            <div className='Task__buttons'>
+              <AddButton
+                type='tag'
+                onSubmit={(tag) => {
+                  props.addTag(props.categoryIndex, props.index, tag);
+                }}
+              />
+              <AddButton type='note' />
+              <AddButton type='date' />
+              <AddButton type='color' />
             </div>
           </div>
         </div>
