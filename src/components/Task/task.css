@@ -1,4 +1,4 @@
-.task {
+.Task {
   background-color: hsl(0, 0%, 95%);
   margin-bottom: 0.5rem;
   display: flex;
@@ -8,13 +8,13 @@
   box-sizing: border-box;
 }
 
-.task__body {
+.Task__body {
   padding: 0.5rem;
   width: 100%;
   box-sizing: border-box;
 }
 
-.task__header {
+.Task__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -22,30 +22,26 @@
   position: relative;
 }
 
-.task__header h4 {
+.Task__header h4 {
   margin: 0;
   font-size: 1.7rem;
   width: 100%;
 }
 
-.task-header__delete-button-container {
+.Task-header__delete-button-container {
   position: absolute;
   top: 0;
   right: 0;
 }
 
-.task__header--x:hover {
+.Task__header--x:hover {
   cursor: pointer;
   background-color: white;
   border-radius: 5px;
 }
 
-.task__body--textarea {
+.Task__body--textarea {
   resize: none;
-}
-
-.task textarea {
-  width: 95%;
 }
 
 .task--blue {

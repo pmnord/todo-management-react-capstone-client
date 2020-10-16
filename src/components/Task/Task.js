@@ -7,7 +7,7 @@ import TaskNotes from '../TaskNotes/TaskNotes';
 import DeleteButton from '../DeleteButton/DeleteButton.js';
 import AddButton from '../AddButton/AddButton';
 
-export default function Task(props) {
+const Task = (props) => {
   const [showEditDelete, setShowEditDelete] = useState(false);
 
   function handleDeleteTask() {
@@ -19,7 +19,7 @@ export default function Task(props) {
       {(provided) => (
         <div>
           <div
-            className={`task ${props.color && `task--${props.color}`}`}
+            className={`Task ${props.color && `task--${props.color}`}`}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
@@ -27,11 +27,11 @@ export default function Task(props) {
             onMouseLeave={() => setShowEditDelete(false)}
             onFocus={() => setShowEditDelete(true)}
           >
-            <div className='task__body'>
-              <div className='task__header'>
+            <div className='Task__body'>
+              <div className='Task__header'>
                 <h4>{props.title}</h4>
 
-                <div className='task-header__delete-button-container'>
+                <div className='Task-header__delete-button-container'>
                   {showEditDelete && (
                     <DeleteButton
                       hue={props.hue}
@@ -49,9 +49,6 @@ export default function Task(props) {
                   taskId={props.id}
                   taskIndex={props.index}
                   categoryIndex={props.categoryIndex}
-                  addTag={(newTag) =>
-                    props.addTag(props.categoryIndex, props.index, newTag)
-                  }
                   deleteTag={props.deleteTag}
                   color={props.color}
                 />
@@ -68,7 +65,12 @@ export default function Task(props) {
                   props.addTag(props.categoryIndex, props.index, tag);
                 }}
               />
-              <AddButton type='note' />
+              <AddButton
+                type='note'
+                onSubmit={(note) => {
+                  props.addNote(props.categoryIndex, props.index, note);
+                }}
+              />
               <AddButton type='date' />
               <AddButton type='color' />
             </div>
@@ -77,4 +79,6 @@ export default function Task(props) {
       )}
     </Draggable>
   );
-}
+};
+
+export default Task;
