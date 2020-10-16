@@ -45,17 +45,21 @@ const Task = (props) => {
 
               {props.tags.length > 0 && (
                 <Tags
-                  tags={props.tags || null}
-                  taskId={props.id}
-                  taskIndex={props.index}
-                  categoryIndex={props.categoryIndex}
-                  deleteTag={props.deleteTag}
+                  tags={props.tags}
                   color={props.color}
+                  taskIndex={props.index}
+                  deleteTag={props.deleteTag}
+                  categoryIndex={props.categoryIndex}
                 />
               )}
 
               {props.notes.length > 0 && (
-                <TaskNotes notes={props.notes} taskUuid={props.uuid} />
+                <TaskNotes
+                  notes={props.notes}
+                  taskIndex={props.index}
+                  deleteNote={props.deleteNote}
+                  categoryIndex={props.categoryIndex}
+                />
               )}
             </div>
             <div className='Task__buttons'>

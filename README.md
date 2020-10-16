@@ -42,10 +42,10 @@ Create categories, tasks, tag your tasks, drag and drop everything, and share yo
 
 ## Developer Roadmap
 
-1. Implement Socket.io
-   - Enable session affinity on Heroku
-1. Users can set colors on individual tasks and categories
-1. Add a due date to the task cards
-1. Review react-beautiful-dnd docs for optimizations
-1. Refactor to use the React Context API
-1. Refactor for more React Hooks
+1. Users can set colors on tasks and categories
+1. Users can set a due date on tasks
+1. Users have unique names that are visible in a users container
+1. Users can see when other users are moving a draggable
+1. Optimization and Refactoring
+
+- Enable session affinity on Heroku if you expand to more than one dyno
