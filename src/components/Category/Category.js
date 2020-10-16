@@ -44,22 +44,21 @@ export default function Category(props) {
                     props.tasks.map((task, idx) => (
                       <li key={task.uuid}>
                         <Task
+                          index={idx}
+                          dbIndex={task.index}
                           uuid={task.uuid}
                           title={task.title}
-                          dbIndex={task.index}
-                          index={idx}
                           tags={task.tags}
                           notes={task.notes}
-                          display={task.display}
                           categoryIndex={props.index}
                           category_uuid={task.category_uuid}
                           moveTask={props.moveTask}
                           deleteTask={props.deleteTask}
                           addTag={props.addTag}
                           deleteTag={props.deleteTag}
-                          updateNote={props.updateNote}
+                          addNote={props.addNote}
+                          deleteNote={props.deleteNote}
                           color={props.color}
-                          handleChangeNote={props.handleChangeNote}
                         />
                       </li>
                     ))}

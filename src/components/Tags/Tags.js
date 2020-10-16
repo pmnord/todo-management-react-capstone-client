@@ -1,6 +1,5 @@
 import React from 'react';
 import './tags.css';
-import AddButton from '../AddButton/AddButton';
 import Tag from '../Tag/Tag';
 
 // The Tags component displays tags that have been attached to a Task

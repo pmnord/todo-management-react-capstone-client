@@ -81,12 +81,18 @@ const ApiService = {
       .catch((err) => console.log(err));
   },
   patchTask: function (task_uuid, newValues, toReIndex) {
-    // Handles task movement, tag updates, and note updates
-    const toApi = { ...newValues }; // The values are spread into a new object to avoid creating a circular object when we add the toReIndex array of categories
+    // Values are spread into a new object to avoid creating a circular object when we add the toReIndex array of categories
+    const toApi = { ...newValues };
 
+    // Serialize tags and notes to be stored in the database in one row.
     if (toApi.tags) {
       toApi.tags = toApi.tags
         .map((tag) => tag.replace(/\s/g, '&#32;'))
+        .join(' ');
+    }
+    if (toApi.notes) {
+      toApi.notes = toApi.notes
+        .map((note) => note.replace(/\s/g, '&#32;'))
         .join(' ');
     }
 

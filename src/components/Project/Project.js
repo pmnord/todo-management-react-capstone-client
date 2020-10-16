@@ -223,27 +223,6 @@ export default class Project extends React.Component {
 
   deleteNote = (categoryIndex, taskIndex, noteIndex) => {};
 
-  updateNoteOnServer = (categoryIndex, taskIndex, newNote) => {
-    const task_uuid = this.state.categories[categoryIndex].tasks[taskIndex]
-      .uuid;
-    const newValues = {
-      notes: newNote,
-    };
-
-    ApiService.patchTask(task_uuid, newValues);
-  };
-
-  // For handling our controlled input component
-  handleChangeNote = (categoryIndex, taskIndex, newNoteValue) => {
-    // const newState = utils.deepCopy(this.state);
-    const newCategories = [...this.state.categories];
-
-    newCategories[categoryIndex].tasks[taskIndex].notes = newNoteValue;
-
-    this.setState({ categories: newCategories });
-    this.state.socket.emit('update', newCategories);
-  };
-
   toggleShowAddForm = () => {
     this.setState({ showAddForm: !this.state.showAddForm });
   };
@@ -395,10 +374,10 @@ export default class Project extends React.Component {
                       moveTask={this.moveTask}
                       addTag={this.addTag}
                       deleteTag={this.deleteTag}
-                      deleteCategory={this.deleteCategory}
-                      updateNote={this.updateNoteOnServer}
-                      handleChangeNote={this.handleChangeNote}
+                      addNote={this.addNote}
+                      deleteNote={this.deleteNote}
                       color={this.state.color}
+                      deleteCategory={this.deleteCategory}
                     />
                   ))}
                 {provided.placeholder}

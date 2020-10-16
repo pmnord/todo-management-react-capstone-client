@@ -3,6 +3,7 @@ import './task.css';
 import { Draggable } from 'react-beautiful-dnd';
 
 import Tags from '../Tags/Tags.js';
+import TaskNotes from '../TaskNotes/TaskNotes';
 import DeleteButton from '../DeleteButton/DeleteButton.js';
 import AddButton from '../AddButton/AddButton';
 
@@ -11,19 +12,6 @@ export default function Task(props) {
 
   function handleDeleteTask() {
     props.deleteTask(props.categoryIndex, props.index);
-  }
-
-  // For updating the note on the backend
-  function handleUpdateNote(e) {
-    const newNote = e.target.value;
-    return props.updateNote(props.categoryIndex, props.index, newNote);
-  }
-
-  // For updating our controlled input component in Project state
-  function handleNoteChange(e) {
-    const newNoteValue = e.target.value;
-
-    props.handleChangeNote(props.categoryIndex, props.index, newNoteValue);
   }
 
   return (
@@ -54,38 +42,23 @@ export default function Task(props) {
                   )}
                 </div>
               </div>
+
               {props.tags.length > 0 && (
-                <div className='task__tags'>
-                  <Tags
-                    tags={props.tags || null}
-                    taskId={props.id}
-                    taskIndex={props.index}
-                    categoryIndex={props.categoryIndex}
-                    addTag={(newTag) =>
-                      props.addTag(props.categoryIndex, props.index, newTag)
-                    }
-                    deleteTag={props.deleteTag}
-                    color={props.color}
-                  />
-                </div>
+                <Tags
+                  tags={props.tags || null}
+                  taskId={props.id}
+                  taskIndex={props.index}
+                  categoryIndex={props.categoryIndex}
+                  addTag={(newTag) =>
+                    props.addTag(props.categoryIndex, props.index, newTag)
+                  }
+                  deleteTag={props.deleteTag}
+                  color={props.color}
+                />
               )}
-              {props.notes && (
-                <div>
-                  <label
-                    className='task__note-label'
-                    htmlFor={`task-note-${props.id}`}
-                  >
-                    Notes
-                  </label>
-                  <textarea
-                    id={`task-note-${props.id}`}
-                    rows='2'
-                    onChange={handleNoteChange}
-                    value={props.notes}
-                    onBlur={handleUpdateNote}
-                    style={{ resize: 'none' }}
-                  ></textarea>
-                </div>
+
+              {props.notes.length > 0 && (
+                <TaskNotes notes={props.notes} taskUuid={props.uuid} />
               )}
             </div>
             <div className='Task__buttons'>

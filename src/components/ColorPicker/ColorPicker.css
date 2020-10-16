@@ -1,0 +1,54 @@
+.ColorPicker {
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  border: 0;
+  width: 1;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+}
+
+.ColorPicker__fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.ColorPicker__color-option-label {
+  cursor: pointer;
+}
+
+.ColorPicker__color-option + span::before {
+  height: 1.5rem;
+  width: 1.5rem;
+  display: inline-block;
+  border-radius: 100%;
+  content: '';
+  margin-left: 1rem;
+  border: solid 4px hsla(0, 0%, 0%, 0);
+}
+
+.ColorPicker__color-option:checked + span::before {
+  border: solid 4px hsl(0, 0%, 10%);
+  /* box-shadow: 0 0 0 3px hsl(0, 0%, 10%); */
+}
+
+.ColorPicker__color-option--gray + span::before {
+  background-color: hsl(0, 0%, 50%);
+}
+.ColorPicker__color-option--blue + span::before {
+  background-color: hsl(var(--blue), 45%, 66%);
+}
+.ColorPicker__color-option--green + span::before {
+  background-color: hsl(var(--green), 45%, 66%);
+}
+.ColorPicker__color-option--cyan + span::before {
+  background-color: hsl(var(--cyan), 45%, 66%);
+}
+.ColorPicker__color-option--peach + span::before {
+  background-color: hsl(var(--peach), 65%, 80%);
+}
+.ColorPicker__color-option--magenta + span::before {
+  background-color: hsl(var(--magenta), 45%, 66%);
+}
