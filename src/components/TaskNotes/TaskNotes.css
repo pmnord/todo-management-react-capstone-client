@@ -1,0 +1,12 @@
+.TaskNotes__ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.TaskNotes__note {
+  background-color: hsla(0, 0%, 0%, 0.04);
+  width: fit-content;
+  padding: 0.2rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+}

@@ -11,7 +11,6 @@ export default function Tags(props) {
 
   return (
     <div>
-      <label>Tags</label>
       <div className='tags'>
         <ul className='tags__ul'>
           {props.tags

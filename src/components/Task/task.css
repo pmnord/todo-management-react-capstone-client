@@ -40,10 +40,6 @@
   border-radius: 5px;
 }
 
-.Task__body--textarea {
-  resize: none;
-}
-
 .task--blue {
   background-color: hsl(var(--blue), 50%, 94%);
 }

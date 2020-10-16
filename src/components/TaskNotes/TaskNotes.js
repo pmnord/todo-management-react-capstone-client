@@ -4,9 +4,17 @@ import './TaskNotes.css';
 
 const TaskNotes = ({ notes }) => {
   return (
-    <ul className='TaskNotes'>
-      {notes && notes.map((note, idx) => <li key={idx}>{note}</li>)}
-    </ul>
+    <div className='TaskNotes'>
+      <label>Notes</label>
+      <ul className='TaskNotes__ul'>
+        {notes &&
+          notes.map((note, idx) => (
+            <li className='TaskNotes__note' key={idx}>
+              {note}
+            </li>
+          ))}
+      </ul>
+    </div>
   );
 };
 

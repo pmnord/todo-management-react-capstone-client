@@ -183,45 +183,47 @@ export default class Project extends React.Component {
 
   addTag = (categoryIndex, taskIndex, newTag) => {
     const newCategories = [...this.state.categories];
-    const task_uuid = newCategories[categoryIndex].tasks[taskIndex].uuid;
-    const newTags = newCategories[categoryIndex].tasks[taskIndex].tags;
+    const task = newCategories[categoryIndex].tasks[taskIndex];
 
-    newTags.push(newTag);
+    task.tags.push(newTag);
 
     this.setState({ categories: newCategories });
-
     this.state.socket.emit('update', newCategories);
-
-    const newValues = {
-      tags: newTags,
-    };
-
-    console.log(task_uuid, newValues);
-    ApiService.patchTask(task_uuid, newValues);
+    ApiService.patchTask(task.uuid, { tags: [...task.tags] });
   };
 
   deleteTag = (categoryIndex, taskIndex, tagIndex) => {
     const newCategories = [...this.state.categories];
-    const task_uuid = newCategories[categoryIndex].tasks[taskIndex].uuid;
-    const newTags = newCategories[categoryIndex].tasks[taskIndex].tags;
+    const task = newCategories[categoryIndex].tasks[taskIndex];
 
-    newTags.splice(tagIndex, 1);
+    task.tags.splice(tagIndex, 1);
 
     this.setState({ categories: newCategories });
     this.state.socket.emit('update', newCategories);
-
-    // Send the new tags values to the server to be updated
-    const apiTags = [...newTags];
-    const newValues = {
-      tags: apiTags,
-    };
-
-    ApiService.patchTask(task_uuid, newValues);
+    ApiService.patchTask(task.uuid, { tags: [...task.tags] });
   };
 
-  addNote = (categoryIndex, taskIndex, newNote) => {};
+  addNote = (categoryIndex, taskIndex, newNote) => {
+    const newCategories = [...this.state.categories];
+    const task = newCategories[categoryIndex].tasks[taskIndex];
 
-  deleteNote = (categoryIndex, taskIndex, noteIndex) => {};
+    task.notes.push(newNote);
+
+    this.setState({ categories: newCategories });
+    this.state.socket.emit('update', newCategories);
+    ApiService.patchTask(task.uuid, { notes: [...task.notes] });
+  };
+
+  deleteNote = (categoryIndex, taskIndex, noteIndex) => {
+    const newCategories = [...this.state.categories];
+    const task = newCategories[categoryIndex].tasks[taskIndex];
+
+    task.notes.splice(noteIndex, 1);
+
+    this.setState({ categories: newCategories });
+    this.state.socket.emit('update', newCategories);
+    ApiService.patchTask(task.uuid, { notes: [...task.notes] });
+  };
 
   toggleShowAddForm = () => {
     this.setState({ showAddForm: !this.state.showAddForm });
