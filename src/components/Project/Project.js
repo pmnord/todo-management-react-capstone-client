@@ -139,7 +139,7 @@ export default class Project extends React.Component {
       category_uuid,
       index: newTaskIndex,
       tags: [],
-      notes: '',
+      notes: [],
     };
 
     const newCategories = [...this.state.categories];
