@@ -26,6 +26,7 @@
   margin: 0;
   font-size: 1.7rem;
   width: 100%;
+  word-wrap: break-word;
 }
 
 .Task-header__delete-button-container {
