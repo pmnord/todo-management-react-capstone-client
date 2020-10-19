@@ -1,5 +1,5 @@
 import React from 'react';
-import './category.css';
+import './Category.css';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 import Task from '../Task/Task';

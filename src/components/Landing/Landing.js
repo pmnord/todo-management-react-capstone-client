@@ -1,5 +1,5 @@
 import React from 'react';
-import './landing.css';
+import './Landing.css';
 import ApiService from '../../services/api-service';
 
 import Footer from '../Footer/Footer';

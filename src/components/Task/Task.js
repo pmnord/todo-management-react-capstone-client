@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './task.css';
+import './Task.css';
 import { Draggable } from 'react-beautiful-dnd';
 
 import Tags from '../Tags/Tags.js';
@@ -75,8 +75,8 @@ const Task = (props) => {
                   props.addNote(props.categoryIndex, props.index, note);
                 }}
               />
-              {/* <AddButton type='date' />
-              <AddButton type='color' /> */}
+              {/* <AddButton type='date' /> */}
+              <AddButton type='color' />
             </div>
           </div>
         </div>

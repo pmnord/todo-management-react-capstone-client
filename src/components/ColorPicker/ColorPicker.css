@@ -1,4 +1,4 @@
-.ColorPicker {
+.ColorPicker__color-option {
   clip: rect(0 0 0 0);
   overflow: hidden;
   border: 0;
@@ -15,6 +15,11 @@
   display: flex;
 }
 
+.ColorPicker__color-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 .ColorPicker__color-option-label {
   cursor: pointer;
 }
@@ -25,7 +30,7 @@
   display: inline-block;
   border-radius: 100%;
   content: '';
-  margin-left: 1rem;
+  margin: 0.25rem;
   border: solid 4px hsla(0, 0%, 0%, 0);
 }
 

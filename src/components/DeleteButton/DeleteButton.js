@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import './deletebutton.css';
+import './Deletebutton.css';
 
-export default function DeleteButton({
-  thingDeleted,
-  deleteCallback,
-  hue,
-  id,
-}) {
+function DeleteButton({ thingDeleted, deleteCallback, hue, id }) {
   const [showConfirmBox, setShowConfirmBox] = useState(false);
 
   // Toggles display of confirmation box on clicking out
   useEffect(() => {
     if (showConfirmBox) {
+      document.getElementById(`${id}-delete-btn`).focus();
+
       const handleClickout = (e) => {
         // Prevent the nav from toggling off unless the user clicks outside of the element
 
         // Firefox does not have a .path property on mouseClick events
-        if (e.path) {
-          for (let element of e.path) {
-            if (element.className === 'DeleteButton__confirm-box') return;
-          }
+        const path = e.path || (e.composedPath && e.composedPath());
 
-          if (showConfirmBox) setShowConfirmBox(false);
+        for (let element of path) {
+          if (element.className === 'DeleteButton__confirm-box') return;
         }
+
+        if (showConfirmBox) setShowConfirmBox(false);
       };
       const root = document.getElementById('root');
       const clickoutListener = root.addEventListener(
@@ -67,7 +64,11 @@ export default function DeleteButton({
         <div className='DeleteButton__confirm-box'>
           <p>Are you sure?</p>
           <div>
-            <button className='btn' onClick={handleDelete}>
+            <button
+              className='btn'
+              id={`${id}-delete-btn`}
+              onClick={handleDelete}
+            >
               Delete
             </button>
           </div>
@@ -82,3 +83,5 @@ DeleteButton.defaultProps = {
   hue: '220',
   deleteCallback: () => {},
 };
+
+export default DeleteButton;

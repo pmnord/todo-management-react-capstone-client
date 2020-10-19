@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './tag.css';
+import './Tag.css';
 
 const Tag = (props) => {
   const [showDeleteIcon, setShowDeleteIcon] = useState(false);

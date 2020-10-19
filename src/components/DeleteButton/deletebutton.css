@@ -24,7 +24,6 @@
   align-items: center;
 
   background-color: hsl(0, 0%, 99%);
-  border: solid 1px var(--black);
 }
 
 .DeleteButton__confirm-box p {

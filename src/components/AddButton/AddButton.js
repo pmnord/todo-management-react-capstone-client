@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './addButton.css';
+import './AddButton.css';
 import utils from '../../utils/utils.js';
+
+import ColorPicker from '../ColorPicker/ColorPicker.js';
 
 /* AddButton expects an onSubmit callback, 
 a type for the content being added, 
@@ -9,14 +11,17 @@ and a unique uuid for labeling and setting event listeners */
 export default function AddButton({ type, onSubmit, uuid, style }) {
   const [showForm, setShowForm] = useState(false);
 
+  console.log(type);
+
   useEffect(() => {
     if (showForm) {
-      const formInput = document.getElementById(`add--tag--input--${uuid}`);
-      formInput.focus();
+      if (type !== 'color') {
+        document.getElementById(`add--tag--input--${uuid}`).focus();
+      }
 
       const root = document.getElementById('root');
       root.addEventListener('mousedown', (e) => {
-        var path = e.path || (e.composedPath && e.composedPath()); // event.path is not standardized - this line is required for compatibilty with firefox
+        const path = e.path || (e.composedPath && e.composedPath()); // event.path is not standardized - this line is required for compatibilty with firefox
 
         // Prevent the nav from toggling off unless the user clicks outside of the element
         for (let element of path) {
@@ -50,20 +55,28 @@ export default function AddButton({ type, onSubmit, uuid, style }) {
     return;
   }
 
-  if (showForm) {
+  if (showForm && type !== 'color') {
     return (
-      <form onSubmit={handleFormSubmit} className='AddButton__form'>
-        <label htmlFor={`add--tag--input--${uuid}`} hidden>
-          {type} Name
-        </label>
-        <input
-          className='AddButton-form__input'
-          type='text'
-          required
-          id={`add--tag--input--${uuid}`}
-        />
-        <button className='btn AddButton-form__submit'>Add {type}</button>
-      </form>
+      <div className='AddButton__form-container'>
+        <form onSubmit={handleFormSubmit} className='AddButton__form'>
+          <label htmlFor={`add--tag--input--${uuid}`} hidden>
+            {type} Name
+          </label>
+          <input
+            className='AddButton-form__input'
+            type='text'
+            required
+            id={`add--tag--input--${uuid}`}
+          />
+          <button className='btn AddButton-form__submit'>Add {type}</button>
+        </form>
+      </div>
+    );
+  } else if (showForm && type === 'color') {
+    return (
+      <div className='AddButton__form-container'>
+        <ColorPicker />
+      </div>
     );
   } else {
     return (
@@ -173,5 +186,5 @@ export default function AddButton({ type, onSubmit, uuid, style }) {
 AddButton.defaultProps = {
   onSubmit: () => {},
   uuid: utils.uuid(),
-  type: 'widget',
+  type: 'default',
 };

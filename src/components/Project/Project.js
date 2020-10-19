@@ -5,7 +5,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import openSocket from 'socket.io-client';
 import config from '../../config.js';
 
-import './project.css';
+import './Project.css';
 
 import Category from '../Category/Category.js';
 import AddButton from '../AddButton/AddButton';
@@ -140,6 +140,7 @@ export default class Project extends React.Component {
       index: newTaskIndex,
       tags: [],
       notes: [],
+      color: 'blue',
     };
 
     const newCategories = [...this.state.categories];

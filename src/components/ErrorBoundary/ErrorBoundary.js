@@ -1,5 +1,5 @@
 import React from 'react';
-import './errorBoundary.css';
+import './ErrorBoundary.css';
 
 // Any class component with a componentDidCatch() lifecycle method
 // or static getDerivedStateFromError() can act as an error boundary.
