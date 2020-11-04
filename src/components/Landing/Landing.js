@@ -37,13 +37,13 @@ export default class Landing extends React.Component {
         <div className='landing__main'>
           <section className='landing__pitch'>
             <h1 className='landing__h1'>Coɩɩab</h1>
-            <h2>A lightning-fast project starter</h2>
+            <h2 className='landing__h2'>A lightning-fast project starter</h2>
 
             <p>
               Get up and running with your team in seconds on a collaborative
               Kanban board.
             </p>
-            <p>Plan features and track issues — the agile way.</p>
+            <p>Plan features and track issues — the agile way!</p>
           </section>
           <button className='btn--hover--black' onClick={this.handleNewProject}>
             {this.state.newProjectClicked ? 'Loading...' : 'New Project'}

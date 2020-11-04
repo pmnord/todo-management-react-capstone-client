@@ -10,6 +10,16 @@
   background-color: hsl(0, 0%, 99%);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='charlie-brown' fill='%23000000' fill-opacity='0.02'%3E%3Cpath d='M9.8 12L0 2.2V.8l10 10 10-10v1.4L10.2 12h-.4zm-4 0L0 6.2V4.8L7.2 12H5.8zm8.4 0L20 6.2V4.8L12.8 12h1.4zM9.8 0l.2.2.2-.2h-.4zm-4 0L10 4.2 14.2 0h-1.4L10 2.8 7.2 0H5.8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
+.landing__h1 {
+  letter-spacing: 15px;
+  margin: 0;
+  font-size: 7rem;
+}
+.landing__h2 {
+  margin: 7px 0px 25px 0px;
+  font-size: 2.8rem;
+  color: hsl(10, 65%, 52%);
+}
 
 .landing__main {
   display: flex;
@@ -17,6 +27,7 @@
   justify-content: center;
   height: 100%;
   flex: 1;
+  margin-bottom: 4rem;
 }
 
 .landing__pitch {
@@ -24,14 +35,9 @@
   margin-bottom: 1rem;
 }
 
-.landing__h1 {
-  font-size: 5rem;
-  letter-spacing: 15px;
-  margin: 0;
-}
 
 .landing__pitch p {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .btn--hover--black,
@@ -39,8 +45,8 @@
   font-weight: 800;
   background-color: hsl(0, 0%, 10%);
   color: white;
-  padding: 1rem 1.2rem;
-  font-size: 1.4rem;
+  padding: 1.4rem 1.6rem;
+  font-size: 1.8rem;
   display: block;
   margin: 0 auto;
   border: none;
