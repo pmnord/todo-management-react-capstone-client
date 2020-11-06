@@ -123,7 +123,7 @@ export default class Project extends React.Component {
     const toReIndex = this.state.categories[categoryIndex]
       ? this.state.categories
           .slice(categoryIndex)
-          .map((category) => ({ id: category.uuid, index: category.index }))
+          .map((category) => ({ uuid: category.uuid, index: category.index }))
       : [];
 
     ApiService.deleteCategory(category_uuid, toReIndex);
