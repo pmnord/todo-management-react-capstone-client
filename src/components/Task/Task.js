@@ -75,8 +75,9 @@ const Task = (props) => {
                   props.addNote(props.categoryIndex, props.index, note);
                 }}
               />
+              {/* FUTURE DATE PICKER AND COLOR PICKER */}
               {/* <AddButton type='date' /> */}
-              <AddButton type='color' />
+              {/* <AddButton type='color' /> */}
             </div>
           </div>
         </div>

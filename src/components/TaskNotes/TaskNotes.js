@@ -13,8 +13,7 @@ const TaskNotes = ({ notes, deleteNote, taskIndex, categoryIndex }) => {
               className='TaskNotes__note'
               key={noteIndex}
               onClick={() => {
-                console.log('deleteNote function not working 😡');
-                deleteNote(taskIndex, categoryIndex, noteIndex);
+                deleteNote(categoryIndex, taskIndex, noteIndex);
               }}
             >
               {note}
