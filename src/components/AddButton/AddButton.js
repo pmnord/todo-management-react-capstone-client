@@ -35,7 +35,7 @@ export default function AddButton({ type, onSubmit, uuid, style }) {
         }
       });
     }
-  }, [showForm, uuid]);
+  }, [showForm, uuid, type]);
 
   function handleFormSubmit(e) {
     e.preventDefault();
