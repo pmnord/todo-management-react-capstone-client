@@ -11,8 +11,6 @@ and a unique uuid for labeling and setting event listeners */
 export default function AddButton({ type, onSubmit, uuid, style }) {
   const [showForm, setShowForm] = useState(false);
 
-  console.log(type);
-
   useEffect(() => {
     if (showForm) {
       if (type !== 'color') {

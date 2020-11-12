@@ -35,7 +35,7 @@ const utils = {
       document.execCommand('copy'); // returns true or false depending on success
       window.getSelection().removeAllRanges();
     } catch (err) {
-      console.log('Ran into an issue copying to clipboard');
+      console.log(err);
     }
   },
 
