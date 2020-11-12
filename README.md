@@ -23,7 +23,7 @@ Create categories, tasks, tag your tasks, drag and drop everything, and share yo
 
 ![Application View](./resources/collab-demo.gif)
 
-### Synchronous Collaberation
+### Synchronous Collaboration
 
 ![User Synchronicity](./resources/collab-demo-2.gif)
 
