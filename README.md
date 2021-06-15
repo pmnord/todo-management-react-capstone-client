@@ -2,7 +2,7 @@
 
 Collab is a lightweight kanban issue tracker supporting concurrent users over web sockets.
 
-**<u>[Demo](https://wedo.pmnord.now.sh/)</u>**
+**<u>[Demo](https://wedo.vercel.app/)</u>**
 
 <u>[Backend API Documentation](https://github.com/pmnord/todo-management-react-capstone-server)</u>
 
@@ -10,8 +10,8 @@ Collab is a lightweight kanban issue tracker supporting concurrent users over we
 
 |                 |         |         |            |          |
 | --------------- | ------- | ------- | ---------- | -------- |
-| **Frontend**   | React   | HTML5   | ES10       | CSS3     |
-| **Backend**    | Node.js | Express | PostgreSQL | REST API |
+| **Frontend**    | React   | HTML5   | ES10       | CSS3     |
+| **Backend**     | Node.js | Express | PostgreSQL | REST API |
 | **Development** | Jest    | Mocha   | Heroku     | Vercel   |
 |                 |         |         |            |          |
 
@@ -47,8 +47,11 @@ Create categories, tasks, tag your tasks, drag and drop everything, and share yo
 ## Original Conceptual Mockups
 
 ### Desktop
+
 ![Desktop Wireframe](./resources/cap3wireframes.png)
+
 ### Mobile
+
 ![Desktop Wireframe](./resources/cap3wireframes-mobile.png)
 
 ## Developer Roadmap
